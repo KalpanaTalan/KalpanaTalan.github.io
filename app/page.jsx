@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "./components/motion-wrapper";
+import { projects } from "./data/projects";
 import {
   Shield,
   Award,
@@ -47,6 +49,227 @@ function GithubIcon({ className = "w-4 h-4" }) {
   );
 }
 
+// Draft content (hero box options, quote placeholders, résumé button without a file)
+// is only rendered by `next dev`, so it can be reviewed on localhost without going live.
+const isDev = process.env.NODE_ENV === "development";
+
+// Set to e.g. "/Kalpana-Talan-Resume.pdf" once the file is added to /public.
+const RESUME_URL = "";
+
+const navItems = [
+  { href: "#about", label: "About", mobileLabel: "About Me" },
+  { href: "#what-i-bring", label: "What I Bring", mobileLabel: "What I Bring" },
+  { href: "#impact", label: "Work", mobileLabel: "Featured Work & Impact" },
+  { href: "#experience", label: "Experience", mobileLabel: "Work Experience" },
+  { href: "#certifications", label: "Credentials", mobileLabel: "Credentials & Education" }
+];
+
+// Hero box: what a hiring team gets. The first entry is live; the rest are shown
+// below it on localhost only, to compare and pick later.
+const heroBoxOptions = [
+  {
+    name: "Option A (live): outcome checklist",
+    question: "Scaling a team and things are starting to slip?",
+    lead: "Bring me in, and you get:",
+    points: [
+      "Risks flagged before they turn into delays",
+      "Teams and vendors working to one shared plan",
+      "Progress you can measure, not just report"
+    ]
+  },
+  {
+    name: "Option B: original wording (for reference)",
+    question: "Scaling a team and things are starting to slip?",
+    lead: "That is where I step in: bringing the right people together, identifying risks early, and aligning execution to measurable outcomes."
+  },
+  // Options C–F combine the original wording with the checklist. They avoid the word
+  // "program" so they read equally well for program and project roles.
+  {
+    name: "Option C: combined, how I step in + what you get",
+    question: "Scaling a team and things are starting to slip?",
+    lead: "That is where I step in: bringing the right people together, identifying risks early, and aligning execution to measurable outcomes. What you get:",
+    points: [
+      "Risks flagged before they turn into delays",
+      "Teams and vendors working to one shared plan",
+      "Progress you can measure, not just report"
+    ]
+  },
+  {
+    name: "Option D: combined, side by side",
+    question: "Scaling a team and things are starting to slip?",
+    groups: [
+      {
+        heading: "How I step in",
+        points: ["Bring the right people together", "Identify risks early", "Align execution to measurable outcomes"]
+      },
+      {
+        heading: "What you get",
+        points: ["Fewer surprises and delays", "One shared plan for teams and vendors", "Progress you can measure"]
+      }
+    ]
+  },
+  {
+    name: "Option E: combined, one short paragraph",
+    question: "Scaling a team and things are starting to slip?",
+    lead: "I step in to bring the right people together and catch risks early, so your teams and vendors work to one plan, deadlines hold, and progress is measured rather than just reported."
+  },
+  {
+    name: "Option F: combined, with proof",
+    question: "Scaling a team and things are starting to slip?",
+    lead: "I have led 65-member teams with 22–25 vendors and ₹500 Cr of assets at stake. I bring the right people together, surface risks early and align execution to outcomes, so delivery stays on track and progress is measured, not just reported."
+  }
+];
+
+const whatIBring = [
+  {
+    Icon: Shield,
+    color: "sky",
+    title: "Risks caught early",
+    text: "Risk registers, milestone dependencies and SLA tracking that surface problems before they become delays.",
+    proof: "Zero safety protocol violations in VUCA conditions"
+  },
+  {
+    Icon: Users,
+    color: "teal",
+    title: "Every team and vendor on one plan",
+    text: "Cross-functional teams and external vendors coordinated across geographies, with clear ownership and on-time delivery.",
+    proof: "65-member team · 22–25 vendors"
+  },
+  {
+    Icon: Layers,
+    color: "indigo",
+    title: "Systems people actually adopt",
+    text: "Digital rollouts and data migrations with training, change management and governance built in from day one.",
+    proof: "250 users onboarded · zero data loss"
+  },
+  {
+    Icon: BarChart3,
+    color: "amber",
+    title: "Results you can measure",
+    text: "Readiness, cycle times and milestones tracked formally, so leadership sees progress rather than promises.",
+    proof: "95% tracked readiness · 80% faster audits"
+  }
+];
+
+// Tailwind only ships classes it can see written out in full, so colour variants are listed literally.
+const accent = {
+  sky: { text: "text-sky-400", bg: "bg-sky-500/10", border: "border-sky-400/30", hover: "hover:border-sky-400/40", dot: "bg-sky-500", bar: "border-l-sky-500" },
+  teal: { text: "text-teal-400", bg: "bg-teal-500/10", border: "border-teal-400/30", hover: "hover:border-teal-400/40", dot: "bg-teal-400", bar: "border-l-teal-500" },
+  indigo: { text: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-400/30", hover: "hover:border-indigo-400/40", dot: "bg-indigo-400", bar: "border-l-indigo-500" },
+  purple: { text: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-400/30", hover: "hover:border-purple-400/40", dot: "bg-purple-400", bar: "border-l-purple-500" },
+  amber: { text: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-400/30", hover: "hover:border-amber-400/40", dot: "bg-amber-400", bar: "border-l-amber-500" },
+  slate: { text: "text-slate-400", bg: "bg-slate-500/10", border: "border-slate-400/30", hover: "hover:border-slate-400/40", dot: "bg-slate-400", bar: "border-l-slate-500" }
+};
+
+// One line per role; roles that match a featured program link to its detail page
+// instead of repeating it.
+const roles = [
+  {
+    title: "Program Manager",
+    period: "Jan 2022 – Present (4 yrs 9 mos)",
+    unit: "Indian Armed Forces • On-site",
+    color: "sky",
+    line: "Governed risk registers, milestone dependencies and vendor SLA compliance in high-risk mission parameters.",
+    projectId: "equipment-deployment"
+  },
+  {
+    title: "Senior Project Manager – IT & Network",
+    period: "Aug 2021 – Jan 2025 (3 yrs 6 mos)",
+    unit: "Indian Armed Forces • On-site",
+    color: "teal",
+    line: "Led system adoption, stakeholder change management and security protocols across military network infrastructure.",
+    projectId: "e-office"
+  },
+  {
+    title: "CSR & NGO Program Manager",
+    period: "Jan 2020 – Nov 2024 (4 yrs 11 mos)",
+    unit: "Indian Armed Forces • Community & Welfare Governance",
+    color: "indigo",
+    line: "Managed budgets for 500+ members with zero errors, and grew vendor partnerships from 8 to 10+ across initiatives with 100+ participants."
+  },
+  {
+    title: "Human Resources Manager",
+    period: "Jan 2019 – Nov 2023 (4 yrs 11 mos)",
+    unit: "Indian Armed Forces • Personnel & Operational Readiness",
+    color: "purple",
+    line: "Ran the full HR lifecycle for 300 personnel, contributing to a 25% increase in operational productivity."
+  },
+  {
+    title: "Senior Project Manager",
+    period: "Jan 2018 – Jan 2022 (4 yrs 1 mo)",
+    unit: "Indian Armed Forces • Asset & Squadron Integration",
+    color: "amber",
+    line: "Integrated two squadrons and migrated 10,000 spare-parts line items into IMMOLS without operational disruption.",
+    projectId: "squadron-immols"
+  },
+  {
+    title: "Military Trainee",
+    period: "Jan 2016 – Jan 2018 (2 yrs 1 mo)",
+    unit: "Indian Armed Forces • Officer Training",
+    color: "slate",
+    line: "Intensive officer training in leadership, discipline and calm decision-making under stress in a VUCA environment."
+  }
+];
+
+const VISIBLE_ROLES = 4;
+
+// Add real quotes here (LinkedIn recommendations, senior officers). The section stays
+// hidden on the live site until at least one is added.
+const testimonials = [];
+
+// Marker-style emphasis for the words a visitor should take away at a glance.
+function Highlight({ children }) {
+  return (
+    <span className="font-semibold text-[var(--text-primary)] bg-[linear-gradient(transparent_62%,var(--accent-glow)_62%)] px-0.5">
+      {children}
+    </span>
+  );
+}
+
+function HeroBox({ option }) {
+  return (
+    <div className="p-4 sm:p-5 rounded-xl glass-card border-l-4 border-l-sky-500 text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed shadow-sm">
+      <span className="font-semibold text-[var(--text-primary)] block mb-1">{option.question}</span>
+      {option.lead && <span className={option.points ? "block mb-2" : ""}>{option.lead}</span>}
+      {option.groups && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          {option.groups.map((group) => (
+            <div key={group.heading}>
+              <div className="text-xs font-semibold uppercase tracking-wide text-sky-400 mb-1.5">{group.heading}</div>
+              <ul className="space-y-1.5">
+                {group.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
+                    <span className="text-[var(--text-primary)]">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+      {option.points && (
+        <ul className="space-y-1.5">
+          {option.points.map((point) => (
+            <li key={point} className="flex items-start gap-2">
+              <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
+              <span className="text-[var(--text-primary)]">{point}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function DevOnlyLabel({ children }) {
+  return (
+    <div className="text-[11px] font-mono uppercase tracking-wider text-amber-400 mb-2">
+      {children} · only visible on localhost
+    </div>
+  );
+}
+
 export default function Portfolio() {
   const [theme, setTheme] = useState("dark");
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -54,19 +277,20 @@ export default function Portfolio() {
   const [activeTab, setActiveTab] = useState("all");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [showAllRoles, setShowAllRoles] = useState(false);
+  const showResume = Boolean(RESUME_URL) || isDev;
 
+  // The theme lives on <html>, which survives navigating to a project page and back,
+  // so read it on mount instead of resetting to dark.
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.classList.add("light");
-    }
-  }, [theme]);
+    setTheme(document.documentElement.classList.contains("light") ? "light" : "dark");
+  }, []);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    const next = theme === "dark" ? "light" : "dark";
+    document.documentElement.classList.toggle("dark", next === "dark");
+    document.documentElement.classList.toggle("light", next === "light");
+    setTheme(next);
   };
 
   const handleCopyEmail = () => {
@@ -80,106 +304,6 @@ export default function Portfolio() {
     if (!formData.name || !formData.email || !formData.message) return;
     setFormSubmitted(true);
   };
-
-  const projects = [
-    {
-      id: "paperless",
-      category: "transformation",
-      title: "Centralised Paperless Maintenance Platform",
-      tag: "Digital Transformation",
-      impact: "80% Time & Paperwork Cut",
-      timeframe: "Delivered in 3–4 Months",
-      description:
-        "Directed a centralised, digital platform for 100+ mission-critical assets. Eliminated paper friction, accelerating audit and validation speed by 80% while establishing single-pane-of-glass status tracking.",
-      highlights: [
-        "100+ mission-critical assets transitioned to paperless tracking",
-        "Reduced audit and validation cycle time by 80%",
-        "Eliminated manual paperwork errors and audit backlog",
-        "Integrated multi-level security and role-based operational permissions"
-      ]
-    },
-    {
-      id: "fleet-readiness",
-      category: "operations",
-      title: "High-Stakes Fleet & Asset Maintenance",
-      tag: "Asset Governance",
-      impact: "₹500 Cr+ Assets Secured",
-      timeframe: "Multi-Year Service",
-      description:
-        "Led maintenance and operational readiness for high-stakes aerospace assets valued at ~₹500 Cr, managing cross-functional technical teams exceeding 100 personnel.",
-      highlights: [
-        "Governed maintenance programs for ₹500 Cr in strategic assets",
-        "Achieved and sustained 95% formally tracked operational readiness",
-        "Orchestrated cross-functional technical teams of 100+ personnel",
-        "Maintained zero safety protocol violations in VUCA conditions"
-      ]
-    },
-    {
-      id: "equipment-deployment",
-      category: "operations",
-      title: "Enterprise Military Equipment Deployment",
-      tag: "Vendor & Risk Management",
-      impact: "65-Member Team • 25 Vendors",
-      timeframe: "Enterprise Scale",
-      description:
-        "Directed enterprise-wide military equipment deployment across multiple geographies with a 65-member team, coordinating 22–25 external vendors with strict on-time delivery.",
-      highlights: [
-        "Cross-geography deployment with 65 multidisciplinary personnel",
-        "Managed 22–25 external defense vendors with rigorous SLA tracking",
-        "Achieved 95% formally tracked operational readiness upon rollout",
-        "Proactively mitigated supply-chain and logistics bottlenecks"
-      ]
-    },
-    {
-      id: "squadron-immols",
-      category: "transformation",
-      title: "Rapid Squadron & IMMOLS System Integration",
-      tag: "Systems & Data Migration",
-      impact: "Zero Data Loss in 30 Days",
-      timeframe: "1-Month Sprint",
-      description:
-        "Integrated two squadrons involving 90 personnel and ~₹50 Cr in defense assets within an aggressive 1-month timeline, migrating 10,000 spare-parts line items into IMMOLS with zero data loss.",
-      highlights: [
-        "Integrated 2 complete operational squadrons with 90 personnel",
-        "Managed seamless handover of ~₹50 Cr in strategic inventory",
-        "Migrated 10,000 line items into IMMOLS database with zero data loss",
-        "Completed within strict 30-day operational deadline"
-      ]
-    },
-    {
-      id: "e-office",
-      category: "transformation",
-      title: "E-Office Paperless System Launch",
-      tag: "Process Automation",
-      impact: "50% Processing Time Reduction",
-      timeframe: "250 Users",
-      description:
-        "Implemented the E-Office paperless system for 250 active users with a 20-member cross-functional team, cutting operational task processing times from 3 hours down to 1.5 hours.",
-      highlights: [
-        "Successfully onboarded and trained 250 end-users",
-        "Slashed document turnaround time from 3 hours to 1.5 hours",
-        "Coordinated 20-member cross-functional rollout team",
-        "Established automated audit trails and digital governance"
-      ]
-    },
-    {
-      id: "ai-accelerator",
-      category: "ai",
-      title: "AI & Automated Customer Resolution Workflow",
-      tag: "AI & Modern Systems",
-      impact: "Automated Ticket Lifecycle",
-      timeframe: "Recent Innovation",
-      description:
-        "Engineered an automated end-to-end customer query resolution pipeline connecting backend decision logic with clean user interfaces, logging, tracking, and automated customer updates.",
-      image: "/workflow-diagram.jpg",
-      highlights: [
-        "End-to-end product architecture: backend logic + frontend interface",
-        "Automated request ingestion, urgency prioritization, and logging",
-        "Real-time acknowledgement loops ensuring clear stakeholder communication",
-        "Explored during the Outskill AI Accelerator challenge"
-      ]
-    }
-  ];
 
   const filteredProjects =
     activeTab === "all"
@@ -219,25 +343,12 @@ export default function Portfolio() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-7 text-sm font-medium text-[var(--text-secondary)]">
-            <a href="#about" className="hover:text-[var(--text-primary)] transition-colors">
-              About
-            </a>
-            <a href="#impact" className="hover:text-[var(--text-primary)] transition-colors">
-              Impact
-            </a>
-            <a href="#experience" className="hover:text-[var(--text-primary)] transition-colors">
-              Experience
-            </a>
-            <a href="#skills" className="hover:text-[var(--text-primary)] transition-colors">
-              Skills
-            </a>
-            <a href="#certifications" className="hover:text-[var(--text-primary)] transition-colors">
-              Credentials
-            </a>
-            <a href="#contact" className="hover:text-[var(--text-primary)] transition-colors">
-              Contact
-            </a>
+          <div className="hidden lg:flex items-center gap-7 text-sm font-medium text-[var(--text-secondary)]">
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} className="nav-link hover:text-[var(--text-primary)] transition-colors">
+                {item.label}
+              </a>
+            ))}
           </div>
 
           <div className="flex items-center gap-3">
@@ -249,16 +360,29 @@ export default function Portfolio() {
               {theme === "dark" ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-700" />}
             </button>
 
+            {showResume && (
+              <a
+                href={RESUME_URL || undefined}
+                target="_blank"
+                rel="noreferrer"
+                title={RESUME_URL ? "Open résumé" : "Résumé file not added yet (button is hidden on the live site until it is)"}
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-sky-400/50 text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+              >
+                <FileText className="w-3.5 h-3.5 text-sky-400" /> Résumé
+                {!RESUME_URL && <span className="text-[10px] normal-case tracking-normal text-amber-400">(file pending)</span>}
+              </a>
+            )}
+
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-sky-500 hover:bg-sky-400 text-white rounded-lg transition-all shadow-sm active:scale-95"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-sky-500 hover:bg-sky-400 text-white rounded-lg btn-lift shadow-sm active:scale-95"
             >
               Let's Connect <ChevronRight className="w-3.5 h-3.5" />
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              className="lg:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               aria-label="Open menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -268,42 +392,27 @@ export default function Portfolio() {
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden glass-nav border-t border-[var(--border-color)] px-6 py-5 space-y-4 text-sm font-medium">
-            <a
-              href="#about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-            >
-              About Me
-            </a>
-            <a
-              href="#impact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-            >
-              Featured Work & Impact
-            </a>
-            <a
-              href="#experience"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-            >
-              Work Experience
-            </a>
-            <a
-              href="#skills"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-            >
-              Core Skills
-            </a>
-            <a
-              href="#certifications"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-            >
-              Certifications & Education
-            </a>
+          <div className="lg:hidden glass-nav border-t border-[var(--border-color)] px-6 py-5 space-y-4 text-sm font-medium">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              >
+                {item.mobileLabel}
+              </a>
+            ))}
+            {RESUME_URL && (
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              >
+                Résumé
+              </a>
+            )}
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
@@ -344,29 +453,38 @@ export default function Portfolio() {
 
             {/* Subtext */}
             <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl">
-              I help organizations translate complex strategy into structured, predictable execution. 
-              Backed by a decade of military operational leadership, PMP®, and CSM credentials to deliver when failure is not an option.
+              I turn complex strategy into <Highlight>predictable, on-time delivery</Highlight>. Built on{" "}
+              <Highlight>10 years of Indian Air Force leadership</Highlight>, <Highlight>₹500 Cr+</Highlight> in assets
+              governed, and <Highlight>PMP® · CSM® · Lean Six Sigma Black Belt</Highlight> credentials, for programs where
+              failure is not an option.
             </p>
 
-            {/* Value Proposition Pill */}
-            <div className="p-4 rounded-xl glass-card border-l-4 border-l-sky-500 text-sm text-[var(--text-secondary)] leading-relaxed shadow-sm">
-              <span className="font-semibold text-[var(--text-primary)] block mb-1">
-                Scaling a team and things are starting to slip?
-              </span>
-              That is where I step in: bringing the right people together, identifying risks early, and aligning execution to measurable outcomes.
-            </div>
+            {/* Value Proposition: what a hiring team gets */}
+            <HeroBox option={heroBoxOptions[0]} />
+
+            {isDev && (
+              <div className="rounded-xl border border-dashed border-amber-400/50 p-4 space-y-4">
+                <DevOnlyLabel>Draft options for the box above</DevOnlyLabel>
+                {heroBoxOptions.slice(1).map((option) => (
+                  <div key={option.name}>
+                    <div className="text-xs font-semibold text-amber-300 mb-1.5">{option.name}</div>
+                    <HeroBox option={option} />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* CTAs & Social Links */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href="#contact"
-                className="px-6 py-3 text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-white rounded-xl transition-all shadow-md active:scale-95 flex items-center gap-2"
+                className="px-6 py-3 text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-white rounded-xl btn-lift shadow-md active:scale-95 flex items-center gap-2"
               >
                 <Mail className="w-4 h-4" /> Get in Touch
               </a>
               <a
                 href="#impact"
-                className="px-6 py-3 text-sm font-semibold glass-card hover:bg-white/5 text-[var(--text-primary)] rounded-xl transition-all active:scale-95 flex items-center gap-2"
+                className="px-6 py-3 text-sm font-semibold glass-card hover:bg-white/5 text-[var(--text-primary)] rounded-xl btn-lift active:scale-95 flex items-center gap-2"
               >
                 View Featured Work <ArrowUpRight className="w-4 h-4 text-sky-400" />
               </a>
@@ -374,7 +492,7 @@ export default function Portfolio() {
                 href="https://www.linkedin.com/in/kalpanatalan/"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 glass-card hover:text-sky-400 rounded-xl transition-colors text-[var(--text-secondary)]"
+                className="p-3 glass-card hover:text-sky-400 rounded-xl btn-lift text-[var(--text-secondary)]"
                 title="LinkedIn Profile"
               >
                 <LinkedinIcon className="w-4 h-4" />
@@ -383,7 +501,7 @@ export default function Portfolio() {
                 href="https://github.com/tools-kalpana"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 glass-card hover:text-sky-400 rounded-xl transition-colors text-[var(--text-secondary)]"
+                className="p-3 glass-card hover:text-sky-400 rounded-xl btn-lift text-[var(--text-secondary)]"
                 title="GitHub Profile"
               >
                 <GithubIcon className="w-4 h-4" />
@@ -391,11 +509,22 @@ export default function Portfolio() {
             </div>
 
             {/* Quick Credentials Strip */}
-            <div className="pt-2 flex flex-wrap gap-2 text-xs font-mono text-[var(--text-secondary)]">
-              <span className="px-2.5 py-1 rounded-md glass-card">PMP® Certified</span>
-              <span className="px-2.5 py-1 rounded-md glass-card">CSM® ScrumMaster</span>
-              <span className="px-2.5 py-1 rounded-md glass-card">Lean Six Sigma Black Belt</span>
-              <span className="px-2.5 py-1 rounded-md glass-card">M.Tech Aeronautical Engg</span>
+            <div className="pt-2 flex flex-wrap gap-2.5">
+              {[
+                { label: "PMP®", detail: "Certified", Icon: Award, color: "text-sky-400 border-sky-400/40 bg-sky-500/10" },
+                { label: "CSM®", detail: "ScrumMaster", Icon: Award, color: "text-teal-400 border-teal-400/40 bg-teal-500/10" },
+                { label: "Lean Six Sigma", detail: "Black Belt", Icon: Award, color: "text-amber-400 border-amber-400/40 bg-amber-500/10" },
+                { label: "M.Tech", detail: "Aeronautical Engg", Icon: GraduationCap, color: "text-indigo-400 border-indigo-400/40 bg-indigo-500/10" }
+              ].map(({ label, detail, Icon, color }) => (
+                <span
+                  key={label}
+                  className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border text-sm ${color}`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span className="font-bold">{label}</span>
+                  <span className="font-medium text-[var(--text-primary)]">{detail}</span>
+                </span>
+              ))}
             </div>
           </FadeIn>
 
@@ -416,10 +545,6 @@ export default function Portfolio() {
                     className="object-cover w-full h-full"
                     priority
                   />
-                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 backdrop-blur-md flex items-center gap-1.5 shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Available for Leadership
-                  </div>
                 </div>
 
                 {/* Identity summary */}
@@ -536,28 +661,60 @@ export default function Portfolio() {
             </div>
           </FadeIn>
 
-          {/* Detailed Narrative in 2-Column Grid */}
+          {/* Short narrative */}
           <FadeIn direction="up" delay={0.15}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[var(--text-secondary)] leading-relaxed text-sm sm:text-base">
-              <div className="space-y-4">
-                <p>
-                  My career has been shaped by <span className="text-[var(--text-primary)] font-semibold">10 years of service in the Indian Air Force</span>, where I worked across program management, IT, operations, HR, procurement, and administration. These diverse assignments equipped me to lead complex programs, manage cross-functional teams, and deliver outcomes in demanding, high-risk environments.
-                </p>
-                <p>
-                  In 2025, I was commended by the <span className="text-amber-400 font-semibold">Chief of Air Staff</span> for my contribution and leadership — recognizing dedication to operational readiness, disciplined execution, and people-first governance.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <p>
-                  I bring a structured approach to program delivery: <span className="text-[var(--text-primary)] font-medium">define requirements clearly, establish milestones, identify risks early, align stakeholders, and create measurable outcomes</span>. My experience spans Agile and Waterfall methodologies, digital systems adoption, and vendor ecosystem management.
-                </p>
-                <p>
-                  Outside core operations, I actively focus on project management with AI, automation tools, stakeholder management in mission-critical environments, and building automated capabilities across Jira, Notion, ClickUp, Asana, Miro, and AI workflows.
-                </p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[var(--text-secondary)] leading-relaxed text-base">
+              <p>
+                <Highlight>10 years in the Indian Air Force</Highlight> across program management, IT, operations, HR,
+                procurement and administration taught me to deliver in demanding, high-risk environments. In 2025, the{" "}
+                <span className="text-amber-400 font-semibold">Chief of Air Staff</span> commended my leadership and
+                people-first governance.
+              </p>
+              <p>
+                Today I bring that discipline to <Highlight>digital transformation</Highlight>, Agile and Waterfall
+                delivery, and AI-assisted ways of working, using tools like Jira, Notion, ClickUp, Asana and Miro.
+              </p>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* 4b. WHAT I BRING */}
+      <section id="what-i-bring" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="max-w-3xl mb-12">
+              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
+                WHAT I BRING
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
+                Built for High-Stakes, Multi-Vendor Programs
+              </h2>
+              <p className="text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
+                When many teams, vendors and risks have to move as one, this is what changes once I am on the program.
+              </p>
+            </div>
+          </FadeIn>
+
+          <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {whatIBring.map(({ Icon, color, title, text, proof }) => {
+              const c = accent[color];
+              return (
+                <StaggerItem key={title}>
+                  <div className={`glass-card rounded-2xl p-6 h-full flex flex-col gap-3 ${c.hover} hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg group`}>
+                    <div className={`w-11 h-11 rounded-xl ${c.bg} border ${c.border} flex items-center justify-center ${c.text} group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-lg font-bold text-[var(--text-primary)] leading-snug">{title}</h3>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">{text}</p>
+                    <div className={`pt-3 border-t border-[var(--border-color)] text-sm font-semibold ${c.text}`}>
+                      {proof}
+                    </div>
+                  </div>
+                </StaggerItem>
+              );
+            })}
+          </StaggerContainer>
         </div>
       </section>
 
@@ -576,7 +733,7 @@ export default function Portfolio() {
               </div>
 
               {/* Category Filter Tabs */}
-              <div className="flex items-center gap-2 p-1 rounded-xl glass-card text-xs font-medium">
+              <div className="flex flex-wrap items-center gap-2 p-1 rounded-xl glass-card text-xs font-medium whitespace-nowrap self-start">
                 <button
                   onClick={() => setActiveTab("all")}
                   className={`px-3 py-1.5 rounded-lg transition-colors ${
@@ -617,13 +774,16 @@ export default function Portfolio() {
           <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project) => (
               <StaggerItem key={project.id}>
-                <div className="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 group shadow-sm hover:shadow-lg h-full">
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 group shadow-sm hover:shadow-lg h-full"
+                >
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-sky-400 px-2 py-0.5 rounded bg-sky-500/10">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-sky-400 px-2 py-0.5 rounded bg-sky-500/10">
                         {project.tag}
                       </span>
-                      <span className="text-[11px] text-[var(--text-secondary)]">
+                      <span className="text-sm text-[var(--text-secondary)]">
                         {project.timeframe}
                       </span>
                     </div>
@@ -632,37 +792,28 @@ export default function Portfolio() {
                       {project.title}
                     </h3>
 
-                    <div className="inline-block text-xs font-semibold text-emerald-400 mb-3">
-                      ★ Impact: {project.impact}
+                    <div className="inline-block text-sm font-semibold text-emerald-400 mb-3">
+                      ★ {project.impact}
                     </div>
 
-                    <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
-                      {project.description}
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+                      {project.summary}
                     </p>
 
-                    {/* Optional Project Diagram Preview */}
-                    {project.image && (
-                      <div className="my-3 rounded-lg overflow-hidden border border-white/10 relative">
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          width={400}
-                          height={260}
-                          className="w-full object-cover"
-                        />
-                      </div>
-                    )}
-
-                    <ul className="space-y-2 border-t border-[var(--border-color)] pt-3 text-xs text-[var(--text-secondary)]">
-                      {project.highlights.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
+                    <ul className="space-y-2 border-t border-[var(--border-color)] pt-3 text-sm text-[var(--text-secondary)]">
+                      {project.cardHighlights.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                </div>
+
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-sky-400">
+                    View details <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </span>
+                </Link>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -682,175 +833,52 @@ export default function Portfolio() {
               </h2>
               <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-2">
                 Progressive leadership appointments across the Indian Armed Forces in demanding, high-stakes environments.
+                Several appointments were held concurrently, so their dates overlap.
               </p>
             </div>
           </FadeIn>
 
-          {/* Timeline Wrapper */}
-          <div className="relative pl-6 sm:pl-10 border-l-2 border-sky-500/20 space-y-10 ml-2 sm:ml-4">
-            {/* Role 1 */}
-            <FadeIn direction="up" delay={0.05}>
-              <div className="relative group">
-                {/* Timeline Node Dot */}
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full bg-sky-500 border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform"></div>
-                
-                <div className="glass-card rounded-2xl p-6 sm:p-7 relative border-l-4 border-l-sky-500 hover:border-sky-400/40 transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">Program Manager</h3>
-                    <span className="text-xs font-mono text-sky-400 font-medium">Jan 2022 – Present (4 yrs 9 mos)</span>
+          {/* Timeline: one line per role, linking to the matching program instead of repeating it */}
+          <div className="relative pl-6 sm:pl-10 border-l-2 border-sky-500/20 space-y-6 ml-2 sm:ml-4">
+            {roles.slice(0, showAllRoles ? roles.length : VISIBLE_ROLES).map((role, i) => {
+              const c = accent[role.color];
+              const project = role.projectId && projects.find((p) => p.id === role.projectId);
+              return (
+                <FadeIn key={role.title + role.period} direction="up" delay={Math.min(i, 4) * 0.05}>
+                  <div className="relative group">
+                    <div className={`absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full ${c.dot} border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform`}></div>
+
+                    <div className={`glass-card rounded-2xl p-5 sm:p-6 relative border-l-4 ${c.bar} ${c.hover} transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg`}>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                        <h3 className="text-lg font-bold text-[var(--text-primary)]">{role.title}</h3>
+                        <span className={`text-xs font-mono font-medium ${c.text}`}>{role.period}</span>
+                      </div>
+                      <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">{role.unit}</p>
+                      <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">{role.line}</p>
+                      {project && (
+                        <Link
+                          href={`/projects/${project.id}`}
+                          className={`nav-link mt-3 inline-flex items-center gap-1 text-sm font-semibold ${c.text}`}
+                        >
+                          Featured program: {project.title} <ArrowUpRight className="w-4 h-4" />
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">
-                    Indian Armed Forces • On-site
-                  </p>
-                  <ul className="space-y-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-sky-400 mt-1">▸</span>
-                      <span>Directed enterprise-wide military equipment deployment across multiple geographies with a 65-member team, including 22–25 external vendors, achieving 95% formally tracked operational readiness.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-sky-400 mt-1">▸</span>
-                      <span>Governed risk registers, milestone dependencies, and vendor SLA compliance in high-risk mission parameters.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
-
-            {/* Role 2 */}
-            <FadeIn direction="up" delay={0.1}>
-              <div className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full bg-teal-400 border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform"></div>
-
-                <div className="glass-card rounded-2xl p-6 sm:p-7 relative border-l-4 border-l-teal-500 hover:border-teal-400/40 transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-teal-400 transition-colors">Senior Project Manager – IT & Network</h3>
-                    <span className="text-xs font-mono text-teal-400 font-medium">Aug 2021 – Jan 2025 (3 yrs 6 mos)</span>
-                  </div>
-                  <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">
-                    Indian Armed Forces • On-site
-                  </p>
-                  <ul className="space-y-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-teal-400 mt-1">▸</span>
-                      <span>Reduced operational processing time by 50% (from 3 hours down to 1.5 hours) for 250 active users by implementing the E-Office paperless system with a 20-member cross-functional team.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-teal-400 mt-1">▸</span>
-                      <span>Spearheaded system adoption, stakeholder change management, and security protocols across military network infrastructure.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
-
-            {/* Role 3 */}
-            <FadeIn direction="up" delay={0.15}>
-              <div className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full bg-indigo-400 border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform"></div>
-
-                <div className="glass-card rounded-2xl p-6 sm:p-7 relative border-l-4 border-l-indigo-500 hover:border-indigo-400/40 transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-indigo-400 transition-colors">CSR & NGO Program Manager</h3>
-                    <span className="text-xs font-mono text-indigo-400 font-medium">Jan 2020 – Nov 2024 (4 yrs 11 mos)</span>
-                  </div>
-                  <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">
-                    Indian Armed Forces • Community & Welfare Governance
-                  </p>
-                  <ul className="space-y-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-indigo-400 mt-1">▸</span>
-                      <span>Expanded vendor partnerships from 8 to 10+ while coordinating large-scale initiatives with 100+ participants.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-indigo-400 mt-1">▸</span>
-                      <span>Managed financial operations and budget allocations for 500+ members, maintaining zero errors in fund administration.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
-
-            {/* Role 4 */}
-            <FadeIn direction="up" delay={0.2}>
-              <div className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full bg-purple-400 border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform"></div>
-
-                <div className="glass-card rounded-2xl p-6 sm:p-7 relative border-l-4 border-l-purple-500 hover:border-purple-400/40 transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-purple-400 transition-colors">Human Resources Manager</h3>
-                    <span className="text-xs font-mono text-purple-400 font-medium">Jan 2019 – Nov 2023 (4 yrs 11 mos)</span>
-                  </div>
-                  <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">
-                    Indian Armed Forces • Personnel & Operational Readiness
-                  </p>
-                  <ul className="space-y-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-purple-400 mt-1">▸</span>
-                      <span>Completed the full HR lifecycle for 300 personnel, covering onboarding, operational training, performance reviews, and welfare initiatives.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-purple-400 mt-1">▸</span>
-                      <span>Contributed to a 25% increase in operational productivity through disciplined performance coaching and morale development.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
-
-            {/* Role 5 */}
-            <FadeIn direction="up" delay={0.25}>
-              <div className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full bg-amber-400 border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform"></div>
-
-                <div className="glass-card rounded-2xl p-6 sm:p-7 relative border-l-4 border-l-amber-500 hover:border-amber-400/40 transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-amber-400 transition-colors">Senior Project Manager</h3>
-                    <span className="text-xs font-mono text-amber-400 font-medium">Jan 2018 – Jan 2022 (4 yrs 1 mo)</span>
-                  </div>
-                  <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">
-                    Indian Armed Forces • Asset & Squadron Integration
-                  </p>
-                  <ul className="space-y-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-amber-400 mt-1">▸</span>
-                      <span>Integrated two squadrons involving 90 personnel and approximately ₹50 Cr in strategic assets within a 1-month timeline with zero data loss.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-amber-400 mt-1">▸</span>
-                      <span>Migrated 10,000 spare-parts line items into the IMMOLS inventory system without operational disruption.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
-
-            {/* Role 6 */}
-            <FadeIn direction="up" delay={0.3}>
-              <div className="relative group">
-                <div className="absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full bg-slate-400 border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform"></div>
-
-                <div className="glass-card rounded-2xl p-6 sm:p-7 relative border-l-4 border-l-slate-500 hover:border-slate-400/40 transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-slate-300 transition-colors">Military Trainee</h3>
-                    <span className="text-xs font-mono text-slate-400 font-medium">Jan 2016 – Jan 2018 (2 yrs 1 mo)</span>
-                  </div>
-                  <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">
-                    Indian Armed Forces • Officer Training
-                  </p>
-                  <ul className="space-y-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-slate-400 mt-1">▸</span>
-                      <span>Built leadership, team-building, discipline, and time-management capabilities through intensive training in a dynamic VUCA environment.</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-slate-400 mt-1">▸</span>
-                      <span>Honed calm, critical decision-making under stress and deep understanding of military operational doctrine.</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </FadeIn>
+                </FadeIn>
+              );
+            })}
           </div>
+
+          {roles.length > VISIBLE_ROLES && (
+            <button
+              onClick={() => setShowAllRoles((v) => !v)}
+              className="mt-8 ml-2 sm:ml-4 px-5 py-2.5 rounded-xl glass-card text-sm font-semibold text-[var(--text-primary)] btn-lift inline-flex items-center gap-2"
+            >
+              {showAllRoles ? "Show fewer roles" : `Show earlier roles (${roles.length - VISIBLE_ROLES})`}
+              <ChevronRight className={`w-4 h-4 text-sky-400 transition-transform ${showAllRoles ? "-rotate-90" : "rotate-90"}`} />
+            </button>
+          )}
         </div>
       </section>
 
@@ -876,22 +904,19 @@ export default function Portfolio() {
                   <Briefcase className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">Program & Strategic Leadership</h3>
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                   Translating high-level business goals into predictable milestones and resilient risk architecture.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {[
                     "Program Management",
-                    "Project Management",
                     "Digital Transformation",
                     "Risk Governance",
                     "Cross-functional Leadership",
-                    "Stakeholder Alignment",
                     "Vendor Negotiation",
-                    "Systems Migration",
-                    "Operational Readiness"
+                    "Systems Migration"
                   ].map((skill) => (
-                    <span key={skill} className="px-2.5 py-1 text-xs rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-sky-400/40 hover:bg-sky-500/10 transition-colors cursor-default">
+                    <span key={skill} className="px-3 py-1.5 text-sm rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-sky-400/40 hover:bg-sky-500/10 transition-colors cursor-default">
                       {skill}
                     </span>
                   ))}
@@ -906,21 +931,19 @@ export default function Portfolio() {
                   <Layers className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-teal-400 transition-colors">Methodologies & Governance</h3>
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                   Structured frameworks ensuring quality control, speed, and continuous process optimization.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
                   {[
-                    "Agile & Scrum (CSM®)",
-                    "Waterfall Methodologies",
-                    "Lean Six Sigma Green Belt (LSSGB)",
-                    "Lean Six Sigma Black Belt (LSSBB)",
+                    "Agile & Scrum",
+                    "Waterfall",
                     "Value Stream Mapping",
                     "Earned Value Management (EVM)",
                     "Root Cause Analysis",
                     "Change Management"
                   ].map((skill) => (
-                    <span key={skill} className="px-2.5 py-1 text-xs rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-teal-400/40 hover:bg-teal-500/10 transition-colors cursor-default">
+                    <span key={skill} className="px-3 py-1.5 text-sm rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-teal-400/40 hover:bg-teal-500/10 transition-colors cursor-default">
                       {skill}
                     </span>
                   ))}
@@ -935,7 +958,7 @@ export default function Portfolio() {
                   <Cpu className="w-5 h-5" />
                 </div>
                 <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-amber-400 transition-colors">Modern Platforms & AI Tools</h3>
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                   Leveraging the latest tooling and automated workflows to accelerate execution and transparency.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-2">
@@ -944,14 +967,10 @@ export default function Portfolio() {
                     "Jira",
                     "Notion",
                     "ClickUp",
-                    "Trello",
                     "Asana",
-                    "Miro",
-                    "Gantt Charts",
-                    "Airtable",
-                    "E-Office Platforms"
+                    "Miro"
                   ].map((skill) => (
-                    <span key={skill} className="px-2.5 py-1 text-xs rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-amber-400/40 hover:bg-amber-500/10 transition-colors cursor-default">
+                    <span key={skill} className="px-3 py-1.5 text-sm rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-amber-400/40 hover:bg-amber-500/10 transition-colors cursor-default">
                       {skill}
                     </span>
                   ))}
@@ -997,7 +1016,7 @@ export default function Portfolio() {
                       <span className="w-2 h-2 rounded-full bg-sky-400"></span>
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">PMP® Certified</h4>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)]">Project Management Institute (PMI)</p>
+                    <p className="text-sm text-[var(--text-secondary)]">Project Management Institute (PMI)</p>
                   </div>
                 </StaggerItem>
 
@@ -1007,7 +1026,7 @@ export default function Portfolio() {
                       <span className="w-2 h-2 rounded-full bg-teal-400"></span>
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">CSM® ScrumMaster</h4>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)]">Scrum Alliance</p>
+                    <p className="text-sm text-[var(--text-secondary)]">Scrum Alliance</p>
                   </div>
                 </StaggerItem>
 
@@ -1017,7 +1036,7 @@ export default function Portfolio() {
                       <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">Lean Six Sigma Green Belt (LSSGB)</h4>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)]">Process Optimization & Quality</p>
+                    <p className="text-sm text-[var(--text-secondary)]">Process Optimization & Quality</p>
                   </div>
                 </StaggerItem>
 
@@ -1027,7 +1046,7 @@ export default function Portfolio() {
                       <span className="w-2 h-2 rounded-full bg-purple-400"></span>
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">Lean Six Sigma Black Belt (LSSBB)</h4>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)]">Advanced Process & Defect Governance</p>
+                    <p className="text-sm text-[var(--text-secondary)]">Advanced Process & Defect Governance</p>
                   </div>
                 </StaggerItem>
 
@@ -1037,7 +1056,7 @@ export default function Portfolio() {
                       <span className="w-2 h-2 rounded-full bg-sky-400"></span>
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">Value Stream Management</h4>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)]">Project Management Institute (PMI)</p>
+                    <p className="text-sm text-[var(--text-secondary)]">Project Management Institute (PMI)</p>
                   </div>
                 </StaggerItem>
 
@@ -1047,7 +1066,7 @@ export default function Portfolio() {
                       <span className="w-2 h-2 rounded-full bg-amber-400"></span>
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">Management Essentials (Jan 2026)</h4>
                     </div>
-                    <p className="text-xs text-[var(--text-secondary)]">IIM Shillong (Business Administration)</p>
+                    <p className="text-sm text-[var(--text-secondary)]">IIM Shillong (Business Administration)</p>
                   </div>
                 </StaggerItem>
               </StaggerContainer>
@@ -1114,6 +1133,53 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* 8b. KIND WORDS: hidden on the live site until real quotes are added to `testimonials` */}
+      {(testimonials.length > 0 || isDev) && (
+        <section id="kind-words" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <FadeIn direction="up">
+              <div className="max-w-3xl mb-12">
+                <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
+                  KIND WORDS
+                </span>
+                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
+                  What Colleagues Say
+                </h2>
+              </div>
+            </FadeIn>
+
+            {testimonials.length === 0 && <DevOnlyLabel>Placeholders until quotes are added</DevOnlyLabel>}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {(testimonials.length > 0
+                ? testimonials
+                : [
+                    { quote: "Add a LinkedIn recommendation here.", name: "Name", role: "Role · relationship" },
+                    { quote: "Add a quote from a senior officer or commanding officer.", name: "Name", role: "Rank · unit" },
+                    { quote: "Add a quote from a vendor partner or team member.", name: "Name", role: "Role · organisation" }
+                  ]
+              ).map((t, i) => (
+                <FadeIn key={i} direction="up" delay={i * 0.06}>
+                  <figure
+                    className={`glass-card rounded-2xl p-6 h-full flex flex-col justify-between gap-5 border-l-4 border-l-amber-400 ${
+                      testimonials.length === 0 ? "border-dashed opacity-70" : ""
+                    }`}
+                  >
+                    <blockquote className="text-base italic text-[var(--text-primary)] leading-relaxed">
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+                    <figcaption>
+                      <div className="text-sm font-bold text-[var(--text-primary)]">{t.name}</div>
+                      <div className="text-xs text-sky-400">{t.role}</div>
+                    </figcaption>
+                  </figure>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* 9. CONTACT SECTION */}
       <section id="contact" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1178,7 +1244,7 @@ export default function Portfolio() {
                   href="https://www.linkedin.com/in/kalpanatalan/"
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl glass-card hover:border-sky-400 text-xs font-semibold flex items-center gap-2 text-[var(--text-primary)] transition-all"
+                  className="px-4 py-2.5 rounded-xl glass-card hover:border-sky-400 text-xs font-semibold flex items-center gap-2 text-[var(--text-primary)] btn-lift"
                 >
                   <LinkedinIcon className="w-4 h-4 text-sky-400" /> LinkedIn Profile <ExternalLink className="w-3 h-3 text-[var(--text-secondary)]" />
                 </a>
@@ -1186,7 +1252,7 @@ export default function Portfolio() {
                   href="https://github.com/tools-kalpana"
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl glass-card hover:border-sky-400 text-xs font-semibold flex items-center gap-2 text-[var(--text-primary)] transition-all"
+                  className="px-4 py-2.5 rounded-xl glass-card hover:border-sky-400 text-xs font-semibold flex items-center gap-2 text-[var(--text-primary)] btn-lift"
                 >
                   <GithubIcon className="w-4 h-4 text-sky-400" /> GitHub Profile <ExternalLink className="w-3 h-3 text-[var(--text-secondary)]" />
                 </a>
@@ -1199,7 +1265,7 @@ export default function Portfolio() {
                 <h3 className="text-lg font-bold text-[var(--text-primary)]">
                   Send a Direct Message
                 </h3>
-                <p className="text-xs text-[var(--text-secondary)]">
+                <p className="text-sm text-[var(--text-secondary)]">
                   Have a mission-critical program or leadership role? Fill out this note and it will open directly in your email client.
                 </p>
 
@@ -1217,7 +1283,7 @@ export default function Portfolio() {
                       href={`mailto:kalpanatalan.veteran@gmail.com?subject=Program%20Inquiry%20from%20${encodeURIComponent(
                         formData.name
                       )}&body=${encodeURIComponent(formData.message)}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg transition-colors"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg btn-lift"
                     >
                       <Send className="w-3.5 h-3.5" /> Send via Mail App
                     </a>
@@ -1268,7 +1334,7 @@ export default function Portfolio() {
 
                     <button
                       type="submit"
-                      className="w-full py-3 text-xs font-semibold uppercase tracking-wider bg-sky-500 hover:bg-sky-400 text-white rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+                      className="w-full py-3 text-xs font-semibold uppercase tracking-wider bg-sky-500 hover:bg-sky-400 text-white rounded-xl btn-lift shadow-md active:scale-95 flex items-center justify-center gap-2"
                     >
                       <Send className="w-3.5 h-3.5" /> Prepare Direct Message
                     </button>
@@ -1292,14 +1358,14 @@ export default function Portfolio() {
           </div>
 
           <div className="flex items-center gap-6">
-            <a href="#intro" className="hover:text-[var(--text-primary)] transition-colors">
+            <a href="#intro" className="nav-link hover:text-[var(--text-primary)] transition-colors">
               Back to Top ↑
             </a>
             <a
               href="https://www.linkedin.com/in/kalpanatalan/"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
+              className="nav-link hover:text-sky-400 transition-colors"
             >
               LinkedIn
             </a>
@@ -1307,7 +1373,7 @@ export default function Portfolio() {
               href="https://github.com/tools-kalpana"
               target="_blank"
               rel="noreferrer"
-              className="hover:text-sky-400 transition-colors"
+              className="nav-link hover:text-sky-400 transition-colors"
             >
               GitHub
             </a>

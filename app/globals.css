@@ -70,6 +70,62 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+/* Text links: a blue underline slides in from the left on hover/focus */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Buttons: lift up with a deeper shadow on hover, settle back when pressed */
+.btn-lift {
+  transition: translate 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease,
+    border-color 0.2s ease, color 0.2s ease, scale 0.15s ease;
+}
+
+.btn-lift:hover,
+.btn-lift:focus-visible {
+  translate: 0 -3px;
+  box-shadow: 0 10px 24px -6px rgba(56, 189, 248, 0.45);
+}
+
+.light .btn-lift:hover,
+.light .btn-lift:focus-visible {
+  box-shadow: 0 10px 24px -8px rgba(2, 132, 199, 0.4);
+}
+
+.btn-lift:active {
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after,
+  .btn-lift {
+    transition: none;
+  }
+  .btn-lift:hover,
+  .btn-lift:focus-visible {
+    translate: none;
+  }
+}
+
 /* Background Atmosphere Grid & Glow */
 .bg-grid-pattern {
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
