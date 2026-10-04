@@ -38,7 +38,8 @@ import {
   BrainCircuit,
   Sparkles,
   Workflow,
-  Quote
+  Quote,
+  Briefcase
 } from "lucide-react";
 
 function LinkedinIcon({ className = "w-4 h-4" }) {
@@ -63,6 +64,8 @@ const isDev = process.env.NODE_ENV === "development";
 
 // Set to e.g. "/Kalpana-Talan-Resume.pdf" once the file is added to /public.
 const RESUME_URL = "";
+
+const CONTACT_EMAIL = "kalpanatalan.veteran@gmail.com";
 
 const navItems = [
   { href: "#about", label: "About", mobileLabel: "About Me" },
@@ -367,8 +370,6 @@ export default function Portfolio() {
   const [theme, setTheme] = useState("dark");
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [showAllRoles, setShowAllRoles] = useState(false);
   const [activeRole, setActiveRole] = useState(null);
   const [openRole, setOpenRole] = useState(null);
@@ -395,16 +396,11 @@ export default function Portfolio() {
   };
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("kalpanatalan.veteran@gmail.com");
+    navigator.clipboard.writeText(CONTACT_EMAIL);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-    setFormSubmitted(true);
-  };
 
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300 relative overflow-x-hidden">
@@ -1627,167 +1623,117 @@ export default function Portfolio() {
         </section>
       )}
 
-      {/* 9. CONTACT SECTION */}
-      <section id="contact" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Left Column: Direct Info */}
-            <FadeIn direction="up" className="lg:col-span-5 space-y-6">
-              <div>
-                {/* Kind Words is hidden on the live site until quotes exist, so Contact takes its number */}
-                <SectionLabel n={testimonials.length > 0 || isDev ? 8 : 7}>Let&apos;s Connect</SectionLabel>
-                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                  Reach Out Directly
-                </h2>
-                <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
-                  Looking to translate strategy into disciplined program execution, digital transformation, or risk governance? Let&apos;s discuss how I can help your team deliver.
-                </p>
-              </div>
+      {/* 9. LET'S CONNECT: one email button plus three ways in; no form, nothing stored */}
+      <section id="contact" className="py-20 md:py-28 border-t border-[var(--border-color)] relative z-10">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <FadeIn direction="up">
+            <SectionLabel n={testimonials.length > 0 ? 8 : 7}>Let&apos;s Connect</SectionLabel>
+            <div className="mt-3 text-sm font-mono uppercase tracking-widest text-[var(--text-secondary)]">
+              <span className="text-sky-400">→</span> Open channel
+            </div>
+            <h2 className="mt-4 text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05] text-[var(--text-primary)]">
+              Have a mission that can&apos;t slip?
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                Let&apos;s make it land.
+              </span>
+            </h2>
+          </FadeIn>
 
-              {/* Direct email card */}
-              <div className="glass-card p-5 rounded-2xl space-y-3">
-                <div className="text-xs font-mono text-[var(--text-secondary)]">PRIMARY CONTACT EMAIL</div>
-                <div className="flex items-center justify-between gap-3">
-                  <a
-                    href="mailto:kalpanatalan.veteran@gmail.com"
-                    className="text-sm sm:text-base font-semibold text-sky-400 hover:underline break-all"
-                  >
-                    kalpanatalan.veteran@gmail.com
-                  </a>
-                  <button
-                    onClick={handleCopyEmail}
-                    className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-[var(--text-primary)] shrink-0 transition-colors"
-                    title="Copy Email"
-                  >
-                    {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
-                  </button>
-                </div>
-                {copiedEmail && (
-                  <p className="text-xs text-emerald-400 font-medium">✓ Email address copied to clipboard!</p>
-                )}
-              </div>
-
-              {/* Location & Network */}
-              <div className="grid grid-cols-2 gap-4 text-xs">
-                <div className="glass-card p-4 rounded-xl space-y-1">
-                  <div className="flex items-center gap-1.5 text-sky-400 font-semibold">
-                    <MapPin className="w-3.5 h-3.5" /> Base Location
-                  </div>
-                  <div className="text-[var(--text-primary)] font-medium">Delhi, India</div>
-                </div>
-
-                <div className="glass-card p-4 rounded-xl space-y-1">
-                  <div className="flex items-center gap-1.5 text-sky-400 font-semibold">
-                    <Users className="w-3.5 h-3.5" /> Network
-                  </div>
-                  <div className="text-[var(--text-primary)] font-medium">500+ Connections</div>
-                </div>
-              </div>
-
-              {/* Social profile buttons */}
-              <div className="flex items-center gap-3 pt-2">
-                <a
-                  href="https://www.linkedin.com/in/kalpanatalan/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl glass-card hover:border-sky-400 text-xs font-semibold flex items-center gap-2 text-[var(--text-primary)] btn-lift"
-                >
-                  <LinkedinIcon className="w-4 h-4 text-sky-400" /> LinkedIn Profile <ExternalLink className="w-3 h-3 text-[var(--text-secondary)]" />
-                </a>
-                <a
-                  href="https://github.com/tools-kalpana"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-4 py-2.5 rounded-xl glass-card hover:border-sky-400 text-xs font-semibold flex items-center gap-2 text-[var(--text-primary)] btn-lift"
-                >
-                  <GithubIcon className="w-4 h-4 text-sky-400" /> GitHub Profile <ExternalLink className="w-3 h-3 text-[var(--text-secondary)]" />
-                </a>
-              </div>
-            </FadeIn>
-
-            {/* Right Column: Direct Message Form */}
-            <FadeIn direction="up" delay={0.15} className="lg:col-span-7">
-              <div className="glass-card rounded-2xl p-6 sm:p-8 space-y-5 shadow-lg">
-                <h3 className="text-lg font-bold text-[var(--text-primary)]">
-                  Send a Direct Message
-                </h3>
-                <p className="text-sm text-[var(--text-secondary)]">
-                  Have a mission-critical program or leadership role? Fill out this note and it will open directly in your email client.
-                </p>
-
-                {formSubmitted ? (
-                  <div className="p-6 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3">
-                    <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-6 h-6" />
-                    </div>
-                    <h4 className="text-base font-bold text-emerald-300">Message Ready!</h4>
-                    <p className="text-xs text-[var(--text-secondary)] max-w-md mx-auto">
-                      Thank you, {formData.name}. You can also email directly at{" "}
-                      <span className="text-sky-400 font-mono">kalpanatalan.veteran@gmail.com</span>.
-                    </p>
-                    <a
-                      href={`mailto:kalpanatalan.veteran@gmail.com?subject=Program%20Inquiry%20from%20${encodeURIComponent(
-                        formData.name
-                      )}&body=${encodeURIComponent(formData.message)}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg btn-lift"
-                    >
-                      <Send className="w-3.5 h-3.5" /> Send via Mail App
-                    </a>
-                  </div>
+          {/* Email: opens the visitor's own email app; Copy for anyone without one set up */}
+          <FadeIn direction="up" delay={0.1}>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="inline-flex items-center gap-3 px-6 py-4 rounded-full bg-sky-500 hover:bg-sky-400 text-white text-base sm:text-lg font-semibold shadow-lg btn-lift"
+              >
+                <Send className="w-5 h-5" /> {CONTACT_EMAIL}
+              </a>
+              <button
+                onClick={handleCopyEmail}
+                className="inline-flex items-center gap-1.5 px-4 py-4 rounded-full border border-slate-400/50 text-sm font-semibold text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+                aria-label="Copy email address"
+              >
+                {copiedEmail ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400" /> Copied
+                  </>
                 ) : (
-                  <form onSubmit={handleFormSubmit} className="space-y-4 text-xs">
-                    <div>
-                      <label className="block text-[var(--text-primary)] font-medium mb-1.5">
-                        Your Full Name
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. Rahul Sharma"
-                        className="w-full px-4 py-2.5 rounded-xl glass-card bg-transparent border border-[var(--border-color)] focus:border-sky-400 focus:outline-none text-[var(--text-primary)] text-sm"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[var(--text-primary)] font-medium mb-1.5">
-                        Your Work Email
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="e.g. rahul@enterprise.com"
-                        className="w-full px-4 py-2.5 rounded-xl glass-card bg-transparent border border-[var(--border-color)] focus:border-sky-400 focus:outline-none text-[var(--text-primary)] text-sm"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[var(--text-primary)] font-medium mb-1.5">
-                        Program Scope / Message
-                      </label>
-                      <textarea
-                        rows={4}
-                        required
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Briefly describe the program, team, or challenge you want to address..."
-                        className="w-full px-4 py-2.5 rounded-xl glass-card bg-transparent border border-[var(--border-color)] focus:border-sky-400 focus:outline-none text-[var(--text-primary)] text-sm resize-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="w-full py-3 text-xs font-semibold uppercase tracking-wider bg-sky-500 hover:bg-sky-400 text-white rounded-xl btn-lift shadow-md active:scale-95 flex items-center justify-center gap-2"
-                    >
-                      <Send className="w-3.5 h-3.5" /> Prepare Direct Message
-                    </button>
-                  </form>
+                  <>
+                    <Copy className="w-4 h-4" /> Copy
+                  </>
                 )}
-              </div>
-            </FadeIn>
+              </button>
+            </div>
+          </FadeIn>
+
+          {/* Three ways in */}
+          <StaggerContainer staggerDelay={0.08} className={`mt-12 grid grid-cols-1 gap-4 text-left ${showResume ? "md:grid-cols-3" : "md:grid-cols-2 max-w-3xl mx-auto"}`}>
+            <StaggerItem>
+              <a
+                href="https://www.linkedin.com/in/kalpanatalan/"
+                target="_blank"
+                rel="noreferrer"
+                className="group glass-card rounded-2xl p-6 h-full flex flex-col gap-3 border-t-2 border-t-sky-400 hover:-translate-y-1 transition-transform shadow-sm hover:shadow-lg"
+              >
+                <span className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400">
+                  <Briefcase className="w-5 h-5" />
+                </span>
+                <span className="text-xl font-bold text-[var(--text-primary)]">Building a team?</span>
+                <span className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">
+                  Gain a steady hand that keeps people, vendors and deadlines moving together. Let&apos;s start on LinkedIn.
+                </span>
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-sky-400">
+                  Open LinkedIn <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+              </a>
+            </StaggerItem>
+
+            <StaggerItem>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="group glass-card rounded-2xl p-6 h-full flex flex-col gap-3 border-t-2 border-t-teal-400 hover:-translate-y-1 transition-transform shadow-sm hover:shadow-lg"
+              >
+                <span className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-400/30 flex items-center justify-center text-teal-400">
+                  <Target className="w-5 h-5" />
+                </span>
+                <span className="text-xl font-bold text-[var(--text-primary)]">On a mission?</span>
+                <span className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">
+                  A project to rescue, a deadline to hold, a launch to land. Email works best.
+                </span>
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-teal-400">
+                  Write to me <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+              </a>
+            </StaggerItem>
+
+            {showResume && (
+              <StaggerItem>
+                <a
+                  href={RESUME_URL || undefined}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group glass-card rounded-2xl p-6 h-full flex flex-col gap-3 border-t-2 border-t-amber-400 hover:-translate-y-1 transition-transform shadow-sm hover:shadow-lg"
+                >
+                  <span className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400">
+                    <FileText className="w-5 h-5" />
+                  </span>
+                  <span className="text-xl font-bold text-[var(--text-primary)]">Need the brief?</span>
+                  <span className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">My roles, results and credentials, all in one place.</span>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-amber-400">
+                    Résumé
+                    {RESUME_URL ? (
+                      <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    ) : (
+                      <span className="text-[10px] font-normal">(file pending)</span>
+                    )}
+                  </span>
+                </a>
+              </StaggerItem>
+            )}
+          </StaggerContainer>
+
+          <div className="mt-8 flex items-center justify-center gap-2 text-sm text-[var(--text-secondary)]">
+            <MapPin className="w-4 h-4 text-sky-400" /> Based in Delhi, India
           </div>
         </div>
       </section>
