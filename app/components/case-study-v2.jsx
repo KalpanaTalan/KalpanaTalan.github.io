@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, Info } from "lucide-react";
 import { FadeIn } from "./motion-wrapper";
@@ -6,13 +7,23 @@ import { embeds as paperless } from "../data/case-embeds/paperless";
 import { embeds as relocation } from "../data/case-embeds/relocation";
 import { embeds as squadronMerger } from "../data/case-embeds/squadron-merger";
 import { embeds as spouseUpskilling } from "../data/case-embeds/spouse-upskilling";
+import { embeds as petCareCompanion } from "../data/case-embeds/pet-care-companion";
+import { embeds as projectRegister } from "../data/case-embeds/project-register";
+import { embeds as weeklyDigest } from "../data/case-embeds/weekly-digest";
+import { embeds as leadSpamChecker } from "../data/case-embeds/lead-spam-checker";
+import { HonestNote } from "./case-study";
 
-// Original illustrated sections, keyed by the case study's `embeds` name.
+// Original illustrated sections, keyed by the story's `embeds` name.
+// Used for both case studies and project (build) pages.
 const embedSets = {
   paperless,
   relocation,
   "squadron-merger": squadronMerger,
-  "spouse-upskilling": spouseUpskilling
+  "spouse-upskilling": spouseUpskilling,
+  "pet-care-companion": petCareCompanion,
+  "project-register": projectRegister,
+  "weekly-digest": weeklyDigest,
+  "lead-spam-checker": leadSpamChecker
 };
 
 const label = "text-[11px] font-mono uppercase tracking-widest text-sky-400";
@@ -70,15 +81,17 @@ const blockRenderers = {
     const me = b.roles.filter((r) => r.me);
     return (
       <div>
-        <SubHead label="Who did what" heading={b.heading} />
-        <div className={`grid grid-cols-1 gap-3 mb-3 ${others.length >= 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
-          {others.map((r) => (
-            <div key={r.who} className="glass-card rounded-xl p-4">
-              <div className="text-sm font-bold text-[var(--text-primary)]">{r.who}</div>
-              <p className="text-sm text-[var(--text-secondary)] mt-1">{r.what}</p>
-            </div>
-          ))}
-        </div>
+        <SubHead label={b.label ?? "Who did what"} heading={b.heading} />
+        {others.length > 0 && (
+          <div className={`grid grid-cols-1 gap-3 mb-3 ${others.length >= 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"}`}>
+            {others.map((r) => (
+              <div key={r.who} className="glass-card rounded-xl p-4">
+                <div className="text-sm font-bold text-[var(--text-primary)]">{r.who}</div>
+                <p className="text-sm text-[var(--text-secondary)] mt-1">{r.what}</p>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="rounded-2xl p-5 border border-sky-400/50 bg-sky-500/10 space-y-3">
           {me.map((r, i) => (
             <div key={r.who} className={i > 0 ? "pt-3 border-t border-sky-400/20" : ""}>
@@ -95,11 +108,11 @@ const blockRenderers = {
 
   decisions: (b) => (
     <div>
-      <SubHead label="Decisions that mattered" heading={b.heading} />
+      <SubHead label={b.label ?? "Decisions that mattered"} heading={b.heading} />
       <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 ${b.items.length % 3 === 0 ? "lg:grid-cols-3" : ""}`}>
         {b.items.map((d, i) => (
           <div key={d.title} className="glass-card rounded-2xl p-5 border border-slate-400/40">
-            <div className={`${label} mb-1`}>Decision {pad(i + 1)}</div>
+            <div className={`${label} mb-1`}>{b.itemLabel ?? "Decision"} {pad(i + 1)}</div>
             <h4 className="text-lg font-bold text-[var(--text-primary)] mb-1">{d.title}</h4>
             <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
               <RichText text={d.text} />
@@ -119,6 +132,17 @@ const blockRenderers = {
         </div>
       ))}
     </div>
+  ),
+
+  honest: (b) => <HonestNote text={b.text} />,
+
+  image: (b) => (
+    <figure>
+      <div className="rounded-2xl overflow-hidden border border-[var(--border-color)] bg-white">
+        <Image src={b.src} alt={b.alt} width={1200} height={780} className="w-full h-auto" />
+      </div>
+      {b.caption && <figcaption className="mt-2 text-xs text-[var(--text-secondary)]">{b.caption}</figcaption>}
+    </figure>
   ),
 
   recognition: (b) => (
@@ -166,7 +190,7 @@ function toParts(blocks) {
 }
 
 export function CaseStudyV2({ study, next }) {
-  const embeds = embedSets[study.embeds];
+  const embeds = embedSets[study.embeds] ?? {};
   const parts = toParts(study.blocks);
 
   return (
@@ -198,7 +222,7 @@ export function CaseStudyV2({ study, next }) {
       {/* In one breath */}
       <FadeIn direction="up" delay={0.1}>
         <div className="mt-5 rounded-2xl p-5 sm:p-6 border border-sky-400/30 bg-sky-500/10 grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-2 sm:gap-6">
-          <div className="text-sm font-semibold italic text-sky-400">In one breath</div>
+          <div className="text-sm font-semibold italic text-sky-400">{study.oneBreathLabel ?? "In one breath"}</div>
           <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
             <RichText text={study.oneBreath} />
           </p>
@@ -206,6 +230,7 @@ export function CaseStudyV2({ study, next }) {
       </FadeIn>
 
       {/* Big numbers */}
+      {study.bigNumbers?.length > 0 && (
       <FadeIn direction="up" delay={0.15}>
         <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-6">
           {study.bigNumbers.map((b) => (
@@ -218,8 +243,10 @@ export function CaseStudyV2({ study, next }) {
           ))}
         </div>
       </FadeIn>
+      )}
 
       {/* Key terms, tucked away */}
+      {study.terms?.length > 0 && (
       <details className="mt-10 group glass-card rounded-2xl px-5 py-4">
         <summary className="cursor-pointer list-none flex items-center justify-between text-sm font-semibold text-[var(--text-primary)]">
           <span>
@@ -236,6 +263,7 @@ export function CaseStudyV2({ study, next }) {
           ))}
         </dl>
       </details>
+      )}
 
       {/* Parts */}
       {parts.map((part, i) => (

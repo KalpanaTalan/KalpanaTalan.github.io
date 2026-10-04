@@ -537,7 +537,48 @@ export const projects = [
       "Designed and built on my own in Notion, in under a day"
     ],
     honestNote:
-      "This self-internship used sample data, and no real team used the result. I did not measure time saved, so the proof is the design thinking and a working structure, not performance numbers."
+      "This self-internship used sample data, and no real team used the result. I did not measure time saved, so the proof is the design thinking and a working structure, not performance numbers.",
+    caseStudy: {
+      embeds: "project-register",
+      kicker: "Project · Self-internship",
+      title: "A project register with a page for every project",
+      subtitle: "One clear view of milestones, owners, dates and status.",
+      strip: [
+        { label: "My role", value: "Designed and built it myself, a team of one" },
+        { label: "Build time", value: "Under a day" },
+        { label: "Data", value: "Sample data, 1–3 sample projects" },
+        { label: "Built in", value: "Notion" }
+      ],
+      oneBreathLabel: "What it is",
+      oneBreath:
+        "A **Notion project register** with **one page per project**, built to show I could build what a PMO lead is actually asked to own: one view of **what is due, who owns it and how it is going**.",
+      bigNumbers: [
+        { value: "< 1 day", label: "build time" },
+        { value: "6", label: "fields tracked for every project" },
+        { value: "1", label: "page per project" },
+        { value: "1–3", label: "sample projects" }
+      ],
+      // Best of both: short cards where the original section is mostly text, the original
+      // illustrated sections (embeds) everywhere else.
+      blocks: [
+        { type: "part", title: "The problem and why it mattered" },
+        {
+          type: "lead",
+          text: "A PMO lead is asked to know **what is due, who owns it and how it is going**, across every project. When that information is scattered and updated by hand, the picture goes out of date before every status meeting.",
+          chips: ["No single view of milestones and owners", "Information scattered across places", "Manual, late status updates", "Long prep for status meetings"]
+        },
+        { type: "part", title: "What I did: the decisions" },
+        { type: "embed", key: "decisions" },
+        { type: "part", title: "What shipped" },
+        { type: "embed", key: "changed" },
+        {
+          type: "honest",
+          text: "This self-internship used sample data, and no real team used the result. I did not measure time saved, so the proof is the design thinking and a working structure, not performance numbers."
+        },
+        { type: "part", title: "What I would do differently" },
+        { type: "embed", key: "differently" }
+      ]
+    }
   },
   {
     id: "weekly-digest",
@@ -561,7 +602,46 @@ export const projects = [
       "Built as a companion to the project register"
     ],
     honestNote:
-      "This is a work sample with sample tasks. I have no time-saved figure and no feedback yet, so what I have is a working, tested automation, not measured impact."
+      "This is a work sample with sample tasks. I have no time-saved figure and no feedback yet, so what I have is a working, tested automation, not measured impact.",
+    caseStudy: {
+      embeds: "weekly-digest",
+      kicker: "Mini-project · Work sample",
+      title: "A weekly task digest that arrives every Monday",
+      subtitle: "No one compiling it, and no one chasing.",
+      strip: [
+        { label: "My role", value: "Designed, built and tested by me" },
+        { label: "Build time", value: "1–3 days" },
+        { label: "For", value: "The project manager" },
+        { label: "Built with", value: "Zapier · Google Sheets · Gmail" }
+      ],
+      oneBreathLabel: "What it is",
+      oneBreath:
+        "A work sample built on my own with sample tasks. **Every Monday at 8:00 AM**, the project manager gets an email listing **the tasks due this week**, straight from a Google Sheet. It's a companion to the **project register**, built as a separate project.",
+      bigNumbers: [
+        { value: "Mon 8 AM", label: "every week, without me" },
+        { value: "3", label: "tools, one email" },
+        { value: "7 days", label: "“Due Soon” window" },
+        { value: "1–3 days", label: "build time" }
+      ],
+      blocks: [
+        { type: "part", title: "The problem" },
+        { type: "embed", key: "problem" },
+        { type: "part", title: "How I used the tools" },
+        { type: "embed", key: "tools" },
+        { type: "part", title: "The result" },
+        {
+          type: "lead",
+          text: "It **runs every Monday without me**, and it has been **tested with sample tasks**.",
+          chips: ["Runs every Monday at 8:00 AM", "Tested with sample tasks"]
+        },
+        {
+          type: "honest",
+          text: "This is a work sample with sample tasks. I have no time-saved figure and no feedback yet, so what I have is a working, tested automation, not measured impact."
+        },
+        { type: "part", title: "What's next" },
+        { type: "embed", key: "next" }
+      ]
+    }
   },
   {
     id: "pet-care-companion",
@@ -589,7 +669,75 @@ export const projects = [
       "Ground rules settled in the first hour, so ownership and handoffs were clear"
     ],
     honestNote:
-      "This was a hackathon build with no real users, so I have no usage figures. I also have no feedback or ranking to report. What the project shows is that a team spread across three countries can ship a complete product in 48 hours when ownership, handoffs and a single plan are clear."
+      "This was a hackathon build with no real users, so I have no usage figures. I also have no feedback or ranking to report. What the project shows is that a team spread across three countries can ship a complete product in 48 hours when ownership, handoffs and a single plan are clear.",
+    caseStudy: {
+      embeds: "pet-care-companion",
+      kicker: "Project · Team hackathon",
+      title: "A live pet care app in 48 hours",
+      subtitle: "Four people. Three countries. One app, built on time.",
+      strip: [
+        { label: "My role", value: "One of four: time zones, backend & pet records, pitch" },
+        { label: "Timeline", value: "48 hours" },
+        { label: "Team", value: "4 people in 3 countries" },
+        { label: "Built with", value: "Lovable · Supabase · OpenAI API" }
+      ],
+      oneBreathLabel: "What it is",
+      oneBreath:
+        "**Pet Care Companion** is an app where owners create pet profiles and keep all their pet's care in one place, with AI turning care instructions into **editable checklists**. One 48-hour hackathon, one brief: build it end to end. Our team of four did it from **three countries**, and the app was built, submitted on time and pitched.",
+      bigNumbers: [
+        { value: "48h", label: "to build and submit" },
+        { value: "4", label: "people on the team" },
+        { value: "3", label: "countries we worked from" },
+        { value: "5", label: "features live in the final app" }
+      ],
+      // Best of both: Kalpana's illustrated sections (embeds) where they carry the story,
+      // short cards where her section is mostly text (the decisions).
+      blocks: [
+        { type: "part", title: "The problem and why it mattered" },
+        { type: "embed", key: "problem" },
+
+        { type: "part", title: "What I did: the decisions" },
+        {
+          type: "lead",
+          text: "The brief already defined the product, so the real question was **how four people in three countries would build it together** in two days.",
+          chips: ["Chose Pet Care Companion", "Built for all pets", "Lovable for the front end", "Supabase + OpenAI API", "Plan compressed to 48 hours", "All five features kept in scope"]
+        },
+        {
+          type: "decisions",
+          label: "How we worked together",
+          heading: "Four habits that turned four people into one team",
+          itemLabel: "Habit",
+          items: [
+            { title: "Ownership", text: "Each person owned a part of the build, with a **clear owner for every task**." },
+            { title: "One plan", text: "The team playbook was the **single source of truth**, so everyone worked from the same plan." },
+            { title: "Staying in touch", text: "**Overlap windows** for live calls, plus short updates in the team chat." },
+            { title: "Handoffs", text: "A **status note** at the end of each person's day, so the next time zone could pick up." }
+          ]
+        },
+        {
+          type: "roles",
+          label: "My part",
+          heading: "One of four, and a mix of everything",
+          roles: [
+            {
+              who: "Me",
+              me: true,
+              what: "Coordinated across **time zones**, built the **backend and pet records**, and worked on the **pitch and demo**. Keeping all five features in scope raised the pressure on a 48-hour plan, so clear ownership and written handoffs mattered even more."
+            }
+          ]
+        },
+
+        { type: "part", title: "What shipped" },
+        { type: "embed", key: "changed" },
+        {
+          type: "honest",
+          text: "This was a hackathon build with no real users, so I have no usage figures. I also have no feedback or ranking to report. What the project shows is that a team spread across three countries can ship a complete product in 48 hours when ownership, handoffs and a single plan are clear."
+        },
+
+        { type: "part", title: "What I would do differently" },
+        { type: "embed", key: "differently" }
+      ]
+    }
   },
   {
     id: "lead-spam-checker",
@@ -613,7 +761,42 @@ export const projects = [
       "Tested with three cases: genuine, spam and empty"
     ],
     honestNote:
-      "This was a self-internship build, tested with three cases. I have no accuracy figure for the AI's classification and no real website traffic behind it, so what I have is a working, tested workflow, not a measured spam-catch rate."
+      "This was a self-internship build, tested with three cases. I have no accuracy figure for the AI's classification and no real website traffic behind it, so what I have is a working, tested workflow, not a measured spam-catch rate.",
+    caseStudy: {
+      embeds: "lead-spam-checker",
+      kicker: "Mini-project · Self-internship",
+      title: "A website lead spam checker that sorts genuine enquiries from spam",
+      subtitle: "Spam kept out of the lead list, and real leads kept in.",
+      strip: [
+        { label: "My role", value: "Designed, built and tested by me" },
+        { label: "Build time", value: "Under a day" },
+        { label: "Helps", value: "Whoever reviews enquiries and follows up on leads" },
+        { label: "Built with", value: "Website form · n8n · AI model · Google Sheets" }
+      ],
+      oneBreathLabel: "What it is",
+      oneBreath:
+        "Every website enquiry is **checked**, **classified as genuine or spam by an AI model**, and **filed in the right Google Sheets tab**. An empty enquiry creates no entry at all. Built on my own during a self-internship.",
+      bigNumbers: [
+        { value: "< 1 day", label: "build time" },
+        { value: "2", label: "checks before the AI step" },
+        { value: "2", label: "categories: genuine or spam" },
+        { value: "3", label: "cases tested: genuine, spam, empty" }
+      ],
+      blocks: [
+        { type: "part", title: "The problem" },
+        { type: "embed", key: "problem" },
+        { type: "part", title: "How it works" },
+        { type: "embed", key: "how" },
+        { type: "part", title: "The result" },
+        { type: "embed", key: "result" },
+        {
+          type: "honest",
+          text: "This was a self-internship build, tested with three cases. I have no accuracy figure for the AI's classification and no real website traffic behind it, so what I have is a working, tested workflow, not a measured spam-catch rate."
+        },
+        { type: "part", title: "What's next" },
+        { type: "embed", key: "next" }
+      ]
+    }
   },
   {
     id: "ai-accelerator",
@@ -640,7 +823,42 @@ export const projects = [
       "An n8n workflow with an AI model that prioritises each query by urgency",
       "Every query logged as an entry in Google Sheets for tracking",
       "Email acknowledgements and updates: Gmail in the challenge, any mail service works"
-    ]
+    ],
+    caseStudy: {
+      kicker: "Project · Outskill AI Accelerator challenge",
+      title: "An automated customer query workflow",
+      subtitle: "From a form to a prioritised, logged and acknowledged query, with no one in the middle.",
+      strip: [
+        { label: "Context", value: "Outskill AI Accelerator challenge" },
+        { label: "Input", value: "A front-end form anyone can fill in" },
+        { label: "Output", value: "A Google Sheets entry and an email update" },
+        { label: "Built with", value: "n8n · AI model · Google Sheets · Gmail" }
+      ],
+      oneBreathLabel: "What it is",
+      oneBreath:
+        "An end-to-end customer query workflow. Anyone can enter a query through a **simple front-end form**. An **n8n** workflow passes it to an **AI model**, which prioritises it by urgency. Every query is **logged in Google Sheets**, and the customer gets **email acknowledgements and updates**: Gmail in the challenge, though any mail service can be used.",
+      blocks: [
+        { type: "part", title: "How it works" },
+        {
+          type: "decisions",
+          label: "The flow",
+          heading: "Four steps, from form to inbox",
+          itemLabel: "Step",
+          items: [
+            { title: "Enter the query", text: "A **front-end form** where anyone can fill in the query fields." },
+            { title: "Prioritise", text: "An **n8n** workflow sends it to an **AI model**, which prioritises it by **urgency**." },
+            { title: "Log it", text: "Every query becomes an **entry in Google Sheets**, so nothing gets lost." },
+            { title: "Keep them informed", text: "**Email acknowledgements and updates**: Gmail in the challenge, any mail service works." }
+          ]
+        },
+        {
+          type: "image",
+          src: "/workflow-diagram.jpg",
+          alt: "Diagram of the automated customer query workflow",
+          caption: "The workflow, from customer query to resolution."
+        }
+      ]
+    }
   }
 ];
 
