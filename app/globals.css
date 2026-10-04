@@ -126,6 +126,85 @@
   }
 }
 
+/* Tools strip: scrolls right to left, pauses on hover, fades at both edges */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 45s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Tool pills pop out on hover (or tap): grow, lift and glow above their neighbours */
+.marquee {
+  padding-block: 0.875rem;
+}
+
+.tool-pill {
+  position: relative;
+  cursor: default;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease,
+    border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.tool-pill:hover,
+.tool-pill:active {
+  z-index: 1;
+  transform: translateY(-4px) scale(1.1);
+  border-color: var(--accent);
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+  box-shadow: 0 12px 28px -8px var(--accent), 0 0 0 4px var(--accent-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-pill:hover,
+  .tool-pill:active {
+    transform: none;
+  }
+}
+
+/* Each copy carries its own trailing gap so the two halves join seamlessly at -50% */
+.marquee-group {
+  display: flex;
+  gap: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee-track {
+    animation: none;
+    width: auto;
+  }
+  .marquee-group {
+    flex-wrap: wrap;
+  }
+  .marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+}
+
 /* Background Atmosphere Grid & Glow */
 .bg-grid-pattern {
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);

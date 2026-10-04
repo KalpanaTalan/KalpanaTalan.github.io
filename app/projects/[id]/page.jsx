@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Clock, Mail, Shield, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Clock, Mail, Target } from "lucide-react";
 import { FadeIn } from "../../components/motion-wrapper";
 import { projects, getProject } from "../../data/projects";
 
@@ -54,9 +54,8 @@ export default async function ProjectPage({ params }) {
           </Link>
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold">
             Kalpana Talan
-            <span className="text-xs text-sky-400 font-medium flex items-center gap-1">
-              <Shield className="w-3 h-3" /> IAF Veteran
-            </span>
+            <span className="text-xs text-sky-400 font-medium">IAF Veteran</span>
+            <Image src="/iaf-crest.png" alt="Indian Air Force crest" width={106} height={120} className="h-8 w-auto ml-1" />
           </Link>
         </div>
       </nav>

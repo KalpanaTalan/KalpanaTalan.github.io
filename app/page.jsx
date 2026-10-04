@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "./components/motion-wrapper";
 import { projects } from "./data/projects";
+import { ToolsMarquee } from "./components/tools-marquee";
 import {
   Shield,
   Award,
@@ -64,60 +65,25 @@ const navItems = [
   { href: "#certifications", label: "Credentials", mobileLabel: "Credentials & Education" }
 ];
 
-// Hero box: what a hiring team gets. The first entry is live; the rest are shown
-// below it on localhost only, to compare and pick later.
-const heroBoxOptions = [
-  {
-    name: "Option A (live): outcome checklist",
-    question: "Scaling a team and things are starting to slip?",
-    lead: "Bring me in, and you get:",
-    points: [
-      "Risks flagged before they turn into delays",
-      "Teams and vendors working to one shared plan",
-      "Progress you can measure, not just report"
-    ]
-  },
-  {
-    name: "Option B: original wording (for reference)",
-    question: "Scaling a team and things are starting to slip?",
-    lead: "That is where I step in: bringing the right people together, identifying risks early, and aligning execution to measurable outcomes."
-  },
-  // Options C–F combine the original wording with the checklist. They avoid the word
-  // "program" so they read equally well for program and project roles.
-  {
-    name: "Option C: combined, how I step in + what you get",
-    question: "Scaling a team and things are starting to slip?",
-    lead: "That is where I step in: bringing the right people together, identifying risks early, and aligning execution to measurable outcomes. What you get:",
-    points: [
-      "Risks flagged before they turn into delays",
-      "Teams and vendors working to one shared plan",
-      "Progress you can measure, not just report"
-    ]
-  },
-  {
-    name: "Option D: combined, side by side",
-    question: "Scaling a team and things are starting to slip?",
-    groups: [
-      {
-        heading: "How I step in",
-        points: ["Bring the right people together", "Identify risks early", "Align execution to measurable outcomes"]
-      },
-      {
-        heading: "What you get",
-        points: ["Fewer surprises and delays", "One shared plan for teams and vendors", "Progress you can measure"]
-      }
-    ]
-  },
-  {
-    name: "Option E: combined, one short paragraph",
-    question: "Scaling a team and things are starting to slip?",
-    lead: "I step in to bring the right people together and catch risks early, so your teams and vendors work to one plan, deadlines hold, and progress is measured rather than just reported."
-  },
-  {
-    name: "Option F: combined, with proof",
-    question: "Scaling a team and things are starting to slip?",
-    lead: "I have led 65-member teams with 22–25 vendors and ₹500 Cr of assets at stake. I bring the right people together, surface risks early and align execution to outcomes, so delivery stays on track and progress is measured, not just reported."
-  }
+// Hero box: how I step in and what a hiring team gets. Worded without "program"
+// so it reads equally well for program and project roles.
+const heroBox = {
+  question: "Scaling a team and things are starting to slip?",
+  lead: "That is where I step in: bringing the right people together, identifying risks early, and aligning execution to measurable outcomes. What you get:",
+  points: [
+    "Risks flagged before they turn into delays",
+    "Teams and vendors working to one shared plan",
+    "Progress you can measure, not just report"
+  ]
+};
+
+// About section: the five-step approach, from the original About text.
+const workSteps = [
+  { title: "Define the brief", text: "Clear requirements before anything starts" },
+  { title: "Set milestones", text: "A plan everyone can track" },
+  { title: "Spot risks early", text: "Registers and dependencies, reviewed often" },
+  { title: "Align stakeholders", text: "Teams and vendors working to one plan" },
+  { title: "Measure outcomes", text: "Results tracked, not just reported" }
 ];
 
 const whatIBring = [
@@ -166,7 +132,7 @@ const accent = {
 const roles = [
   {
     title: "Program Manager",
-    period: "Jan 2022 – Present (4 yrs 9 mos)",
+    period: "Jan 2022 – Jan 2026 (4 yrs 1 mo)",
     unit: "Indian Armed Forces • On-site",
     color: "sky",
     line: "Governed risk registers, milestone dependencies and vendor SLA compliance in high-risk mission parameters.",
@@ -226,39 +192,12 @@ function Highlight({ children }) {
   );
 }
 
-function HeroBox({ option }) {
+// Small numbered label above each section heading, e.g. "01 · About".
+function SectionLabel({ n, children }) {
   return (
-    <div className="p-4 sm:p-5 rounded-xl glass-card border-l-4 border-l-sky-500 text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed shadow-sm">
-      <span className="font-semibold text-[var(--text-primary)] block mb-1">{option.question}</span>
-      {option.lead && <span className={option.points ? "block mb-2" : ""}>{option.lead}</span>}
-      {option.groups && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-          {option.groups.map((group) => (
-            <div key={group.heading}>
-              <div className="text-xs font-semibold uppercase tracking-wide text-sky-400 mb-1.5">{group.heading}</div>
-              <ul className="space-y-1.5">
-                {group.points.map((point) => (
-                  <li key={point} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
-                    <span className="text-[var(--text-primary)]">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
-      {option.points && (
-        <ul className="space-y-1.5">
-          {option.points.map((point) => (
-            <li key={point} className="flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
-              <span className="text-[var(--text-primary)]">{point}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
+      <span className="text-[var(--text-secondary)]">{String(n).padStart(2, "0")} ·</span> {children}
+    </span>
   );
 }
 
@@ -336,10 +275,19 @@ export default function Portfolio() {
               <span className="font-semibold text-base tracking-tight block leading-tight">
                 Kalpana Talan
               </span>
-              <span className="text-xs text-sky-400 font-medium tracking-wide flex items-center gap-1">
-                <Shield className="w-3 h-3 text-sky-400" /> IAF Veteran
+              <span className="text-xs text-sky-400 font-medium tracking-wide block">
+                IAF Veteran
               </span>
             </div>
+            <span className="h-8 w-px bg-[var(--border-color)]" aria-hidden="true"></span>
+            <Image
+              src="/iaf-crest.png"
+              alt="Indian Air Force crest"
+              width={106}
+              height={120}
+              className="h-10 w-auto drop-shadow-[0_0_6px_rgba(56,189,248,0.25)]"
+              priority
+            />
           </a>
 
           {/* Desktop Navigation */}
@@ -455,24 +403,22 @@ export default function Portfolio() {
             <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl">
               I turn complex strategy into <Highlight>predictable, on-time delivery</Highlight>. Built on{" "}
               <Highlight>10 years of Indian Air Force leadership</Highlight>, <Highlight>₹500 Cr+</Highlight> in assets
-              governed, and <Highlight>PMP® · CSM® · Lean Six Sigma Black Belt</Highlight> credentials, for programs where
+              governed, and <Highlight>PMP® · CSM®</Highlight> credentials, for programs where
               failure is not an option.
             </p>
-
-            {/* Value Proposition: what a hiring team gets */}
-            <HeroBox option={heroBoxOptions[0]} />
-
-            {isDev && (
-              <div className="rounded-xl border border-dashed border-amber-400/50 p-4 space-y-4">
-                <DevOnlyLabel>Draft options for the box above</DevOnlyLabel>
-                {heroBoxOptions.slice(1).map((option) => (
-                  <div key={option.name}>
-                    <div className="text-xs font-semibold text-amber-300 mb-1.5">{option.name}</div>
-                    <HeroBox option={option} />
-                  </div>
+            {/* Value Proposition: how I step in and what a hiring team gets */}
+            <div className="p-4 sm:p-5 rounded-xl glass-card border-l-4 border-l-sky-500 text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed shadow-sm">
+              <span className="font-semibold text-[var(--text-primary)] block mb-1">{heroBox.question}</span>
+              <span className="block mb-2">{heroBox.lead}</span>
+              <ul className="space-y-1.5">
+                {heroBox.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-1" />
+                    <span className="text-[var(--text-primary)]">{point}</span>
+                  </li>
                 ))}
-              </div>
-            )}
+              </ul>
+            </div>
 
             {/* CTAs & Social Links */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -512,9 +458,7 @@ export default function Portfolio() {
             <div className="pt-2 flex flex-wrap gap-2.5">
               {[
                 { label: "PMP®", detail: "Certified", Icon: Award, color: "text-sky-400 border-sky-400/40 bg-sky-500/10" },
-                { label: "CSM®", detail: "ScrumMaster", Icon: Award, color: "text-teal-400 border-teal-400/40 bg-teal-500/10" },
-                { label: "Lean Six Sigma", detail: "Black Belt", Icon: Award, color: "text-amber-400 border-amber-400/40 bg-amber-500/10" },
-                { label: "M.Tech", detail: "Aeronautical Engg", Icon: GraduationCap, color: "text-indigo-400 border-indigo-400/40 bg-indigo-500/10" }
+                { label: "CSM®", detail: "ScrumMaster", Icon: Award, color: "text-teal-400 border-teal-400/40 bg-teal-500/10" },                { label: "M.Tech", detail: "Aeronautical Engg", Icon: GraduationCap, color: "text-indigo-400 border-indigo-400/40 bg-indigo-500/10" }
               ].map(({ label, detail, Icon, color }) => (
                 <span
                   key={label}
@@ -581,9 +525,9 @@ export default function Portfolio() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-2">
-                      <Award className="w-3.5 h-3.5 text-amber-400" /> Commendation
+                      <Shield className="w-3.5 h-3.5 text-sky-400" /> Service
                     </span>
-                    <span className="text-amber-300 font-medium">Chief of Air Staff (2025)</span>
+                    <span className="text-[var(--text-primary)]">Indian Air Force · 2016–2026</span>
                   </div>
                 </div>
               </div>
@@ -638,43 +582,76 @@ export default function Portfolio() {
       {/* 4. ABOUT SECTION */}
       <section id="about" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Heading with a one-line summary beside it */}
           <FadeIn direction="up">
-            <div className="max-w-3xl mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                ABOUT MY WORK
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                Bridging Strategic Intent & Flawless Execution
-              </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-12">
+              <div className="lg:col-span-7">
+                <SectionLabel n={1}>About</SectionLabel>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  How I work,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    from mission brief to delivery.
+                  </span>
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                10 years of Indian Air Force leadership, now applied to digital transformation and complex,
+                multi-vendor delivery.
+              </p>
             </div>
           </FadeIn>
 
-          {/* Quote Card */}
-          <FadeIn direction="up" delay={0.1}>
-            <div className="glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-amber-400 mb-10 relative overflow-hidden shadow-lg">
-              <div className="text-base sm:text-xl font-medium italic text-[var(--text-primary)] leading-relaxed">
-                &ldquo;I am a wedding planner for projects and programs. I bring the right people together, spot what could go wrong, and fix it beforehand — Wedding planners call it a perfect day. Program and project managers call it on-time, on-budget delivery. I call it a job done right.&rdquo;
-              </div>
-              <div className="mt-4 text-xs font-mono text-sky-400 font-semibold tracking-wider">
-                — KALPANA TALAN
-              </div>
-            </div>
-          </FadeIn>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Story + working principle */}
+            <FadeIn direction="up" delay={0.1} className="lg:col-span-7 space-y-8">
+              <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                I spent <Highlight>10 years in the Indian Air Force</Highlight> leading work across{" "}
+                <Highlight>program management, IT, operations and HR</Highlight>, where deadlines were fixed and failure
+                was not an option. Today I bring that same discipline to <Highlight>digital transformation</Highlight>{" "}
+                and <Highlight>Agile and Waterfall delivery</Highlight>.
+              </p>
 
-          {/* Short narrative */}
-          <FadeIn direction="up" delay={0.15}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-[var(--text-secondary)] leading-relaxed text-base">
-              <p>
-                <Highlight>10 years in the Indian Air Force</Highlight> across program management, IT, operations, HR,
-                procurement and administration taught me to deliver in demanding, high-risk environments. In 2025, the{" "}
-                <span className="text-amber-400 font-semibold">Chief of Air Staff</span> commended my leadership and
-                people-first governance.
-              </p>
-              <p>
-                Today I bring that discipline to <Highlight>digital transformation</Highlight>, Agile and Waterfall
-                delivery, and AI-assisted ways of working, using tools like Jira, Notion, ClickUp, Asana and Miro.
-              </p>
+              <figure className="glass-card rounded-2xl p-6 sm:p-7 border-l-4 border-l-amber-400 shadow-lg">
+                <blockquote className="text-lg sm:text-xl font-medium italic text-[var(--text-primary)] leading-relaxed">
+                  &ldquo;I&apos;m a wedding planner for projects and programs: I bring the right people together, spot
+                  what could go wrong, and fix it before it happens. I call it a job done right.&rdquo;
+                </blockquote>
+                <figcaption className="mt-4 text-xs font-mono text-sky-400 font-semibold tracking-wider uppercase">
+                  — A working principle
+                </figcaption>
+              </figure>
+            </FadeIn>
+
+            {/* How I run every engagement */}
+            <FadeIn direction="left" delay={0.15} className="lg:col-span-5">
+              <div className="glass-card rounded-2xl p-6 sm:p-7 shadow-lg">
+                <h3 className="text-lg font-bold text-[var(--text-primary)] mb-5 flex items-center gap-3">
+                  How I run every engagement
+                  <span className="flex-1 h-px bg-[var(--border-color)]" aria-hidden="true"></span>
+                </h3>
+                <ol className="space-y-4">
+                  {workSteps.map((step, i) => (
+                    <li key={step.title} className="flex items-start gap-3">
+                      <span className="w-7 h-7 rounded-lg bg-sky-500/15 border border-sky-400/30 text-sky-400 text-xs font-bold flex items-center justify-center shrink-0">
+                        {i + 1}
+                      </span>
+                      <div>
+                        <div className="text-base font-semibold text-[var(--text-primary)] leading-snug">{step.title}</div>
+                        <div className="text-sm text-[var(--text-secondary)]">{step.text}</div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Tools strip */}
+          <FadeIn direction="up" delay={0.2} className="mt-14">
+            <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-4">
+              <span className="text-sky-400">→</span> Tools I work in
             </div>
+            <ToolsMarquee />
           </FadeIn>
         </div>
       </section>
@@ -684,14 +661,15 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
             <div className="max-w-3xl mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                WHAT I BRING
-              </span>
+              <SectionLabel n={2}>What I Bring</SectionLabel>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
                 Built for High-Stakes, Multi-Vendor Programs
               </h2>
               <p className="text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
-                When many teams, vendors and risks have to move as one, this is what changes once I am on the program.
+                <span className="block text-lg sm:text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500 mb-1">
+                  Complexity is a given. Chaos is optional.
+                </span>
+                When many teams, vendors and risks have to move as one, this is what changes once I come on board.
               </p>
             </div>
           </FadeIn>
@@ -724,9 +702,7 @@ export default function Portfolio() {
           <FadeIn direction="up">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                  PROVEN RESULTS
-                </span>
+                <SectionLabel n={3}>Proven Results</SectionLabel>
                 <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
                   Featured Programs & Initiatives
                 </h2>
@@ -825,11 +801,9 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
             <div className="max-w-3xl mb-14">
-              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                CAREER JOURNEY
-              </span>
+              <SectionLabel n={4}>Career Journey</SectionLabel>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                Work Experience (10 Years, 9 Months)
+                Work Experience (10 Years, 1 Month)
               </h2>
               <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-2">
                 Progressive leadership appointments across the Indian Armed Forces in demanding, high-stakes environments.
@@ -887,9 +861,7 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
             <div className="max-w-3xl mb-12">
-              <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                CAPABILITIES
-              </span>
+              <SectionLabel n={5}>Capabilities</SectionLabel>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
                 Core Competencies & Tooling
               </h2>
@@ -938,6 +910,7 @@ export default function Portfolio() {
                   {[
                     "Agile & Scrum",
                     "Waterfall",
+                    "Lean Six Sigma",
                     "Value Stream Mapping",
                     "Earned Value Management (EVM)",
                     "Root Cause Analysis",
@@ -988,24 +961,31 @@ export default function Portfolio() {
             {/* Certifications List */}
             <FadeIn direction="up" className="lg:col-span-7 space-y-6">
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                  CREDENTIALS & HONORS
-                </span>
+                <SectionLabel n={6}>Credentials & Honors</SectionLabel>
                 <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
                   Licenses, Certifications & Recognition
                 </h2>
               </div>
 
-              {/* Special Recognition Banner */}
-              <div className="glass-card rounded-2xl p-5 border border-amber-400/30 bg-amber-500/5 flex items-start gap-4 hover:border-amber-400/60 transition-colors shadow-sm">
-                <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center shrink-0">
-                  <Award className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-amber-300">Commended by Chief of Air Staff (2025)</h3>
-                  <p className="text-xs text-[var(--text-secondary)] mt-1">
-                    Awarded for exemplary contribution, high-stakes operational leadership, and digital transformation excellence in the Indian Air Force.
-                  </p>
+              {/* Service honour: the one place the commendation is described in full */}
+              <div className="relative overflow-hidden rounded-2xl p-6 sm:p-7 border border-amber-400/40 bg-gradient-to-br from-amber-500/15 via-amber-500/5 to-transparent shadow-lg hover:border-amber-400/70 transition-colors">
+                <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" aria-hidden="true"></div>
+                <div className="relative flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 text-[#0a0e1a] flex items-center justify-center shrink-0 shadow-[0_0_24px_rgba(245,158,11,0.35)]">
+                    <Award className="w-7 h-7" />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-mono uppercase tracking-widest text-amber-400">Service honour</span>
+                      <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-400/20 text-amber-300 border border-amber-400/30">2025</span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-amber-300">Commended by the Chief of Air Staff</h3>
+                    <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
+                      For <span className="text-[var(--text-primary)] font-medium">exemplary contribution</span> and{" "}
+                      <span className="text-[var(--text-primary)] font-medium">high-stakes operational leadership</span>,
+                      delivered through <span className="text-[var(--text-primary)] font-medium">people-first governance</span>.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -1027,26 +1007,6 @@ export default function Portfolio() {
                       <h4 className="text-sm font-bold text-[var(--text-primary)]">CSM® ScrumMaster</h4>
                     </div>
                     <p className="text-sm text-[var(--text-secondary)]">Scrum Alliance</p>
-                  </div>
-                </StaggerItem>
-
-                <StaggerItem>
-                  <div className="glass-card p-4 rounded-xl space-y-1 hover:border-indigo-400/40 transition-colors">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
-                      <h4 className="text-sm font-bold text-[var(--text-primary)]">Lean Six Sigma Green Belt (LSSGB)</h4>
-                    </div>
-                    <p className="text-sm text-[var(--text-secondary)]">Process Optimization & Quality</p>
-                  </div>
-                </StaggerItem>
-
-                <StaggerItem>
-                  <div className="glass-card p-4 rounded-xl space-y-1 hover:border-purple-400/40 transition-colors">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-purple-400"></span>
-                      <h4 className="text-sm font-bold text-[var(--text-primary)]">Lean Six Sigma Black Belt (LSSBB)</h4>
-                    </div>
-                    <p className="text-sm text-[var(--text-secondary)]">Advanced Process & Defect Governance</p>
                   </div>
                 </StaggerItem>
 
@@ -1139,9 +1099,7 @@ export default function Portfolio() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn direction="up">
               <div className="max-w-3xl mb-12">
-                <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                  KIND WORDS
-                </span>
+                <SectionLabel n={7}>Kind Words</SectionLabel>
                 <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
                   What Colleagues Say
                 </h2>
@@ -1187,9 +1145,8 @@ export default function Portfolio() {
             {/* Left Column: Direct Info */}
             <FadeIn direction="up" className="lg:col-span-5 space-y-6">
               <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                  LET&apos;S CONNECT
-                </span>
+                {/* Kind Words is hidden on the live site until quotes exist, so Contact takes its number */}
+                <SectionLabel n={testimonials.length > 0 || isDev ? 8 : 7}>Let&apos;s Connect</SectionLabel>
                 <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
                   Reach Out Directly
                 </h2>

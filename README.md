@@ -1,6 +1,6 @@
 # Kalpana Talan — Personal Portfolio Website
 
-This repository contains the personal executive portfolio website for **Kalpana Talan** — 10-Year Indian Air Force Veteran, Program & Transformation Leader, PMP®, CSM®, and Lean Six Sigma Black Belt.
+This repository contains the personal executive portfolio website for **Kalpana Talan** — 10-Year Indian Air Force Veteran, Program & Transformation Leader, PMP® and CSM®.
 
 ## About The Project
 

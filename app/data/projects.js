@@ -70,7 +70,7 @@ export const projects = [
       "Achieved 95% formally tracked operational readiness upon rollout",
       "Proactively mitigated supply-chain and logistics bottlenecks"
     ],
-    role: { title: "Program Manager", period: "Jan 2022 – Present" }
+    role: { title: "Program Manager", period: "Jan 2022 – Jan 2026" }
   },
   {
     id: "squadron-immols",
