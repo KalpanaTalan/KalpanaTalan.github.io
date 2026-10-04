@@ -26,7 +26,15 @@ export const projects = [
     how: "Started small, grew asset by asset, ran **batch training**, then fixed a date to switch for good.",
     roleTeam: "Program Manager and **platform administrator** · team of 30 · partner Wipro",
     sticker: "100+ assets",
-    visual: { type: "compare", before: ["Paper registers", "Audit: 5 days"], after: ["One platform", "Audit: 1 day"] },
+    visual: {
+      type: "illustrated",
+      set: "paperless",
+      steps: [
+        { icon: "problem", caption: "Linked paper registers" },
+        { icon: "move", caption: "Train and track daily use" },
+        { icon: "result", caption: "Audits in 1 day" }
+      ]
+    },
     description:
       "Every repair and check on critical defence equipment was written by hand in linked paper registers, and verifying those records for an audit took 5 days. I led the rollout that made a new digital platform work in daily maintenance across my region, in 3–4 months, with a team of 30 and technology partner Wipro.",
     caseStudy: {
@@ -144,7 +152,15 @@ export const projects = [
     how: "Prepare, line up, check, clear, move: **six choices** that kept every deployment inside its window.",
     roleTeam: "Program Manager · **65-person team, plus 20+ external vendors**",
     sticker: "48h each",
-    visual: { type: "move", from: "Current site", to: "New site, operational", label: "48 hours" },
+    visual: {
+      type: "illustrated",
+      set: "relocation",
+      steps: [
+        { icon: "problem", caption: "The whole system, one move" },
+        { icon: "move", caption: "Faults fixed before departure" },
+        { icon: "result", caption: "Operational in 48 hours" }
+      ]
+    },
     description:
       "Headquarters directed a mission-critical air defence system to be relocated to new sites across several regions. The system only works as a complete set, so it could not move piece by piece, and each deployment had to be finished, with the system operational again, within 48 hours. There was no buffer time and no way to know in advance which faults would appear. I was the Program Manager, leading a 65-person team, plus 20+ external vendors.",
     highlights: [
@@ -270,15 +286,23 @@ export const projects = [
     timeframe: "1 month",
     headline: ["Two squadrons merged in ", "one month", ", with nothing lost."],
     summary:
-      "Headquarters ordered two air defence squadrons to merge while operations carried on: ₹50 crore of equipment, 10,000 spare-parts records and 90 people, with no backup.",
+      "Two air defence squadrons, from different territories and with different ways of working, had to become one while operations carried on: ₹50 crore of equipment, 10,000 spare-parts records and 90 people, with no backup.",
     whatChanged: "Everything moved within **one month**, with **zero data loss**.",
     inNumbers: "**₹50 crore** in assets. **10,000** spare-parts records moved into IMMOLS.",
     how: "Plan everything, map first, move with care, then **verify in layers**.",
     roleTeam: "Senior Project Manager · **90 personnel**, led directly",
     sticker: "Zero data loss",
-    visual: { type: "merge", a: "Squadron", b: "Squadron", to: "One squadron", note: "10,000 records → IMMOLS" },
+    visual: {
+      type: "illustrated",
+      set: "squadron-merger",
+      steps: [
+        { icon: "problem", caption: "Two squadrons becoming one" },
+        { icon: "move", caption: "Five workstreams at once" },
+        { icon: "result", caption: "Zero data loss" }
+      ]
+    },
     description:
-      "Headquarters ordered two air defence squadrons to merge. Equipment worth ₹50 crore, 10,000 spare-parts records and 90 people had to come together within one month, while operations carried on. Once the equipment entered my squadron's inventory, I was fully responsible for it, and there was no backup. I was the Senior Project Manager, and I led all 90 personnel directly.",
+      "Headquarters ordered two air defence squadrons, from different territories and with different ways of working, to merge into the current setup. Equipment worth ₹50 crore, 10,000 spare-parts records and 90 people had to come together within one month, while operations carried on. Once the equipment entered my squadron's inventory, I was fully responsible for it, and there was no backup. I was the Senior Project Manager, and I led all 90 personnel directly.",
     highlights: [
       "Full integration of two squadrons within one month",
       "₹50 crore in assets integrated",
@@ -301,7 +325,7 @@ export const projects = [
         { label: "Ordered by", value: "Headquarters" }
       ],
       oneBreath:
-        "Headquarters ordered two air defence squadrons to merge in one month while operations carried on: **₹50 crore** of equipment, **10,000** spare-parts records and **90 people**, with no backup. I led all 90 directly. Everything moved on time, with **zero data loss**.",
+        "Headquarters ordered two air defence squadrons, from **different territories** and with **different ways of working**, to merge into one setup in a month while operations carried on: **₹50 crore** of equipment, **10,000** spare-parts records and **90 people**, with no backup. I led all 90 directly. Everything moved on time, with **zero data loss**.",
       bigNumbers: [
         { value: "1 month", label: "full integration" },
         { value: "Zero", label: "data loss" },
@@ -318,8 +342,8 @@ export const projects = [
         { type: "part", title: "The problem and why it mattered" },
         {
           type: "lead",
-          text: "Once the equipment entered my squadron's inventory, I was **fully responsible** for it, and there was **no backup**. Any lapse could have affected operational readiness.",
-          chips: ["Ordered by headquarters", "Consolidate resources and equipment", "Restructure operational roles", "Monitored at every level"]
+          text: "Two squadrons from **different territories**, each with **its own way of working**, had to come together into the current setup. Once the equipment entered my squadron's inventory, I was **fully responsible** for it, and there was **no backup**.",
+          chips: ["Different territories", "Different ways of working", "Ordered by headquarters", "Restructure operational roles", "Monitored at every level"]
         },
         { type: "embed", key: "challenge" },
 
@@ -407,7 +431,15 @@ export const projects = [
     how: "From a conversation to a certificate to a stall, with **approval at every level**, station to apex.",
     roleTeam: "Program Manager · **20** welfare members and volunteers",
     sticker: "100+ spouses",
-    visual: { type: "path", steps: ["4 trades", "NSDC certified", "Welfare shops & stalls"] },
+    visual: {
+      type: "illustrated",
+      set: "spouse-upskilling",
+      steps: [
+        { icon: "problem", caption: "A limited budget" },
+        { icon: "move", caption: "Spouses won over, one by one" },
+        { icon: "result", caption: "Selling at welfare stalls" }
+      ]
+    },
     description:
       "Many spouses of air warriors had no income of their own, no formal skill certification and nowhere to sell what they made. I was the Program Manager for the community's non-profit welfare initiatives, working with 20 welfare members and volunteers. Over 6–12 months, 100+ spouses received NSDC-certified training in four trades and were linked to welfare shops and stalls, so they could start earning on their own.",
     highlights: [

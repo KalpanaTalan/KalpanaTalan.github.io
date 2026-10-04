@@ -1,6 +1,39 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
+import { motion, animate, useInView, useReducedMotion } from 'motion/react';
+
+// Counts up from 0 to `to` the first time it scrolls into view, e.g. prefix "₹", to 500, suffix " Cr+".
+// Visitors who prefer reduced motion see the final figure straight away.
+export function CountUp({ to, prefix = '', suffix = '', duration = 1.8 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    if (reduceMotion) {
+      node.textContent = `${prefix}${to}${suffix}`;
+      return;
+    }
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: (v) => {
+        node.textContent = `${prefix}${Math.round(v)}${suffix}`;
+      },
+    });
+    return () => controls.stop();
+  }, [inView, reduceMotion, to, prefix, suffix, duration]);
+
+  return (
+    <span ref={ref} aria-label={`${prefix}${to}${suffix}`}>
+      {`${prefix}0${suffix}`}
+    </span>
+  );
+}
 
 export function FadeIn({
   children,

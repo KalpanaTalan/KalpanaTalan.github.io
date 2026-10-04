@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FadeIn, StaggerContainer, StaggerItem } from "./components/motion-wrapper";
+import { FadeIn, StaggerContainer, StaggerItem, CountUp } from "./components/motion-wrapper";
 import { projects, otherOutcomes } from "./data/projects";
 import { ToolsMarquee } from "./components/tools-marquee";
-import { RichText, GradientHeadline, CaseVisual } from "./components/work-visuals";
+import { RichText, GradientHeadline } from "./components/work-visuals";
+import { IllustratedFlow } from "./components/illustrated-flow";
 import {
   Shield,
   Award,
@@ -603,7 +604,7 @@ export default function Portfolio() {
               <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold mb-2">
                 <Shield className="w-4 h-4" /> ASSET PORTFOLIO
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]">₹500 Cr+</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]"><CountUp prefix="₹" to={500} suffix=" Cr+" /></div>
               <p className="text-xs text-[var(--text-secondary)] mt-1">Mission-critical aerospace assets supported</p>
             </div>
           </StaggerItem>
@@ -613,7 +614,7 @@ export default function Portfolio() {
               <div className="flex items-center gap-2 text-teal-400 text-xs font-semibold mb-2">
                 <TrendingUp className="w-4 h-4" /> EFFICIENCY GAIN
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]">80%</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]"><CountUp to={80} suffix="%" /></div>
               <p className="text-xs text-[var(--text-secondary)] mt-1">Cut in audit & paper validation cycle time</p>
             </div>
           </StaggerItem>
@@ -623,7 +624,7 @@ export default function Portfolio() {
               <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold mb-2">
                 <Users className="w-4 h-4" /> CROSS-FUNCTIONAL
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]">100+</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]"><CountUp to={100} suffix="+" /></div>
               <p className="text-xs text-[var(--text-secondary)] mt-1">Multidisciplinary personnel & vendor teams led</p>
             </div>
           </StaggerItem>
@@ -633,7 +634,7 @@ export default function Portfolio() {
               <div className="flex items-center gap-2 text-amber-400 text-xs font-semibold mb-2">
                 <CheckCircle2 className="w-4 h-4" /> RELIABILITY
               </div>
-              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]">95%</div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-primary)]"><CountUp to={95} suffix="%" /></div>
               <p className="text-xs text-[var(--text-secondary)] mt-1">Formally tracked operational readiness rate</p>
             </div>
           </StaggerItem>
@@ -834,11 +835,8 @@ export default function Portfolio() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                     {/* Diagram card */}
                     <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                      <div className="relative glass-card rounded-2xl p-8 sm:p-10 shadow-xl">
-                        <span className="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-sky-500 text-white text-xs font-mono font-semibold shadow-lg">
-                          {project.sticker}
-                        </span>
-                        <CaseVisual visual={project.visual} />
+                      <div className="relative glass-card rounded-2xl shadow-xl p-5 sm:p-6">
+                        <IllustratedFlow visual={project.visual} sticker={project.sticker} />
                       </div>
                     </div>
 
