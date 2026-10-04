@@ -833,61 +833,98 @@ export const projects = [
   {
     id: "ai-accelerator",
     group: "build",
-    title: "An automated customer query workflow",
-    tags: ["Outskill AI Accelerator", "AI workflow"],
+    title: "A support inbox that sorts itself",
+    tags: ["Work sample", "AI customer support"],
     tag: "AI Workflow",
-    result: "Customer queries handled end to end, automatically",
-    impact: "Automated ticket lifecycle",
-    timeframe: "AI Accelerator challenge",
+    result: "Every customer answered, urgent issues straight to the team",
+    impact: "3 ticket types tested",
+    timeframe: "Work sample",
     summary:
-      "A simple front-end form feeds an n8n workflow: an AI model prioritises each customer query by urgency, logs it in Google Sheets and sends the email updates.",
+      "Customers raise a ticket from a friendly web form. Every one gets a reply, a tracked row and a priority, and anything urgent lands in the team inbox.",
     points: [
-      "A front-end form anyone can use to enter a query",
-      "AI model prioritises each query; every one logged in Google Sheets",
-      "Emails received in Gmail in the challenge; any mail service works"
+      "A friendly web form real customers can use",
+      "AI sets Category and Urgency; every ticket logged in Google Sheets",
+      "Customer gets an acknowledgement; urgent issues reach the team"
     ],
     tools: ["n8n", "AI model", "Google Sheets", "Gmail"],
     description:
-      "Built during the Outskill AI Accelerator challenge: an automated, end-to-end customer query workflow. Anyone can enter a query through a simple front-end form. An n8n workflow passes it to an AI model, which prioritises it by urgency, logs every query as an entry in Google Sheets, and sends the email acknowledgements and updates, received in Gmail in the challenge, though any mail service can be used.",
+      "A work sample: a customer support triage bot with a customer-facing web form. A customer submits feedback from a web page, and the bot classifies it by category and urgency, logs it as a new row in Google Sheets, emails the customer an acknowledgement and escalates high-urgency issues to the team.",
     image: "/workflow-diagram.jpg",
     highlights: [
-      "A front-end form where anyone can enter the query fields",
-      "An n8n workflow with an AI model that prioritises each query by urgency",
-      "Every query logged as an entry in Google Sheets for tracking",
-      "Email acknowledgements and updates: Gmail in the challenge, any mail service works"
+      "A customer-facing web form wired to the triage bot",
+      "Each ticket classified by Category (Bug, Feature Request, Question) and Urgency",
+      "A new Google Sheets row per ticket: Category, Urgency, Date and Status = New",
+      "A warm acknowledgement to the customer; an escalation to the team inbox when urgent"
     ],
+    honestNote:
+      "This was a work-sample build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results.",
     caseStudy: {
-      kicker: "Project · Outskill AI Accelerator challenge",
-      title: "An automated customer query workflow",
-      subtitle: "From a form to a prioritised, logged and acknowledged query, with no one in the middle.",
+      kicker: "Mini-project · Work sample",
+      title: "A support inbox that sorts itself, and flags what can't wait",
+      subtitle: "Every customer heard. Every ticket tracked. Urgent issues straight to the team.",
       strip: [
-        { label: "Context", value: "Outskill AI Accelerator challenge" },
-        { label: "Input", value: "A front-end form anyone can fill in" },
-        { label: "Output", value: "A Google Sheets entry and an email update" },
+        { label: "Helps", value: "Support teams, and the customers waiting on them" },
+        { label: "Input", value: "A customer-facing web form" },
+        { label: "Output", value: "A logged ticket, a customer reply and, if urgent, a team alert" },
         { label: "Built with", value: "n8n · AI model · Google Sheets · Gmail" }
       ],
       oneBreathLabel: "What it is",
       oneBreath:
-        "An end-to-end customer query workflow. Anyone can enter a query through a **simple front-end form**. An **n8n** workflow passes it to an **AI model**, which prioritises it by urgency. Every query is **logged in Google Sheets**, and the customer gets **email acknowledgements and updates**: Gmail in the challenge, though any mail service can be used.",
+        "A customer support triage bot with a **friendly web form** in front of it. A customer submits feedback from a web page, and the bot **classifies it**, **logs it in Google Sheets**, **emails the customer an acknowledgement** and **escalates high-urgency issues to the team**. Nobody has to sort the inbox by hand.",
+      bigNumbers: [
+        { value: "4", label: "automatic steps per ticket" },
+        { value: "3", label: "categories: Bug, Feature Request, Question" },
+        { value: "2", label: "inboxes reached: customer and team" },
+        { value: "3", label: "test tickets, each routed as expected" }
+      ],
       blocks: [
+        { type: "part", title: "The problem" },
+        {
+          type: "lead",
+          text: "Customer feedback arrives as one stream. Someone has to read every message, decide **what it is** and **how urgent it is**, record it, reply to the customer and alert the team about anything serious. Done by hand, the urgent issue waits in the same queue as everything else."
+        },
         { type: "part", title: "How it works" },
+        {
+          type: "lead",
+          text: "A customer opens the published form and submits a ticket. From there, it runs automatically:"
+        },
         {
           type: "decisions",
           label: "The flow",
           heading: "Four steps, from form to inbox",
           itemLabel: "Step",
           items: [
-            { title: "Enter the query", text: "A **front-end form** where anyone can fill in the query fields." },
-            { title: "Prioritise", text: "An **n8n** workflow sends it to an **AI model**, which prioritises it by **urgency**." },
-            { title: "Log it", text: "Every query becomes an **entry in Google Sheets**, so nothing gets lost." },
-            { title: "Keep them informed", text: "**Email acknowledgements and updates**: Gmail in the challenge, any mail service works." }
+            { title: "Classify", text: "An **AI model** reads the feedback and sets its **Category** (Bug, Feature Request or Question) and **Urgency**." },
+            { title: "Log", text: "A **new row in Google Sheets** for every ticket, with Category, Urgency, Date and **Status = New**." },
+            { title: "Acknowledge", text: "The customer receives a **warm acknowledgement email**, so no one is left wondering." },
+            { title: "Escalate", text: "**High-urgency** issues are emailed straight to the **team inbox**." }
           ]
         },
         {
           type: "image",
           src: "/workflow-diagram.jpg",
-          alt: "Diagram of the automated customer query workflow",
-          caption: "The workflow, from customer query to resolution."
+          alt: "Diagram of the customer support triage workflow",
+          caption: "The workflow, from customer feedback to the right inbox."
+        },
+        { type: "part", title: "The result" },
+        {
+          type: "decisions",
+          label: "Tested as a customer would",
+          heading: "Three tickets through the published form",
+          itemLabel: "Test",
+          items: [
+            { title: "Bug, High", text: "Sheet row **+** acknowledgement **+** team escalation." },
+            { title: "Feature Request, Low", text: "Sheet row **+** acknowledgement only." },
+            { title: "Question, Low", text: "Sheet row **+** acknowledgement only." }
+          ]
+        },
+        {
+          type: "lead",
+          text: "Customers can now submit feedback from a web page, and behind the scenes it is **classified**, **logged**, **acknowledged** and, when it is urgent, **escalated**, with logging and email working exactly as they did before the form was added."
+        },
+        {
+          type: "honest",
+          text: "This was a work-sample build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results."
         }
       ]
     }

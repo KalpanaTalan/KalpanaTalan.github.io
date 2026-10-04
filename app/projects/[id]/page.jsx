@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Clock, Mail, Target, Users, Wrench } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Clock, Target, Users, Wrench } from "lucide-react";
 import { FadeIn } from "../../components/motion-wrapper";
 import { HonestNote } from "../../components/case-study";
 import { CaseStudyV2 } from "../../components/case-study-v2";
 import { RichText } from "../../components/work-visuals";
+import { CurrentYear } from "../../components/current-year";
 import { projects, getProject } from "../../data/projects";
 
 export function generateStaticParams() {
@@ -53,9 +54,9 @@ export default async function ProjectPage({ params }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link
             href="/#impact"
-            className="nav-link inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+            className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-sky-400/50 bg-sky-500/10 text-sm font-semibold text-sky-400 hover:bg-sky-500/20 hover:border-sky-400 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" /> All work
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Back to all work
           </Link>
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold">
             Kalpana Talan
@@ -132,26 +133,6 @@ export default async function ProjectPage({ params }) {
         </>
         )}
 
-        <FadeIn direction="up" delay={0.2}>
-          <div className="mt-14 glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-sky-500 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h2 className="text-lg font-bold">
-                Bring the complexity.{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">I&apos;ll bring the plan.</span>
-              </h2>
-              <p className="text-sm text-[var(--text-secondary)] mt-1">
-                A program, a project, or a team that needs to move as one: let&apos;s talk about what you need delivered.
-              </p>
-            </div>
-            <Link
-              href="/#contact"
-              className="shrink-0 px-6 py-3 text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-white rounded-xl btn-lift inline-flex items-center gap-2"
-            >
-              <Mail className="w-4 h-4" /> Get in Touch
-            </Link>
-          </div>
-        </FadeIn>
-
         {/* Case study pages end with their own "Next project" card */}
         {!project.caseStudy && (
         <div className="mt-10 pt-6 border-t border-[var(--border-color)] grid grid-cols-2 gap-4 text-sm">
@@ -169,6 +150,45 @@ export default async function ProjectPage({ params }) {
           </Link>
         </div>
         )}
+
+        {/* Closing: invitation, way back, and quick links */}
+        <FadeIn direction="up" delay={0.1}>
+          <div className="mt-20 text-center">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+              Bring the complexity.{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">I&apos;ll bring the plan.</span>
+            </h2>
+            <p className="mt-2 text-sm sm:text-base text-[var(--text-secondary)]">
+              Many moving parts, one finish line. Let&apos;s talk about yours.
+            </p>
+
+            <Link
+              href="/#impact"
+              className="group mt-8 inline-flex items-center gap-2 text-base font-semibold text-sky-400 hover:text-sky-300 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to all work
+            </Link>
+
+            <div className="mt-6 flex items-center justify-center gap-6 text-sm font-medium">
+              <a href="mailto:kalpanatalan.veteran@gmail.com" className="nav-link text-[var(--text-secondary)] hover:text-sky-400 transition-colors">
+                Email
+              </a>
+              <a
+                href="https://www.linkedin.com/in/kalpanatalan/"
+                target="_blank"
+                rel="noreferrer"
+                className="nav-link text-[var(--text-secondary)] hover:text-sky-400 transition-colors"
+              >
+                LinkedIn
+              </a>
+              <Link href="/" className="nav-link text-[var(--text-secondary)] hover:text-sky-400 transition-colors">
+                Portfolio home
+              </Link>
+            </div>
+
+            <p className="mt-8 text-xs text-[var(--text-secondary)]">© <CurrentYear /> · Kalpana Talan · Indian Air Force Veteran</p>
+          </div>
+        </FadeIn>
       </main>
     </div>
   );
