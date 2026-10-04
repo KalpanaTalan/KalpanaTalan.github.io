@@ -164,7 +164,7 @@ export default async function ProjectPage({ params }) {
 
             <Link
               href="/#impact"
-              className="group mt-8 inline-flex items-center gap-2 text-base font-semibold text-sky-400 hover:text-sky-300 transition-colors"
+              className="group mt-8 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-sky-400/40 text-sm font-semibold text-sky-400 hover:border-sky-400 hover:bg-sky-500/10 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to all work
             </Link>

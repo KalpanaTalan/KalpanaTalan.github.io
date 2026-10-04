@@ -834,7 +834,7 @@ export const projects = [
     id: "ai-accelerator",
     group: "build",
     title: "A support inbox that sorts itself",
-    tags: ["Work sample", "AI customer support"],
+    tags: ["Work sample", "AI workflow"],
     tag: "AI Workflow",
     result: "Every customer answered, urgent issues straight to the team",
     impact: "3 ticket types tested",
