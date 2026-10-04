@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "motion/react";
 import { FadeIn, StaggerContainer, StaggerItem, CountUp } from "./components/motion-wrapper";
 import { projects, otherOutcomes } from "./data/projects";
 import { ToolsMarquee } from "./components/tools-marquee";
@@ -172,12 +173,12 @@ const whatIBring = [
 
 // Tailwind only ships classes it can see written out in full, so colour variants are listed literally.
 const accent = {
-  sky: { text: "text-sky-400", bg: "bg-sky-500/10", border: "border-sky-400/30", hover: "hover:border-sky-400/40", dot: "bg-sky-500", bar: "border-l-sky-500" },
-  teal: { text: "text-teal-400", bg: "bg-teal-500/10", border: "border-teal-400/30", hover: "hover:border-teal-400/40", dot: "bg-teal-400", bar: "border-l-teal-500" },
-  indigo: { text: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-400/30", hover: "hover:border-indigo-400/40", dot: "bg-indigo-400", bar: "border-l-indigo-500" },
-  purple: { text: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-400/30", hover: "hover:border-purple-400/40", dot: "bg-purple-400", bar: "border-l-purple-500" },
-  amber: { text: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-400/30", hover: "hover:border-amber-400/40", dot: "bg-amber-400", bar: "border-l-amber-500" },
-  slate: { text: "text-slate-400", bg: "bg-slate-500/10", border: "border-slate-400/30", hover: "hover:border-slate-400/40", dot: "bg-slate-400", bar: "border-l-slate-500" }
+  sky: { text: "text-sky-400", bg: "bg-sky-500/10", border: "border-sky-400/30", hover: "hover:border-sky-400/40", dot: "bg-sky-500", bar: "border-l-sky-500", fill: "bg-sky-500", ring: "ring-sky-400" },
+  teal: { text: "text-teal-400", bg: "bg-teal-500/10", border: "border-teal-400/30", hover: "hover:border-teal-400/40", dot: "bg-teal-400", bar: "border-l-teal-500", fill: "bg-teal-500", ring: "ring-teal-400" },
+  indigo: { text: "text-indigo-400", bg: "bg-indigo-500/10", border: "border-indigo-400/30", hover: "hover:border-indigo-400/40", dot: "bg-indigo-400", bar: "border-l-indigo-500", fill: "bg-indigo-500", ring: "ring-indigo-400" },
+  purple: { text: "text-purple-400", bg: "bg-purple-500/10", border: "border-purple-400/30", hover: "hover:border-purple-400/40", dot: "bg-purple-400", bar: "border-l-purple-500", fill: "bg-purple-500", ring: "ring-purple-400" },
+  amber: { text: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-400/30", hover: "hover:border-amber-400/40", dot: "bg-amber-400", bar: "border-l-amber-500", fill: "bg-amber-500", ring: "ring-amber-400" },
+  slate: { text: "text-slate-400", bg: "bg-slate-500/10", border: "border-slate-400/30", hover: "hover:border-slate-400/40", dot: "bg-slate-400", bar: "border-l-slate-500", fill: "bg-slate-500", ring: "ring-slate-400" }
 };
 
 // The four headline results beside the Proven Results heading, one per case study (not links).
@@ -196,54 +197,96 @@ const tagTone = [
 ];
 
 // One line per role; roles that match a featured program link to its detail page
-// instead of repeating it.
+// instead of repeating it. `start`/`end` are decimal years for the timeline chart,
+// `short` is the label on its bar, and `metric` is the key-number chip on the card.
 const roles = [
   {
     title: "Program Manager",
+    short: "Program Manager",
     period: "Jan 2022 – Jan 2026 (4 yrs 1 mo)",
-    unit: "Indian Armed Forces • On-site",
+    start: 2022, end: 2026,
+    unit: "Indian Air Force • Equipment deployment & vendor governance",
     color: "sky",
-    line: "Governed risk registers, milestone dependencies and vendor SLA compliance in high-risk mission parameters.",
-    projectId: "relocation"
+    metric: "65 people · 20+ vendors",
+    line: "Governed risk registers, milestone dependencies and vendor SLAs on high-risk missions.",
+    projectId: "relocation",
+    achievements: ["Every relocation operational within 48 hours, with zero critical downtime", "95% formally tracked readiness and full audit compliance", "Led a 65-person team, plus 20+ external vendors"],
+    responsibilities: ["Risk registers, milestone dependencies and vendor SLA compliance", "One central coordination point for every vendor fault or maintenance need", "Paperwork, convoy, movement clearance and logistics for each move"],
+    skills: ["Risk governance", "Vendor management", "SLA tracking", "Pre-move checks", "Movement planning"]
   },
   {
     title: "Senior Project Manager – IT & Network",
+    short: "Sr. PM, IT & Network",
     period: "Aug 2021 – Jan 2025 (3 yrs 6 mos)",
-    unit: "Indian Armed Forces • On-site",
+    start: 2021 + 7 / 12, end: 2025,
+    unit: "Indian Air Force • IT & network infrastructure",
     color: "teal",
-    line: "Rolled out the E-Office paperless system to 250 users, cutting processing time from 3 hours to 1.5, and led adoption and security protocols across military network infrastructure."
+    metric: "250 users · 3h → 1.5h",
+    line: "Rolled out the E-Office paperless system and led adoption and security across the network.",
+    achievements: ["E-Office paperless system rolled out to 250 users", "Processing time cut by 50%, from 3 hours to 1.5", "250 end-users onboarded and trained"],
+    responsibilities: ["System adoption and stakeholder change management", "Security protocols across military network infrastructure", "A 20-member cross-functional rollout team"],
+    skills: ["Digital adoption", "Change management", "Training & onboarding", "Network security", "Digital governance"]
   },
   {
     title: "Program Manager – Non-Profit Welfare Initiatives",
+    short: "PM, Non-Profit Welfare",
     period: "Jan 2020 – Nov 2024 (4 yrs 11 mos)",
-    unit: "Indian Armed Forces • Community & Welfare Governance",
+    start: 2020, end: 2024 + 10 / 12,
+    unit: "Indian Air Force • Community & welfare",
     color: "indigo",
-    line: "Managed budgets for 500+ members with zero errors, and grew vendor partnerships from 8 to 10+ across initiatives with 100+ participants.",
-    projectId: "spouse-upskilling"
+    metric: "500+ members · zero errors",
+    line: "Ran welfare budgets with zero errors and grew vendor partnerships from 8 to 10+.",
+    projectId: "spouse-upskilling",
+    achievements: ["100+ spouses NSDC-certified in four trades", "Budgets for 500+ members managed with zero errors", "Vendor partnerships grown from 8 to 10+"],
+    responsibilities: ["Financial operations and budget allocations", "Initiatives with 100+ participants, approved from station to apex level", "A team of 20 welfare members and volunteers"],
+    skills: ["Budget management", "Stakeholder approvals", "Vendor partnerships", "Program governance"]
   },
   {
     title: "Human Resources Manager",
+    short: "HR Manager",
     period: "Jan 2019 – Nov 2023 (4 yrs 11 mos)",
-    unit: "Indian Armed Forces • Personnel & Operational Readiness",
+    start: 2019, end: 2023 + 10 / 12,
+    unit: "Indian Air Force • Personnel & readiness",
     color: "purple",
-    line: "Ran the full HR lifecycle for 300 personnel, contributing to a 25% increase in operational productivity."
+    metric: "300 personnel · +25% productivity",
+    line: "Ran the full HR lifecycle, from onboarding and training to performance and welfare.",
+    achievements: ["Full HR lifecycle for 300 personnel", "Contributed to a 25% increase in operational productivity"],
+    responsibilities: ["Onboarding, operational training and performance reviews", "Welfare initiatives, performance coaching and morale"],
+    skills: ["Onboarding", "Performance management", "Coaching", "Personnel welfare"]
   },
   {
     title: "Senior Project Manager",
+    short: "Senior Project Manager",
     period: "Jan 2018 – Jan 2022 (4 yrs 1 mo)",
-    unit: "Indian Armed Forces • Asset & Squadron Integration",
+    start: 2018, end: 2022,
+    unit: "Indian Air Force • Asset & squadron integration",
     color: "amber",
-    line: "Integrated two squadrons and migrated 10,000 spare-parts line items into IMMOLS without operational disruption.",
-    projectId: "squadron-merger"
+    metric: "₹50 Cr · 90 people",
+    line: "Merged two squadrons and moved 10,000 records into IMMOLS without disruption.",
+    projectId: "squadron-merger",
+    achievements: ["Two squadrons merged in one month, with zero data loss", "₹50 crore in assets integrated", "10,000 spare-parts records moved into IMMOLS"],
+    responsibilities: ["90 personnel led directly", "Five workstreams: equipment, maintenance assets, admin assets, data migration, and personnel and procedures", "Layered verification and handover inspection"],
+    skills: ["Data migration", "IMMOLS", "Workstream planning", "Asset verification"]
   },
   {
     title: "Military Trainee",
+    short: "Officer Training",
     period: "Jan 2016 – Jan 2018 (2 yrs 1 mo)",
-    unit: "Indian Armed Forces • Officer Training",
+    start: 2016, end: 2018,
+    unit: "Indian Air Force • Officer training",
     color: "slate",
-    line: "Intensive officer training in leadership, discipline and calm decision-making under stress in a VUCA environment."
+    metric: "Leadership under pressure",
+    line: "Intensive training in leadership, discipline and calm decisions under stress.",
+    achievements: ["Completed officer training in a dynamic VUCA environment"],
+    responsibilities: ["Leadership, team-building, discipline and time management", "Calm, critical decision-making under stress, and military operational doctrine"],
+    skills: ["Leadership", "Discipline", "Decision-making under stress"]
   }
 ];
+
+// Timeline chart range, and the commendation shown as a marker on it.
+const TIMELINE_START = 2016;
+const TIMELINE_END = 2026;
+const COMMENDATION_YEAR = 2025;
 
 const VISIBLE_ROLES = 4;
 
@@ -284,6 +327,15 @@ export default function Portfolio() {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [showAllRoles, setShowAllRoles] = useState(false);
+  const [activeRole, setActiveRole] = useState(null);
+  const [openRole, setOpenRole] = useState(null);
+
+  // Clicking a bar in the career timeline jumps to that role's card, revealing earlier roles if needed.
+  const focusRole = (index) => {
+    if (index >= VISIBLE_ROLES && !showAllRoles) setShowAllRoles(true);
+    setActiveRole(index);
+    setTimeout(() => document.getElementById(`role-${index}`)?.scrollIntoView({ behavior: "smooth", block: "center" }), 80);
+  };
   const showResume = Boolean(RESUME_URL) || isDev;
 
   // The theme lives on <html>, which survives navigating to a project page and back,
@@ -963,47 +1015,209 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* 6. WORK EXPERIENCE TIMELINE */}
+      {/* 6. CAREER JOURNEY: timeline chart of overlapping appointments, then one card per role */}
       <section id="experience" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
-            <div className="max-w-3xl mb-14">
-              <SectionLabel n={4}>Career Journey</SectionLabel>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                Work Experience (10 Years, 1 Month)
-              </h2>
-              <p className="text-sm sm:text-base text-[var(--text-secondary)] mt-2">
-                Progressive leadership appointments across the Indian Armed Forces in demanding, high-stakes environments.
-                Several appointments were held concurrently, so their dates overlap.
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-10">
+              <div className="lg:col-span-7">
+                <SectionLabel n={4}>Career Journey</SectionLabel>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  Ten years,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    six appointments.
+                  </span>
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                Progressive leadership in the <span className="font-semibold text-[var(--text-primary)]">Indian Air Force</span>,
+                where the stakes were always high. Several roles ran side by side.
               </p>
             </div>
           </FadeIn>
 
-          {/* Timeline: one line per role, linking to the matching program instead of repeating it */}
-          <div className="relative pl-6 sm:pl-10 border-l-2 border-sky-500/20 space-y-6 ml-2 sm:ml-4">
+          {/* Timeline chart: bars grow in on scroll; hover highlights a role card, click jumps to it */}
+          <FadeIn direction="up" delay={0.05}>
+            <div className="glass-card rounded-2xl p-5 sm:p-6 mb-10">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)]">
+                  <span className="text-sky-400">→</span> {TIMELINE_START}–{TIMELINE_END} at a glance
+                </div>
+                <div className="text-xs text-[var(--text-secondary)]">Overlapping bars = roles held at the same time</div>
+              </div>
+
+              <div className="relative pt-10">
+                {/* Year gridlines and labels */}
+                {Array.from({ length: TIMELINE_END - TIMELINE_START + 1 }, (_, k) => {
+                  const year = TIMELINE_START + k;
+                  const left = (k / (TIMELINE_END - TIMELINE_START)) * 100;
+                  return (
+                    <div key={year} className="absolute top-0 bottom-0 pointer-events-none" style={{ left: `${left}%` }}>
+                      <div className="absolute top-4 bottom-0 border-l border-dashed border-slate-400/25"></div>
+                      <span
+                        className={`absolute top-0 -translate-x-1/2 text-[10px] font-mono text-[var(--text-secondary)] ${k % 2 === 1 ? "hidden sm:block" : ""}`}
+                      >
+                        {year}
+                      </span>
+                    </div>
+                  );
+                })}
+
+                {/* Chief of Air Staff commendation marker */}
+                <div
+                  className="absolute top-4 bottom-0 pointer-events-none z-10"
+                  style={{ left: `${((COMMENDATION_YEAR - TIMELINE_START) / (TIMELINE_END - TIMELINE_START)) * 100}%` }}
+                >
+                  <div className="absolute top-0 bottom-0 border-l-2 border-amber-400/80"></div>
+                  <span className="absolute -top-1 -translate-x-1/2 w-5 h-5 rounded-full bg-amber-400 text-[#0a0e1a] flex items-center justify-center shadow-[0_0_12px_rgba(245,158,11,0.6)]" title="Commended by the Chief of Air Staff, 2025">
+                    <Award className="w-3 h-3" />
+                  </span>
+                </div>
+
+                {/* One bar per role, earliest at the top */}
+                <div className="relative space-y-2">
+                  {roles
+                    .map((role, index) => ({ role, index }))
+                    .sort((a, b) => a.role.start - b.role.start)
+                    .map(({ role, index }, row) => {
+                      const c = accent[role.color];
+                      const span = TIMELINE_END - TIMELINE_START;
+                      return (
+                        <div key={role.title} className="relative h-9">
+                          <motion.button
+                            type="button"
+                            onMouseEnter={() => setActiveRole(index)}
+                            onMouseLeave={() => setActiveRole(null)}
+                            onFocus={() => setActiveRole(index)}
+                            onBlur={() => setActiveRole(null)}
+                            onClick={() => focusRole(index)}
+                            title={`${role.title}, ${role.period}`}
+                            initial={{ scaleX: 0 }}
+                            whileInView={{ scaleX: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7, delay: 0.15 + row * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                            style={{
+                              left: `${((role.start - TIMELINE_START) / span) * 100}%`,
+                              width: `${((role.end - role.start) / span) * 100}%`,
+                              transformOrigin: "left"
+                            }}
+                            className={`absolute inset-y-0 rounded-lg ${c.fill} text-white text-xs font-semibold px-2.5 flex items-center overflow-hidden shadow-md transition-[filter,box-shadow] hover:brightness-110 hover:shadow-lg ${
+                              activeRole === index ? "ring-2 ring-white/70" : ""
+                            }`}
+                          >
+                            <span className="truncate">{role.short}</span>
+                          </motion.button>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+
+              <div className="mt-4 flex items-center gap-2 text-xs text-[var(--text-secondary)]">
+                <span className="w-3 h-3 rounded-full bg-amber-400 inline-flex items-center justify-center">
+                  <Award className="w-2 h-2 text-[#0a0e1a]" />
+                </span>
+                Commended by the Chief of Air Staff, {COMMENDATION_YEAR}
+              </div>
+            </div>
+          </FadeIn>
+
+          {/* Role cards, most recent first */}
+          <div className="relative pl-6 sm:pl-10 border-l-2 border-sky-500/20 space-y-5 ml-2 sm:ml-4">
             {roles.slice(0, showAllRoles ? roles.length : VISIBLE_ROLES).map((role, i) => {
               const c = accent[role.color];
               const project = role.projectId && projects.find((p) => p.id === role.projectId);
               return (
                 <FadeIn key={role.title + role.period} direction="up" delay={Math.min(i, 4) * 0.05}>
-                  <div className="relative group">
+                  <div id={`role-${i}`} className="relative group scroll-mt-28">
                     <div className={`absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full ${c.dot} border-4 border-[var(--bg-primary)] shadow-md group-hover:scale-125 transition-transform`}></div>
 
-                    <div className={`glass-card rounded-2xl p-5 sm:p-6 relative border-l-4 ${c.bar} ${c.hover} transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg`}>
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                    <div
+                      onMouseEnter={() => setActiveRole(i)}
+                      onMouseLeave={() => setActiveRole(null)}
+                      className={`glass-card rounded-2xl p-5 sm:p-6 relative border-l-4 ${c.bar} ${c.hover} transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-lg ${
+                        activeRole === i ? `ring-2 ${c.ring}` : ""
+                      }`}
+                    >
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
                         <h3 className="text-lg font-bold text-[var(--text-primary)]">{role.title}</h3>
                         <span className={`text-xs font-mono font-medium ${c.text}`}>{role.period}</span>
                       </div>
-                      <p className="text-xs font-medium text-[var(--text-secondary)] mb-3">{role.unit}</p>
+                      <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <span className={`px-2.5 py-0.5 rounded-full border text-xs font-semibold ${c.border} ${c.bg} ${c.text}`}>{role.metric}</span>
+                        <span className="text-xs font-medium text-[var(--text-secondary)]">{role.unit}</span>
+                      </div>
                       <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">{role.line}</p>
-                      {project && (
-                        <Link
-                          href={`/projects/${project.id}`}
-                          className={`nav-link mt-3 inline-flex items-center gap-1 text-sm font-semibold ${c.text}`}
-                        >
-                          Featured program: {project.title} <ArrowUpRight className="w-4 h-4" />
-                        </Link>
-                      )}
+
+                      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+                        {role.achievements && (
+                          <button
+                            type="button"
+                            onClick={() => setOpenRole(openRole === i ? null : i)}
+                            aria-expanded={openRole === i}
+                            aria-controls={`role-details-${i}`}
+                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--text-primary)] hover:text-sky-400 transition-colors"
+                          >
+                            {openRole === i ? "Show less" : "More about this role"}
+                            <ChevronRight className={`w-4 h-4 text-sky-400 transition-transform ${openRole === i ? "-rotate-90" : "rotate-90"}`} />
+                          </button>
+                        )}
+                        {project && (
+                          <Link
+                            href={`/projects/${project.id}`}
+                            className={`nav-link inline-flex items-center gap-1 text-sm font-semibold ${c.text}`}
+                          >
+                            Featured program: {project.title} <ArrowUpRight className="w-4 h-4" />
+                          </Link>
+                        )}
+                      </div>
+
+                      {/* Expandable details: key achievements, responsibilities and skills (one card open at a time) */}
+                      <AnimatePresence initial={false}>
+                        {openRole === i && (
+                          <motion.div
+                            id={`role-details-${i}`}
+                            key="details"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="mt-4 pt-4 border-t border-dashed border-slate-400/30 grid grid-cols-1 md:grid-cols-2 gap-5">
+                              <div>
+                                <div className={`text-[11px] font-mono uppercase tracking-widest mb-2 ${c.text}`}>Key achievements</div>
+                                <ul className="space-y-1.5">
+                                  {role.achievements.map((a) => (
+                                    <li key={a} className="flex items-start gap-2 text-sm text-[var(--text-primary)]">
+                                      <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${c.text}`} />
+                                      {a}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <div>
+                                <div className={`text-[11px] font-mono uppercase tracking-widest mb-2 ${c.text}`}>What I owned</div>
+                                <ul className="space-y-1.5">
+                                  {role.responsibilities.map((r) => (
+                                    <li key={r} className="flex items-start gap-2 text-sm text-[var(--text-secondary)]">
+                                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 mt-2 ${c.dot}`}></span>
+                                      {r}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                            <div className="mt-4 flex flex-wrap gap-1.5">
+                              {role.skills.map((s) => (
+                                <span key={s} className="px-2.5 py-0.5 rounded-full border border-slate-400/40 text-xs text-[var(--text-primary)]">
+                                  {s}
+                                </span>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
                 </FadeIn>
