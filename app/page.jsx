@@ -216,14 +216,25 @@ const roles = [
     short: "Program Manager",
     period: "Jan 2022 – Jan 2026 (4 yrs 1 mo)",
     start: 2022, end: 2026,
-    unit: "Indian Air Force • Equipment deployment & vendor governance",
+    unit: "Indian Air Force • Air defence programs & vendor governance",
     color: "sky",
     metric: "65 people · 20+ vendors",
-    line: "Governed risk registers, milestone dependencies and vendor SLAs on high-risk missions.",
+    line: "Led a paperless rollout, 48-hour system relocations and a live missile firing, on schedule and safely.",
     projectId: "relocation",
-    achievements: ["Every relocation operational within 48 hours, with zero critical downtime", "95% formally tracked readiness and full audit compliance", "Led a 65-person team, plus 20+ external vendors"],
-    responsibilities: ["Risk registers, milestone dependencies and vendor SLA compliance", "One central coordination point for every vendor fault or maintenance need", "Paperwork, convoy, movement clearance and logistics for each move"],
-    skills: ["Risk governance", "Vendor management", "SLA tracking", "Pre-move checks", "Movement planning"]
+    achievements: [
+      "Paperless maintenance for 100+ assets in 4 months with Wipro; audits cut from 5 days to 1",
+      "Every relocation operational within 48 hours: zero critical downtime, 95% availability, audit cleared",
+      "Live missile firing: 100% success and zero safety incidents, leading a 45-member team",
+      "Service life of air defence systems extended by 10%, at 95% operational capability",
+      "10,000+ spares kept available for ₹500 crore of equipment, with a 100+ member team"
+    ],
+    responsibilities: [
+      "Risk registers, milestone dependencies and vendor SLAs, with one coordination point for 20+ vendors",
+      "Planning and multi-agency coordination for a national-security live firing",
+      "SOPs, records, audit readiness and predictive maintenance",
+      "Spares forecasting, procurement and inventory planning"
+    ],
+    skills: ["Risk governance", "Vendor management", "Digital rollout", "Multi-agency coordination", "Predictive maintenance", "Inventory planning"]
   },
   {
     title: "Senior Project Manager – IT & Network",
@@ -233,10 +244,19 @@ const roles = [
     unit: "Indian Air Force • IT & network infrastructure",
     color: "teal",
     metric: "250 users · 3h → 1.5h",
-    line: "Rolled out the E-Office paperless system and led adoption and security across the network.",
-    achievements: ["E-Office paperless system rolled out to 250 users", "Processing time cut by 50%, from 3 hours to 1.5", "250 end-users onboarded and trained"],
-    responsibilities: ["System adoption and stakeholder change management", "Security protocols across military network infrastructure", "A 20-member cross-functional rollout team"],
-    skills: ["Digital adoption", "Change management", "Training & onboarding", "Network security", "Digital governance"]
+    line: "Took files, vehicle requests and leave approvals digital, and made each one faster.",
+    achievements: [
+      "E-Office paperless filing for 250 users: processing cut from 3 hours to 1.5",
+      "Military transport vehicle turnaround cut by 75% through a central e-governance platform",
+      "Leave approvals 58% faster, from 6 hours to 2.5, for 200 users"
+    ],
+    responsibilities: [
+      "A 20-member cross-functional team for the E-Office rollout",
+      "Mapping 8+ manual processes, setting data standards and liaising with HQ",
+      "An automated Excel-based leave tracker, designed with a team of 3",
+      "Security protocols across military network infrastructure"
+    ],
+    skills: ["Digital adoption", "Change management", "Process mapping", "Data standards", "Automation", "Training & onboarding"]
   },
   {
     title: "Program Manager – Non-Profit Welfare Initiatives",
@@ -246,11 +266,22 @@ const roles = [
     unit: "Indian Air Force • Community & welfare",
     color: "indigo",
     metric: "500+ members · zero errors",
-    line: "Ran welfare budgets with zero errors and grew vendor partnerships from 8 to 10+.",
+    line: "Ran welfare finances with zero errors and gave women entrepreneurs places to sell.",
     projectId: "spouse-upskilling",
-    achievements: ["100+ spouses NSDC-certified in four trades", "Budgets for 500+ members managed with zero errors", "Vendor partnerships grown from 8 to 10+"],
-    responsibilities: ["Financial operations and budget allocations", "Initiatives with 100+ participants, approved from station to apex level", "A team of 20 welfare members and volunteers"],
-    skills: ["Budget management", "Stakeholder approvals", "Vendor partnerships", "Program governance"]
+    achievements: [
+      "100+ spouses NSDC-certified in four trades",
+      "20+ women entrepreneurs selling through 10+ shops, stalls and exhibitions",
+      "Partnerships grown from 8 to 10+, and events reaching 100+ attendees",
+      "Finances for 500+ members managed with zero fund errors",
+      "1 hour of daily collation removed for 100+ monthly requests, via a paperless workflow at 90%+ accuracy"
+    ],
+    responsibilities: [
+      "Financial operations and budget allocations",
+      "Governance, strategy and operations for livelihood ventures",
+      "Primary liaison with local authorities; approvals from station to apex level",
+      "A team of 20 welfare members and volunteers"
+    ],
+    skills: ["Budget management", "Stakeholder approvals", "Partnerships", "Liaison", "Workflow automation", "Program governance"]
   },
   {
     title: "Human Resources Manager",
@@ -259,11 +290,19 @@ const roles = [
     start: 2019, end: 2023 + 10 / 12,
     unit: "Indian Air Force • Personnel & readiness",
     color: "purple",
-    metric: "300 personnel · +25% productivity",
-    line: "Ran the full HR lifecycle, from onboarding and training to performance and welfare.",
-    achievements: ["Full HR lifecycle for 300 personnel", "Contributed to a 25% increase in operational productivity"],
-    responsibilities: ["Onboarding, operational training and performance reviews", "Welfare initiatives, performance coaching and morale"],
-    skills: ["Onboarding", "Performance management", "Coaching", "Personnel welfare"]
+    metric: "300 staff · +25% productivity",
+    line: "Ran the full HR lifecycle for 300 staff, and lifted productivity and readiness by 25%.",
+    achievements: [
+      "Productivity and readiness up 25% for 300 staff",
+      "100% of appraisals completed on time",
+      "Disciplinary resolution cut from 10 days to 7",
+      "Team efficiency up 13% through mentoring and workshops"
+    ],
+    responsibilities: [
+      "The full HR lifecycle: onboarding, training, appraisals and welfare",
+      "Mentoring teams and running workshops on safety and learning standards"
+    ],
+    skills: ["HR lifecycle", "Performance management", "Mentoring", "Workshops", "Personnel welfare"]
   },
   {
     title: "Senior Project Manager",
@@ -273,11 +312,20 @@ const roles = [
     unit: "Indian Air Force • Asset & squadron integration",
     color: "amber",
     metric: "₹50 Cr · 90 people",
-    line: "Merged two squadrons and moved 10,000 records into IMMOLS without disruption.",
+    line: "Merged two squadrons with zero data loss, and cut faults by 27% through root-cause analysis.",
     projectId: "squadron-merger",
-    achievements: ["Two squadrons merged in one month, with zero data loss", "₹50 crore in assets integrated", "10,000 spare-parts records moved into IMMOLS"],
-    responsibilities: ["90 personnel led directly", "Five workstreams: equipment, maintenance assets, admin assets, data migration, and personnel and procedures", "Layered verification and handover inspection"],
-    skills: ["Data migration", "IMMOLS", "Workstream planning", "Asset verification"]
+    achievements: [
+      "Two squadrons merged in one month, with zero data loss",
+      "₹50 crore in assets integrated; 10,000 spares records moved into IMMOLS",
+      "Fault rate and operational risk cut by 27%, and downtime by 25%",
+      "75% utilisation target met"
+    ],
+    responsibilities: [
+      "A 90-member team, across five merger workstreams",
+      "Layered verification and handover inspection",
+      "Root-cause analysis, with preventive and corrective maintenance"
+    ],
+    skills: ["Data migration", "Workstream planning", "Asset verification", "Root-cause analysis", "Preventive maintenance"]
   },
   {
     title: "Military Trainee",
