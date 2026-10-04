@@ -656,7 +656,7 @@ export default function Portfolio() {
                 <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
-                href="https://github.com/tools-kalpana"
+                href="https://github.com/KalpanaTalan"
                 target="_blank"
                 rel="noreferrer"
                 className="p-3 glass-card hover:text-sky-400 rounded-xl btn-lift text-[var(--text-secondary)]"
@@ -1862,7 +1862,7 @@ export default function Portfolio() {
               LinkedIn
             </a>
             <a
-              href="https://github.com/tools-kalpana"
+              href="https://github.com/KalpanaTalan"
               target="_blank"
               rel="noreferrer"
               className="nav-link hover:text-sky-400 transition-colors"

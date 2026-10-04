@@ -14,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL('https://kalpanatalan.github.io'),
   title: 'Kalpana Talan | Program & Transformation Leader | IAF Veteran',
   description: 'Portfolio of Kalpana Talan - 10-Year Indian Air Force Veteran, Program & Transformation Leader, PMP, CSM. Delivering high-stakes programs through digital transformation and risk governance.',
   keywords: ['Kalpana Talan', 'Program Manager', 'Digital Transformation', 'Indian Air Force Veteran', 'PMP', 'CSM', 'Risk Governance', 'Delhi'],

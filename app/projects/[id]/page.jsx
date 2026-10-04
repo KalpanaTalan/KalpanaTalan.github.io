@@ -54,13 +54,15 @@ export default async function ProjectPage({ params }) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link
             href="/#impact"
-            className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-sky-400/50 bg-sky-500/10 text-sm font-semibold text-sky-400 hover:bg-sky-500/20 hover:border-sky-400 transition-colors"
+            className="group shrink-0 whitespace-nowrap inline-flex items-center gap-2 px-3.5 py-2 rounded-full border border-sky-400/50 bg-sky-500/10 text-sm font-semibold text-sky-400 hover:bg-sky-500/20 hover:border-sky-400 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> Back to all work
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <span className="sm:hidden">All work</span>
+            <span className="hidden sm:inline">Back to all work</span>
           </Link>
-          <Link href="/" className="flex items-center gap-2 text-sm font-semibold">
+          <Link href="/" className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap">
             Kalpana Talan
-            <span className="text-xs text-sky-400 font-medium">IAF Veteran</span>
+            <span className="hidden min-[400px]:inline text-xs text-sky-400 font-medium">IAF Veteran</span>
             <Image src="/iaf-crest.png" alt="Indian Air Force crest" width={106} height={120} className="h-8 w-auto ml-1" />
           </Link>
         </div>

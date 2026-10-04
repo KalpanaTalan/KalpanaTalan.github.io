@@ -25,7 +25,7 @@ This website presents Kalpana Talan's career journey, defense leadership milesto
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/tools-kalpana/portfolio-website.git
+   git clone https://github.com/KalpanaTalan/portfolio-veteran.git
    cd portfolio-website
    ```
 
