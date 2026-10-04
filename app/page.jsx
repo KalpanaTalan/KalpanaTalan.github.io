@@ -39,7 +39,9 @@ import {
   Sparkles,
   Workflow,
   Quote,
-  Briefcase
+  Briefcase,
+  Cloud,
+  KanbanSquare
 } from "lucide-react";
 
 function LinkedinIcon({ className = "w-4 h-4" }) {
@@ -293,7 +295,7 @@ const roles = [
 ];
 
 // Credentials, from Kalpana's LinkedIn certifications. Certifications are exam-based;
-// the PMI items are completed courses, and PMI-ACP is training (StarAgile), not the PMI exam.
+// the PMI items are completed courses; `trainings` (StarAgile, Outskill) are completion certificates, not exams.
 // Add a `verifyUrl` to show a working "Verify" button; without one the button only shows on localhost.
 const certifications = [
   { name: "Project Management Professional", short: "PMP®", issuer: "Project Management Institute", date: "Aug 2025", validity: "Valid to Aug 2028", color: "sky", verifyUrl: "" },
@@ -321,8 +323,17 @@ const deliveryCourses = [
   { name: "Disciplined Agile Toolkit", issuer: "PMI" },
   { name: "M.O.R.E. in Action", issuer: "PMI" },
   { name: "Value Stream Management", issuer: "PMI" },
-  { name: "Product × Project Management", issuer: "PMI" },
-  { name: "PMI-ACP training", issuer: "StarAgile" }
+  { name: "Product × Project Management", issuer: "PMI" }
+];
+
+// Training programmes completed (certificates of completion, not certifications).
+const trainings = [
+  { name: "Lean Six Sigma Black Belt", note: "Aligned with IASSC & ASQ", issuer: "StarAgile", date: "Jul 2025", icon: Target },
+  { name: "Lean Six Sigma Green Belt", note: "Aligned with IASSC & ASQ", issuer: "StarAgile", date: "Jul 2025", icon: Target },
+  { name: "PMI-ACP®", note: "Agile Certified Practitioner", issuer: "StarAgile", date: "Jul 2025", icon: Workflow },
+  { name: "Microsoft Azure Fundamentals", issuer: "StarAgile", date: "Jul 2025", icon: Cloud },
+  { name: "Jira User", issuer: "StarAgile", icon: KanbanSquare },
+  { name: "Generative AI Mastermind", issuer: "Outskill", icon: Sparkles }
 ];
 
 // Timeline chart range, and the commendation shown as a marker on it.
@@ -1547,6 +1558,39 @@ export default function Portfolio() {
               </div>
             </FadeIn>
           </div>
+
+          {/* Training programmes (completion certificates, shown apart from certifications) */}
+          <FadeIn direction="up" delay={0.15}>
+            <div className="mt-5 glass-card rounded-2xl p-6">
+              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-4">
+                <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-400">
+                  <Target className="w-4 h-4" /> Process, Agile & tools
+                </div>
+                <div className="text-sm text-[var(--text-secondary)]">Training completed</div>
+              </div>
+              <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {trainings.map((t) => {
+                  const Icon = t.icon;
+                  return (
+                    <StaggerItem key={t.name}>
+                      <div className="flex items-start gap-3 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-3.5 h-full hover:border-amber-400/40 transition-colors">
+                        <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400 shrink-0">
+                          <Icon className="w-4.5 h-4.5" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-semibold text-[var(--text-primary)] leading-snug">{t.name}</div>
+                          {t.note && <div className="text-xs text-[var(--text-secondary)]">{t.note}</div>}
+                          <div className="text-[11px] font-mono text-[var(--text-secondary)] mt-0.5">
+                            {t.issuer}{t.date ? ` · ${t.date}` : ""}
+                          </div>
+                        </div>
+                      </div>
+                    </StaggerItem>
+                  );
+                })}
+              </StaggerContainer>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
