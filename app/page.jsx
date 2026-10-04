@@ -1629,7 +1629,7 @@ export default function Portfolio() {
           <FadeIn direction="up">
             <SectionLabel n={testimonials.length > 0 ? 8 : 7}>Let&apos;s Connect</SectionLabel>
             <div className="mt-3 text-sm font-mono uppercase tracking-widest text-[var(--text-secondary)]">
-              <span className="text-sky-400">→</span> Open channel
+              <span className="text-sky-400">→</span> Ready when you are
             </div>
             <h2 className="mt-4 text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05] text-[var(--text-primary)]">
               Have a mission that can&apos;t slip?
@@ -1732,7 +1732,15 @@ export default function Portfolio() {
             )}
           </StaggerContainer>
 
-          <div className="mt-8 flex items-center justify-center gap-2 text-sm text-[var(--text-secondary)]">
+          <p className="mt-8 text-base text-[var(--text-secondary)]">
+            Or simply{" "}
+            <a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Hello")}`} className="nav-link font-semibold text-sky-400">
+              say hello
+            </a>
+            . Email works for that too.
+          </p>
+
+          <div className="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--text-secondary)]">
             <MapPin className="w-4 h-4 text-sky-400" /> Based in Delhi, India
           </div>
         </div>
