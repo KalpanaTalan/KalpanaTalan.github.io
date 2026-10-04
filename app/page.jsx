@@ -32,7 +32,13 @@ import {
   BarChart3,
   ChevronRight,
   Target,
-  ArrowDown
+  ArrowDown,
+  BadgeCheck,
+  ShieldCheck,
+  BrainCircuit,
+  Sparkles,
+  Workflow,
+  Quote
 } from "lucide-react";
 
 function LinkedinIcon({ className = "w-4 h-4" }) {
@@ -283,6 +289,39 @@ const roles = [
   }
 ];
 
+// Credentials, from Kalpana's LinkedIn certifications. Certifications are exam-based;
+// the PMI items are completed courses, and PMI-ACP is training (StarAgile), not the PMI exam.
+// Add a `verifyUrl` to show a working "Verify" button; without one the button only shows on localhost.
+const certifications = [
+  { name: "Project Management Professional", short: "PMP®", issuer: "Project Management Institute", date: "Aug 2025", validity: "Valid to Aug 2028", color: "sky", verifyUrl: "" },
+  { name: "Certified ScrumMaster", short: "CSM®", issuer: "Scrum Alliance", date: "Oct 2025", color: "teal", verifyUrl: "" }
+];
+
+const executiveEducation = {
+  name: "Management Essentials",
+  detail: "Online certificate programme in Business Administration",
+  issuer: "Indian Institute of Management, Shillong",
+  date: "Jan 2026"
+};
+
+const aiCourses = [
+  "Generative AI Overview",
+  "Cognitive Project Management in AI (CPMAI)",
+  "Prompt Engineering for Project Managers",
+  "Practical Gen AI for Project Managers",
+  "Data Landscape of Gen AI",
+  "Seven AI Project Patterns",
+  "Practical AI for Agile Workflows"
+];
+
+const deliveryCourses = [
+  { name: "Disciplined Agile Toolkit", issuer: "PMI" },
+  { name: "M.O.R.E. in Action", issuer: "PMI" },
+  { name: "Value Stream Management", issuer: "PMI" },
+  { name: "Product × Project Management", issuer: "PMI" },
+  { name: "PMI-ACP training", issuer: "StarAgile" }
+];
+
 // Timeline chart range, and the commendation shown as a marker on it.
 const TIMELINE_START = 2016;
 const TIMELINE_END = 2026;
@@ -292,7 +331,18 @@ const VISIBLE_ROLES = 4;
 
 // Add real quotes here (LinkedIn recommendations, senior officers). The section stays
 // hidden on the live site until at least one is added.
-const testimonials = [];
+const testimonials = [
+  {
+    quote:
+      "Kalpana is a highly dedicated and dependable professional with a strong go-getter attitude. Once she takes ownership of a task, she ensures it gets completed with commitment and efficiency. Her excellent PR and communication skills, along with her proactive approach, make her a valuable team member. I would gladly recommend her.",
+    // Phrase shown larger as the pull-quote headline.
+    highlight: "Once she takes ownership of a task, she ensures it gets completed.",
+    name: "Aiyna Sharma",
+    role: "Project Manager, CES",
+    relation: "Worked with Kalpana on different teams",
+    source: "LinkedIn recommendation · Sep 2026"
+  }
+];
 
 // Marker-style emphasis for the words a visitor should take away at a glance.
 function Highlight({ children }) {
@@ -312,13 +362,6 @@ function SectionLabel({ n, children }) {
   );
 }
 
-function DevOnlyLabel({ children }) {
-  return (
-    <div className="text-[11px] font-mono uppercase tracking-wider text-amber-400 mb-2">
-      {children} · only visible on localhost
-    </div>
-  );
-}
 
 export default function Portfolio() {
   const [theme, setTheme] = useState("dark");
@@ -1319,19 +1362,29 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* 8. CERTIFICATIONS & EDUCATION */}
+      {/* 8. CREDENTIALS & EDUCATION */}
       <section id="certifications" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Certifications List */}
-            <FadeIn direction="up" className="lg:col-span-7 space-y-6">
-              <div>
+          <FadeIn direction="up">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-10">
+              <div className="lg:col-span-7">
                 <SectionLabel n={6}>Credentials & Honors</SectionLabel>
-                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                  Licenses, Certifications & Recognition
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  Credentials,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    earned, not claimed.
+                  </span>
                 </h2>
               </div>
+              <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                Certified in the frameworks I lead with, and still learning: from Agile delivery to{" "}
+                <span className="font-semibold text-[var(--text-primary)]">AI in project management</span>.
+              </p>
+            </div>
+          </FadeIn>
 
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            <FadeIn direction="up" className="lg:col-span-7 space-y-5">
               {/* Service honour: the one place the commendation is described in full */}
               <div className="relative overflow-hidden rounded-2xl p-6 sm:p-7 border border-amber-400/40 bg-gradient-to-br from-amber-500/15 via-amber-500/5 to-transparent shadow-lg hover:border-amber-400/70 transition-colors">
                 <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-amber-400/10 blur-2xl pointer-events-none" aria-hidden="true"></div>
@@ -1354,151 +1407,222 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <StaggerItem>
-                  <div className="glass-card p-4 rounded-xl space-y-1 hover:border-sky-400/40 transition-colors">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-sky-400"></span>
-                      <h4 className="text-sm font-bold text-[var(--text-primary)]">PMP® Certified</h4>
+              {/* Certifications, each with a Verify button */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {certifications.map((cert) => {
+                  const c = accent[cert.color];
+                  return (
+                    <div key={cert.short} className={`glass-card rounded-2xl p-5 border-t-2 ${c.border} hover:-translate-y-0.5 transition-transform shadow-sm`}>
+                      <div className="flex items-start justify-between gap-3">
+                        <div className={`w-11 h-11 rounded-xl ${c.bg} border ${c.border} flex items-center justify-center ${c.text}`}>
+                          <BadgeCheck className="w-6 h-6" />
+                        </div>
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-[var(--text-secondary)]">Certification</span>
+                      </div>
+                      <div className={`mt-3 text-2xl font-extrabold tracking-tight ${c.text}`}>{cert.short}</div>
+                      <div className="text-sm font-semibold text-[var(--text-primary)]">{cert.name}</div>
+                      <div className="text-xs text-[var(--text-secondary)] mt-0.5">
+                        {cert.issuer} · {cert.date}
+                      </div>
+                      {cert.validity && (
+                        <span className="mt-2 inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold border border-emerald-400/40 bg-emerald-500/10 text-emerald-400">
+                          {cert.validity}
+                        </span>
+                      )}
+                      <div className="mt-4">
+                        {cert.verifyUrl ? (
+                          <a
+                            href={cert.verifyUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-slate-400/50 text-xs font-semibold text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+                          >
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Verify credential <ExternalLink className="w-3 h-3 text-[var(--text-secondary)]" />
+                          </a>
+                        ) : (
+                          isDev && (
+                            <span
+                              title="Add the credential link (verifyUrl) to make this button live"
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-dashed border-amber-400/60 text-xs font-semibold text-[var(--text-primary)]"
+                            >
+                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> Verify credential
+                              <span className="text-[10px] font-normal text-amber-400">(link pending)</span>
+                            </span>
+                          )
+                        )}
+                      </div>
                     </div>
-                    <p className="text-sm text-[var(--text-secondary)]">Project Management Institute (PMI)</p>
-                  </div>
-                </StaggerItem>
+                  );
+                })}
+              </div>
 
-                <StaggerItem>
-                  <div className="glass-card p-4 rounded-xl space-y-1 hover:border-teal-400/40 transition-colors">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-teal-400"></span>
-                      <h4 className="text-sm font-bold text-[var(--text-primary)]">CSM® ScrumMaster</h4>
-                    </div>
-                    <p className="text-sm text-[var(--text-secondary)]">Scrum Alliance</p>
-                  </div>
-                </StaggerItem>
-
-                <StaggerItem>
-                  <div className="glass-card p-4 rounded-xl space-y-1 hover:border-sky-400/40 transition-colors">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-sky-400"></span>
-                      <h4 className="text-sm font-bold text-[var(--text-primary)]">Value Stream Management</h4>
-                    </div>
-                    <p className="text-sm text-[var(--text-secondary)]">Project Management Institute (PMI)</p>
-                  </div>
-                </StaggerItem>
-
-                <StaggerItem>
-                  <div className="glass-card p-4 rounded-xl space-y-1 hover:border-amber-400/40 transition-colors">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-                      <h4 className="text-sm font-bold text-[var(--text-primary)]">Management Essentials (Jan 2026)</h4>
-                    </div>
-                    <p className="text-sm text-[var(--text-secondary)]">IIM Shillong (Business Administration)</p>
-                  </div>
-                </StaggerItem>
-              </StaggerContainer>
             </FadeIn>
 
-            {/* Education Details with Crests */}
-            <FadeIn direction="up" delay={0.15} className="lg:col-span-5 space-y-6">
-              <div>
-                <span className="text-xs font-mono uppercase tracking-widest text-sky-400 block mb-2">
-                  ACADEMIC FOUNDATION
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                  Education
-                </h2>
+            {/* Education */}
+            <FadeIn direction="up" delay={0.15} className="lg:col-span-5 space-y-5">
+              <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)]">
+                <span className="text-sky-400">→</span> Academic foundation
               </div>
-
-              {/* VTU Master Degree */}
               <div className="glass-card rounded-2xl p-5 flex items-start gap-4 hover:border-sky-400/40 transition-colors shadow-sm">
                 <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-white p-1">
-                  <Image
-                    src="/vtu-logo.jpg"
-                    alt="Visvesvaraya Technological University"
-                    width={56}
-                    height={56}
-                    className="object-contain w-full h-full"
-                  />
+                  <Image src="/vtu-logo.jpg" alt="Visvesvaraya Technological University" width={56} height={56} className="object-contain w-full h-full" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-[var(--text-primary)] leading-tight">
-                    Master of Technology (M.Tech)
-                  </h3>
-                  <div className="text-xs text-sky-400 font-medium">Aeronautical Engineering (2016 – 2017)</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">Visvesvaraya Technological University (VTU)</div>
-                  <p className="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
-                    Advanced study in aeronautical engineering, complex technical operations, system dynamics, and mission engineering.
-                  </p>
+                  <h3 className="text-base font-bold text-[var(--text-primary)] leading-tight">Master of Technology (M.Tech)</h3>
+                  <div className="text-sm text-sky-400 font-medium">Aeronautical Engineering · 2016–2017</div>
+                  <div className="text-sm text-[var(--text-secondary)] mt-0.5">Visvesvaraya Technological University (VTU)</div>
+                </div>
+              </div>
+              <div className="glass-card rounded-2xl p-5 flex items-start gap-4 hover:border-sky-400/40 transition-colors shadow-sm">
+                <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-white p-1">
+                  <Image src="/aktu-logo.jpg" alt="Dr. A.P.J. Abdul Kalam Technical University" width={56} height={56} className="object-contain w-full h-full" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[var(--text-primary)] leading-tight">Bachelor of Technology (B.Tech)</h3>
+                  <div className="text-sm text-sky-400 font-medium">Electrical & Electronics Engineering · 2010–2014</div>
+                  <div className="text-sm text-[var(--text-secondary)] mt-0.5">Dr. A.P.J. Abdul Kalam Technical University (AKTU)</div>
                 </div>
               </div>
 
-              {/* AKTU Bachelor Degree */}
-              <div className="glass-card rounded-2xl p-5 flex items-start gap-4 hover:border-sky-400/40 transition-colors shadow-sm">
-                <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-white p-1">
-                  <Image
-                    src="/aktu-logo.jpg"
-                    alt="Dr. A.P.J. Abdul Kalam Technical University"
-                    width={56}
-                    height={56}
-                    className="object-contain w-full h-full"
-                  />
+              {/* Executive education */}
+              <div className="glass-card rounded-2xl p-5 flex items-start gap-4 hover:border-indigo-400/40 transition-colors shadow-sm">
+                <div className="w-14 h-14 rounded-xl bg-indigo-500/10 border border-indigo-400/30 flex items-center justify-center text-indigo-400 shrink-0">
+                  <GraduationCap className="w-7 h-7" />
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-[var(--text-primary)] leading-tight">
-                    Bachelor of Technology (B.Tech)
-                  </h3>
-                  <div className="text-xs text-sky-400 font-medium">Electrical and Electronics Engineering (2010 – 2014)</div>
-                  <div className="text-xs text-[var(--text-secondary)] mt-0.5">Dr. A.P.J. Abdul Kalam Technical University (AKTU)</div>
-                  <p className="text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
-                    Engineering foundation in electrical systems, circuit architecture, analytical thinking, and complex problem-solving.
-                  </p>
+                <div className="min-w-0">
+                  <h3 className="text-base font-bold text-[var(--text-primary)] leading-tight">{executiveEducation.name}</h3>
+                  <div className="text-sm text-indigo-400 font-medium">Executive education · {executiveEducation.date}</div>
+                  <div className="text-sm text-[var(--text-secondary)] mt-0.5">
+                    {executiveEducation.issuer} · {executiveEducation.detail}
+                  </div>
                 </div>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Always learning: AI highlight + delivery courses */}
+          <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <FadeIn direction="up" className="lg:col-span-8">
+              <div className="relative overflow-hidden rounded-2xl p-6 sm:p-7 border border-sky-400/40 bg-gradient-to-br from-sky-500/15 via-teal-500/5 to-transparent shadow-lg h-full">
+                <div className="absolute -bottom-16 -right-10 w-56 h-56 rounded-full bg-teal-400/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+                <div className="relative flex flex-col sm:flex-row sm:items-center gap-5">
+                  <div className="shrink-0 flex items-baseline gap-2">
+                    <span className="text-7xl sm:text-8xl font-extrabold leading-none tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-teal-300">
+                      <CountUp to={aiCourses.length} duration={1.2} />
+                    </span>
+                    <BrainCircuit className="w-8 h-8 text-teal-400" />
+                  </div>
+                  <div>
+                    <div className="text-[11px] font-mono uppercase tracking-widest text-sky-400 mb-1">AI-ready project management · 2025–26</div>
+                    <h3 className="text-xl sm:text-2xl font-extrabold leading-snug text-[var(--text-primary)]">
+                      PMI courses on putting AI to work in projects
+                    </h3>
+                    <p className="text-sm text-[var(--text-secondary)] mt-1">
+                      From prompt engineering to cognitive project management, across planning, delivery and Agile.
+                    </p>
+                  </div>
+                </div>
+                <StaggerContainer staggerDelay={0.06} className="relative mt-5 flex flex-wrap gap-2">
+                  {aiCourses.map((course) => (
+                    <StaggerItem key={course}>
+                      <span className="tool-pill inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-sky-400/40 bg-[var(--bg-card)] text-xs sm:text-sm font-medium text-[var(--text-primary)]">
+                        <Sparkles className="w-3.5 h-3.5 text-teal-400" /> {course}
+                      </span>
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="up" delay={0.1} className="lg:col-span-4">
+              <div className="glass-card rounded-2xl p-6 h-full">
+                <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-teal-400 mb-1">
+                  <Workflow className="w-4 h-4" /> Agile, product & delivery
+                </div>
+                <div className="text-sm text-[var(--text-secondary)] mb-4">Completed courses</div>
+                <ul className="space-y-2.5">
+                  {deliveryCourses.map((course) => (
+                    <li key={course.name} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="font-medium text-[var(--text-primary)]">{course.name}</span>
+                      <span className="text-[11px] font-mono text-[var(--text-secondary)] shrink-0">{course.issuer}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* 8b. KIND WORDS: hidden on the live site until real quotes are added to `testimonials` */}
-      {(testimonials.length > 0 || isDev) && (
+      {/* 8b. KIND WORDS: the first quote is featured; any further quotes sit in a grid below.
+          Hidden on the live site if `testimonials` is ever empty. */}
+      {testimonials.length > 0 && (
         <section id="kind-words" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn direction="up">
-              <div className="max-w-3xl mb-12">
+              <div className="mb-10">
                 <SectionLabel n={7}>Kind Words</SectionLabel>
-                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                  What Colleagues Say
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  Kind words,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    from people I&apos;ve worked with.
+                  </span>
                 </h2>
               </div>
             </FadeIn>
 
-            {testimonials.length === 0 && <DevOnlyLabel>Placeholders until quotes are added</DevOnlyLabel>}
+            {(() => {
+              const [featured, ...rest] = testimonials;
+              return (
+                <>
+                  <FadeIn direction="up" delay={0.05}>
+                    <figure className="relative overflow-hidden rounded-2xl border border-amber-400/40 bg-gradient-to-br from-amber-500/10 via-transparent to-sky-500/10 p-6 sm:p-10 shadow-lg">
+                      <Quote className="absolute -top-4 -left-2 w-32 h-32 text-amber-400/10 pointer-events-none" aria-hidden="true" />
+                      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+                        <p className="lg:col-span-5 text-2xl sm:text-3xl font-extrabold leading-snug text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
+                          &ldquo;{featured.highlight}&rdquo;
+                        </p>
+                        <div className="lg:col-span-7">
+                          <blockquote className="text-base sm:text-lg italic text-[var(--text-primary)] leading-relaxed">
+                            &ldquo;{featured.quote}&rdquo;
+                          </blockquote>
+                          <figcaption className="mt-5 flex items-center gap-3">
+                            <span className="w-11 h-11 rounded-full bg-gradient-to-br from-sky-400 to-teal-300 text-[#0a0e1a] font-bold flex items-center justify-center shrink-0">
+                              {featured.name.split(" ").map((w) => w[0]).join("")}
+                            </span>
+                            <span>
+                              <span className="block text-sm font-bold text-[var(--text-primary)]">{featured.name}</span>
+                              <span className="block text-xs text-[var(--text-secondary)]">
+                                {featured.role} · {featured.relation}
+                              </span>
+                              <span className="mt-0.5 flex items-center gap-1 text-[11px] font-mono text-sky-400">
+                                <LinkedinIcon className="w-3 h-3" /> {featured.source}
+                              </span>
+                            </span>
+                          </figcaption>
+                        </div>
+                      </div>
+                    </figure>
+                  </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {(testimonials.length > 0
-                ? testimonials
-                : [
-                    { quote: "Add a LinkedIn recommendation here.", name: "Name", role: "Role · relationship" },
-                    { quote: "Add a quote from a senior officer or commanding officer.", name: "Name", role: "Rank · unit" },
-                    { quote: "Add a quote from a vendor partner or team member.", name: "Name", role: "Role · organisation" }
-                  ]
-              ).map((t, i) => (
-                <FadeIn key={i} direction="up" delay={i * 0.06}>
-                  <figure
-                    className={`glass-card rounded-2xl p-6 h-full flex flex-col justify-between gap-5 border-l-4 border-l-amber-400 ${
-                      testimonials.length === 0 ? "border-dashed opacity-70" : ""
-                    }`}
-                  >
-                    <blockquote className="text-base italic text-[var(--text-primary)] leading-relaxed">
-                      &ldquo;{t.quote}&rdquo;
-                    </blockquote>
-                    <figcaption>
-                      <div className="text-sm font-bold text-[var(--text-primary)]">{t.name}</div>
-                      <div className="text-xs text-sky-400">{t.role}</div>
-                    </figcaption>
-                  </figure>
-                </FadeIn>
-              ))}
-            </div>
+                  {rest.length > 0 && (
+                    <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {rest.map((t, i) => (
+                        <FadeIn key={t.name} direction="up" delay={i * 0.06}>
+                          <figure className="glass-card rounded-2xl p-6 h-full flex flex-col justify-between gap-5 border-l-4 border-l-amber-400">
+                            <blockquote className="text-base italic text-[var(--text-primary)] leading-relaxed">&ldquo;{t.quote}&rdquo;</blockquote>
+                            <figcaption>
+                              <div className="text-sm font-bold text-[var(--text-primary)]">{t.name}</div>
+                              <div className="text-xs text-[var(--text-secondary)]">{t.role}</div>
+                            </figcaption>
+                          </figure>
+                        </FadeIn>
+                      ))}
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         </section>
       )}
