@@ -346,7 +346,7 @@ const roles = [
 // the PMI items are completed courses; `trainings` (StarAgile, Outskill) are completion certificates, not exams.
 // Add a `verifyUrl` to show a working "Verify" button; without one the button only shows on localhost.
 const certifications = [
-  { name: "Project Management Professional", short: "PMP®", issuer: "Project Management Institute", date: "Aug 2025", validity: "Valid to Aug 2028", color: "sky", verifyUrl: "" },
+  { name: "Project Management Professional", short: "PMP®", issuer: "Project Management Institute", date: "Aug 2025", validity: "Valid to Aug 2028", color: "sky", verifyUrl: "https://www.credly.com/badges/280740fc-b782-4581-9175-634e81c627bb/public_url" },
   { name: "Certified ScrumMaster", short: "CSM®", issuer: "Scrum Alliance", date: "Oct 2025", color: "teal", verifyUrl: "" }
 ];
 
