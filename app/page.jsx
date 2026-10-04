@@ -4,22 +4,20 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn, StaggerContainer, StaggerItem } from "./components/motion-wrapper";
-import { projects } from "./data/projects";
+import { projects, otherOutcomes } from "./data/projects";
 import { ToolsMarquee } from "./components/tools-marquee";
+import { RichText, GradientHeadline, CaseVisual } from "./components/work-visuals";
 import {
   Shield,
   Award,
   TrendingUp,
-  Clock,
   Users,
   CheckCircle2,
   ExternalLink,
   Mail,
   MapPin,
   FileText,
-  Briefcase,
   GraduationCap,
-  Sparkles,
   ArrowUpRight,
   Sun,
   Moon,
@@ -28,10 +26,11 @@ import {
   Copy,
   Check,
   Send,
-  Cpu,
   Layers,
   BarChart3,
-  ChevronRight
+  ChevronRight,
+  Target,
+  ArrowDown
 } from "lucide-react";
 
 function LinkedinIcon({ className = "w-4 h-4" }) {
@@ -62,6 +61,7 @@ const navItems = [
   { href: "#what-i-bring", label: "What I Bring", mobileLabel: "What I Bring" },
   { href: "#impact", label: "Work", mobileLabel: "Featured Work & Impact" },
   { href: "#experience", label: "Experience", mobileLabel: "Work Experience" },
+  { href: "#skills", label: "Skills", mobileLabel: "Skills & Toolkit" },
   { href: "#certifications", label: "Credentials", mobileLabel: "Credentials & Education" }
 ];
 
@@ -86,6 +86,58 @@ const workSteps = [
   { title: "Measure outcomes", text: "Results tracked, not just reported" }
 ];
 
+// Capabilities: competencies grouped by stage of the work. Skill names match the CV
+// where they overlap; each row links to the featured program that proves it, which is
+// what makes this section more than a repeat of the CV's keyword list.
+const capabilityRows = [
+  {
+    title: "Plan",
+    meaning: "Deciding what gets delivered, and how",
+    Icon: Target,
+    color: "sky",
+    proofId: "squadron-merger",
+    groups: [
+      { label: "Scope", skills: ["Program & Project Management", "Strategic Planning & Execution", "Project Lifecycle Management"] },
+      { label: "Scheduling", skills: ["Milestones & Gantt Charts", "Earned Value Management (EVM)"] },
+      { label: "Resources", skills: ["Resource Management", "Budget Management"] }
+    ]
+  },
+  {
+    title: "Deliver",
+    meaning: "Getting it done with people, vendors and systems",
+    Icon: Users,
+    color: "teal",
+    proofId: "relocation",
+    groups: [
+      { label: "With teams", skills: ["Cross-Functional Leadership", "Agile & Scrum", "Waterfall"] },
+      { label: "With vendors", skills: ["Procurement & Contract Management", "Vendor Negotiation", "SLA Tracking"] },
+      { label: "With systems", skills: ["Digital Transformation", "Systems & Data Migration", "AI Workflow Automation"] }
+    ]
+  },
+  {
+    title: "Govern",
+    meaning: "Knowing it is on track, and fixing it early when it is not",
+    Icon: Shield,
+    color: "indigo",
+    proofId: "paperless",
+    groups: [
+      { label: "Risk", skills: ["Risk Management", "Risk Governance", "Crisis Management"] },
+      { label: "Quality", skills: ["Process Improvement", "Lean Six Sigma", "Value Stream Mapping", "Root Cause Analysis"] },
+      { label: "Readiness & reporting", skills: ["Operational Readiness", "Data Analytics & Reporting"] }
+    ]
+  },
+  {
+    title: "Lead change",
+    meaning: "Making sure the change actually sticks",
+    Icon: TrendingUp,
+    color: "amber",
+    proofId: "spouse-upskilling",
+    groups: [
+      { label: "People", skills: ["Change Management", "Stakeholder Alignment", "Training & Onboarding"] }
+    ]
+  }
+];
+
 const whatIBring = [
   {
     Icon: Shield,
@@ -99,7 +151,7 @@ const whatIBring = [
     color: "teal",
     title: "Every team and vendor on one plan",
     text: "Cross-functional teams and external vendors coordinated across geographies, with clear ownership and on-time delivery.",
-    proof: "65-member team · 22–25 vendors"
+    proof: "65-person team · 20+ vendors"
   },
   {
     Icon: Layers,
@@ -127,6 +179,21 @@ const accent = {
   slate: { text: "text-slate-400", bg: "bg-slate-500/10", border: "border-slate-400/30", hover: "hover:border-slate-400/40", dot: "bg-slate-400", bar: "border-l-slate-500" }
 };
 
+// The four headline results beside the Proven Results heading, one per case study (not links).
+const headlineResults = [
+  { id: "paperless", value: "5d → 1d", label: "audits, paperless rollout" },
+  { id: "relocation", value: "48h", label: "per system relocation" },
+  { id: "squadron-merger", value: "0", label: "records lost in a merger" },
+  { id: "spouse-upskilling", value: "100+", label: "spouses certified" }
+];
+
+// Tag pill colours, applied in order to a project's tags.
+const tagTone = [
+  "border-sky-400/50 bg-sky-500/10 text-sky-300",
+  "border-teal-400/50 bg-teal-500/10 text-teal-300",
+  "border-indigo-400/50 bg-indigo-500/10 text-indigo-300"
+];
+
 // One line per role; roles that match a featured program link to its detail page
 // instead of repeating it.
 const roles = [
@@ -136,22 +203,22 @@ const roles = [
     unit: "Indian Armed Forces • On-site",
     color: "sky",
     line: "Governed risk registers, milestone dependencies and vendor SLA compliance in high-risk mission parameters.",
-    projectId: "equipment-deployment"
+    projectId: "relocation"
   },
   {
     title: "Senior Project Manager – IT & Network",
     period: "Aug 2021 – Jan 2025 (3 yrs 6 mos)",
     unit: "Indian Armed Forces • On-site",
     color: "teal",
-    line: "Led system adoption, stakeholder change management and security protocols across military network infrastructure.",
-    projectId: "e-office"
+    line: "Rolled out the E-Office paperless system to 250 users, cutting processing time from 3 hours to 1.5, and led adoption and security protocols across military network infrastructure."
   },
   {
-    title: "CSR & NGO Program Manager",
+    title: "Program Manager – Non-Profit Welfare Initiatives",
     period: "Jan 2020 – Nov 2024 (4 yrs 11 mos)",
     unit: "Indian Armed Forces • Community & Welfare Governance",
     color: "indigo",
-    line: "Managed budgets for 500+ members with zero errors, and grew vendor partnerships from 8 to 10+ across initiatives with 100+ participants."
+    line: "Managed budgets for 500+ members with zero errors, and grew vendor partnerships from 8 to 10+ across initiatives with 100+ participants.",
+    projectId: "spouse-upskilling"
   },
   {
     title: "Human Resources Manager",
@@ -166,7 +233,7 @@ const roles = [
     unit: "Indian Armed Forces • Asset & Squadron Integration",
     color: "amber",
     line: "Integrated two squadrons and migrated 10,000 spare-parts line items into IMMOLS without operational disruption.",
-    projectId: "squadron-immols"
+    projectId: "squadron-merger"
   },
   {
     title: "Military Trainee",
@@ -213,7 +280,6 @@ export default function Portfolio() {
   const [theme, setTheme] = useState("dark");
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("all");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [showAllRoles, setShowAllRoles] = useState(false);
@@ -244,11 +310,6 @@ export default function Portfolio() {
     setFormSubmitted(true);
   };
 
-  const filteredProjects =
-    activeTab === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeTab);
-
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300 relative overflow-x-hidden">
       {/* Background Atmosphere Layers */}
@@ -260,7 +321,7 @@ export default function Portfolio() {
       {/* 1. TOP NAVBAR */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-nav transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <a href="#intro" className="flex items-center gap-3 group">
+          <a href="#intro" className="flex items-center gap-3 group whitespace-nowrap">
             <div className="w-10 h-10 rounded-full overflow-hidden border border-sky-400/40 relative shadow-sm">
               <Image
                 src="/kalpana-profile.png"
@@ -291,7 +352,7 @@ export default function Portfolio() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-7 text-sm font-medium text-[var(--text-secondary)]">
+          <div className="hidden xl:flex items-center gap-7 text-sm font-medium text-[var(--text-secondary)] whitespace-nowrap">
             {navItems.map((item) => (
               <a key={item.href} href={item.href} className="nav-link hover:text-[var(--text-primary)] transition-colors">
                 {item.label}
@@ -314,7 +375,7 @@ export default function Portfolio() {
                 target="_blank"
                 rel="noreferrer"
                 title={RESUME_URL ? "Open résumé" : "Résumé file not added yet (button is hidden on the live site until it is)"}
-                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-sky-400/50 text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+                className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider whitespace-nowrap rounded-lg border border-sky-400/50 text-[var(--text-primary)] hover:border-sky-400 btn-lift"
               >
                 <FileText className="w-3.5 h-3.5 text-sky-400" /> Résumé
                 {!RESUME_URL && <span className="text-[10px] normal-case tracking-normal text-amber-400">(file pending)</span>}
@@ -323,14 +384,14 @@ export default function Portfolio() {
 
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-sky-500 hover:bg-sky-400 text-white rounded-lg btn-lift shadow-sm active:scale-95"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold uppercase tracking-wider whitespace-nowrap bg-sky-500 hover:bg-sky-400 text-white rounded-lg btn-lift shadow-sm active:scale-95"
             >
               Let's Connect <ChevronRight className="w-3.5 h-3.5" />
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              className="xl:hidden p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               aria-label="Open menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -340,7 +401,7 @@ export default function Portfolio() {
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="lg:hidden glass-nav border-t border-[var(--border-color)] px-6 py-5 space-y-4 text-sm font-medium">
+          <div className="xl:hidden glass-nav border-t border-[var(--border-color)] px-6 py-5 space-y-4 text-sm font-medium">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -645,14 +706,6 @@ export default function Portfolio() {
               </div>
             </FadeIn>
           </div>
-
-          {/* Tools strip */}
-          <FadeIn direction="up" delay={0.2} className="mt-14">
-            <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-4">
-              <span className="text-sky-400">→</span> Tools I work in
-            </div>
-            <ToolsMarquee />
-          </FadeIn>
         </div>
       </section>
 
@@ -696,102 +749,218 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* 5. FEATURED WORK & IMPACT PROJECTS */}
+      {/* 5. PROVEN RESULTS: intro, at-a-glance index, case study spreads, builds, other outcomes */}
       <section id="impact" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-              <div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-center mb-12">
+              <div className="lg:col-span-7">
                 <SectionLabel n={3}>Proven Results</SectionLabel>
-                <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                  Featured Programs & Initiatives
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  Proven results,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    measured honestly.
+                  </span>
                 </h2>
               </div>
-
-              {/* Category Filter Tabs */}
-              <div className="flex flex-wrap items-center gap-2 p-1 rounded-xl glass-card text-xs font-medium whitespace-nowrap self-start">
-                <button
-                  onClick={() => setActiveTab("all")}
-                  className={`px-3 py-1.5 rounded-lg transition-colors ${
-                    activeTab === "all" ? "bg-sky-500 text-white font-semibold" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  All Programs
-                </button>
-                <button
-                  onClick={() => setActiveTab("transformation")}
-                  className={`px-3 py-1.5 rounded-lg transition-colors ${
-                    activeTab === "transformation" ? "bg-sky-500 text-white font-semibold" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  Digital Systems
-                </button>
-                <button
-                  onClick={() => setActiveTab("operations")}
-                  className={`px-3 py-1.5 rounded-lg transition-colors ${
-                    activeTab === "operations" ? "bg-sky-500 text-white font-semibold" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  Operations & Scale
-                </button>
-                <button
-                  onClick={() => setActiveTab("ai")}
-                  className={`px-3 py-1.5 rounded-lg transition-colors ${
-                    activeTab === "ai" ? "bg-sky-500 text-white font-semibold" : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  AI & Automation
-                </button>
+              <div className="lg:col-span-5">
+                <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                  Four Air Force missions, one rule:{" "}
+                  <span className="font-semibold text-[var(--text-primary)]">count only what&apos;s real.</span>
+                </p>
+                {/* One headline result per case study: proof only, not a link (the spreads open the stories) */}
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  {headlineResults.map((r) => (
+                    <div key={r.id} className="glass-card rounded-xl px-4 py-3">
+                      <span className="block text-2xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">
+                        {r.value}
+                      </span>
+                      <span className="block text-xs text-[var(--text-secondary)]">{r.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-3 text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)]">
+                  + builds I made myself · honest notes in every story
+                </p>
               </div>
             </div>
           </FadeIn>
 
-          {/* Projects Grid */}
-          <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project) => (
-              <StaggerItem key={project.id}>
-                <Link
-                  href={`/projects/${project.id}`}
-                  className="glass-card rounded-2xl p-6 flex flex-col justify-between hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 group shadow-sm hover:shadow-lg h-full"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-sky-400 px-2 py-0.5 rounded bg-sky-500/10">
-                        {project.tag}
+          {/* Every project, at a glance: a table of contents that scrolls to each spread or card below */}
+          <FadeIn direction="up" delay={0.05}>
+            <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
+              <span className="text-sky-400">→</span> Every project, at a glance
+            </div>
+            <ol className="border-t border-dashed border-slate-400/30">
+              {projects.map((project, i) => (
+                <li key={project.id}>
+                  <a
+                    href={`#work-${project.id}`}
+                    className="group grid grid-cols-[2.5rem_1fr_auto] sm:grid-cols-[3rem_1fr_auto_auto] items-center gap-x-4 gap-y-2 py-4 border-b border-dashed border-slate-400/30 hover:bg-sky-500/5 transition-colors px-2 -mx-2 rounded-lg"
+                  >
+                    <span className="text-xl font-extrabold text-sky-400/80 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                    <span>
+                      <span className="block text-base font-semibold text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">
+                        {project.title}
                       </span>
-                      <span className="text-sm text-[var(--text-secondary)]">
-                        {project.timeframe}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-sky-400 transition-colors mb-2 leading-snug">
-                      {project.title}
-                    </h3>
-
-                    <div className="inline-block text-sm font-semibold text-emerald-400 mb-3">
-                      ★ {project.impact}
-                    </div>
-
-                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
-                      {project.summary}
-                    </p>
-
-                    <ul className="space-y-2 border-t border-[var(--border-color)] pt-3 text-sm text-[var(--text-secondary)]">
-                      {project.cardHighlights.map((item) => (
-                        <li key={item} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                          <span>{item}</span>
-                        </li>
+                      <span className="block text-sm text-[var(--text-secondary)]">{project.result}</span>
+                    </span>
+                    <span className="hidden sm:flex flex-wrap justify-end gap-1.5">
+                      {project.tags.map((t, ti) => (
+                        <span key={t} className={`px-2.5 py-0.5 rounded-full border text-[11px] font-mono ${tagTone[ti % tagTone.length]}`}>
+                          {t}
+                        </span>
                       ))}
-                    </ul>
+                    </span>
+                    <ArrowDown className="w-4 h-4 text-[var(--text-secondary)] group-hover:text-sky-400 group-hover:translate-y-0.5 transition-all" />
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </FadeIn>
+
+          {/* Case study spreads, alternating sides */}
+          <div className="mt-16 space-y-20">
+            {projects.filter((p) => p.group === "case").map((project, i) => (
+              <FadeIn key={project.id} direction="up">
+                <article id={`work-${project.id}`} className="scroll-mt-24">
+                  <div className="flex items-end gap-4 pb-3 mb-8 border-b border-dashed border-slate-400/30">
+                    <span className="text-5xl sm:text-6xl font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-teal-300">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] pb-1">Case study</span>
                   </div>
 
-                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-sky-400">
-                    View details <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    {/* Diagram card */}
+                    <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                      <div className="relative glass-card rounded-2xl p-8 sm:p-10 shadow-xl">
+                        <span className="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-sky-500 text-white text-xs font-mono font-semibold shadow-lg">
+                          {project.sticker}
+                        </span>
+                        <CaseVisual visual={project.visual} />
+                      </div>
+                    </div>
+
+                    {/* Story */}
+                    <div className={`lg:col-span-7 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {project.tags.map((t, ti) => (
+                          <span key={t} className={`px-2.5 py-0.5 rounded-full border text-[11px] font-mono ${tagTone[ti % tagTone.length]}`}>
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                        <GradientHeadline parts={project.headline} />
+                      </h3>
+                      <p className="mt-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">{project.summary}</p>
+
+                      <dl className="mt-6 pt-6 border-t border-dashed border-slate-400/30 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                        {[
+                          ["What changed", project.whatChanged],
+                          ["In numbers", project.inNumbers],
+                          ["How", project.how],
+                          ["Role & team", project.roleTeam]
+                        ].map(([label, text]) => (
+                          <div key={label}>
+                            <dt className="text-[11px] font-mono uppercase tracking-widest text-sky-400 mb-1">{label}</dt>
+                            <dd className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                              <RichText text={text} />
+                            </dd>
+                          </div>
+                        ))}
+                      </dl>
+
+                      <Link
+                        href={`/projects/${project.id}`}
+                        className="mt-7 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-400/50 text-sm font-semibold text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+                      >
+                        Read the case study <ArrowUpRight className="w-4 h-4 text-sky-400" />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Builds & automation */}
+          <FadeIn direction="up">
+            <div className="mt-24 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-3 border-b border-dashed border-slate-400/30">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
+                Builds &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">automation</span>
+              </h3>
+              <p className="text-sm text-[var(--text-secondary)]">Things I built myself, to stay hands-on with modern tools.</p>
+            </div>
+          </FadeIn>
+          <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {projects.filter((p) => p.group === "build").map((project) => (
+              <StaggerItem key={project.id}>
+                <Link
+                  id={`work-${project.id}`}
+                  href={`/projects/${project.id}`}
+                  className="scroll-mt-24 group glass-card rounded-2xl p-6 h-full flex flex-col gap-3 hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg"
+                >
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((t, ti) => (
+                      <span key={t} className={`px-2.5 py-0.5 rounded-full border text-[11px] font-mono ${tagTone[ti % tagTone.length]}`}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <h4 className="text-lg font-bold leading-snug text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">
+                    {project.title}
+                  </h4>
+                  <p className="text-sm font-semibold text-emerald-400">{project.result}</p>
+                  <ul className="space-y-1.5 text-sm text-[var(--text-secondary)] flex-1">
+                    {project.points.map((point) => (
+                      <li key={point} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {project.tools.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-dashed border-slate-400/30">
+                      {project.tools.map((tool) => (
+                        <span key={tool} className="px-2.5 py-0.5 rounded-full border border-slate-400/40 text-xs text-[var(--text-primary)]">
+                          {tool}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-sky-400">
+                    View project <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </span>
                 </Link>
               </StaggerItem>
             ))}
+          </StaggerContainer>
+
+          {/* Other outcomes */}
+          <FadeIn direction="up">
+            <div className="mt-24 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-3 border-b border-dashed border-slate-400/30">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
+                Other outcomes{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">I own the number on</span>
+              </h3>
+              <p className="text-sm text-[var(--text-secondary)]">From roles without a full case study.</p>
+            </div>
+          </FadeIn>
+          <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {otherOutcomes.map((o, i) => {
+              const c = accent[["sky", "teal", "indigo", "amber"][i % 4]];
+              return (
+                <StaggerItem key={o.value}>
+                  <div className={`rounded-2xl p-6 h-full border ${c.border} ${c.bg}`}>
+                    <div className={`text-4xl font-extrabold tracking-tight ${c.text}`}>{o.value}</div>
+                    <p className="mt-2 text-sm text-[var(--text-primary)] leading-snug">{o.label}</p>
+                    <p className="mt-3 text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)]">{o.source}</p>
+                  </div>
+                </StaggerItem>
+              );
+            })}
           </StaggerContainer>
         </div>
       </section>
@@ -856,101 +1025,85 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* 7. SKILLS & MODERN TOOLING BENTO GRID */}
+      {/* 7. CAPABILITIES: tools strip + competencies grouped by stage of the work */}
       <section id="skills" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
-            <div className="max-w-3xl mb-12">
-              <SectionLabel n={5}>Capabilities</SectionLabel>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                Core Competencies & Tooling
-              </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-10">
+              <div className="lg:col-span-7">
+                <SectionLabel n={5}>Capabilities</SectionLabel>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  Core competencies,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    and the toolkit behind them.
+                  </span>
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                Planning, delivery, governance and change, plus the tools that keep every moving part visible.
+              </p>
             </div>
           </FadeIn>
 
-          <StaggerContainer staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Tile 1: Program Leadership */}
-            <StaggerItem>
-              <div className="glass-card rounded-2xl p-6 space-y-4 hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg h-full group">
-                <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
-                  <Briefcase className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">Program & Strategic Leadership</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                  Translating high-level business goals into predictable milestones and resilient risk architecture.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {[
-                    "Program Management",
-                    "Digital Transformation",
-                    "Risk Governance",
-                    "Cross-functional Leadership",
-                    "Vendor Negotiation",
-                    "Systems Migration"
-                  ].map((skill) => (
-                    <span key={skill} className="px-3 py-1.5 text-sm rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-sky-400/40 hover:bg-sky-500/10 transition-colors cursor-default">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </StaggerItem>
+          {/* Tools strip */}
+          <FadeIn direction="up" delay={0.1}>
+            <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
+              <span className="text-sky-400">→</span> Tools I work in
+            </div>
+            <ToolsMarquee />
+          </FadeIn>
 
-            {/* Tile 2: Methodologies & Frameworks */}
-            <StaggerItem>
-              <div className="glass-card rounded-2xl p-6 space-y-4 hover:border-teal-400/40 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg h-full group">
-                <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-400/30 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform">
-                  <Layers className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-teal-400 transition-colors">Methodologies & Governance</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                  Structured frameworks ensuring quality control, speed, and continuous process optimization.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {[
-                    "Agile & Scrum",
-                    "Waterfall",
-                    "Lean Six Sigma",
-                    "Value Stream Mapping",
-                    "Earned Value Management (EVM)",
-                    "Root Cause Analysis",
-                    "Change Management"
-                  ].map((skill) => (
-                    <span key={skill} className="px-3 py-1.5 text-sm rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-teal-400/40 hover:bg-teal-500/10 transition-colors cursor-default">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </StaggerItem>
-
-            {/* Tile 3: Modern Platforms & AI */}
-            <StaggerItem>
-              <div className="glass-card rounded-2xl p-6 space-y-4 hover:border-amber-400/40 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg h-full group">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
-                  <Cpu className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-[var(--text-primary)] group-hover:text-amber-400 transition-colors">Modern Platforms & AI Tools</h3>
-                <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                  Leveraging the latest tooling and automated workflows to accelerate execution and transparency.
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {[
-                    "AI Workflow Tools",
-                    "Jira",
-                    "Notion",
-                    "ClickUp",
-                    "Asana",
-                    "Miro"
-                  ].map((skill) => (
-                    <span key={skill} className="px-3 py-1.5 text-sm rounded-lg glass-card text-[var(--text-primary)] font-medium hover:border-amber-400/40 hover:bg-amber-500/10 transition-colors cursor-default">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
+          {/* Competency rows */}
+          <div className="mt-10">
+            {capabilityRows.map((row) => {
+              const c = accent[row.color];
+              const proof = projects.find((p) => p.id === row.proofId);
+              return (
+                <FadeIn key={row.title} direction="up">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-7 border-t border-dashed border-slate-400/30">
+                    <div className="md:col-span-4">
+                      <h3 className={`text-xl font-bold flex items-center gap-2 ${c.text}`}>
+                        <row.Icon className="w-5 h-5" /> {row.title}
+                      </h3>
+                      <p className="text-sm text-[var(--text-secondary)] mt-1">{row.meaning}</p>
+                      {proof && (
+                        <Link
+                          href={`/projects/${proof.id}`}
+                          className="group/proof mt-3 inline-flex items-start gap-1.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                        >
+                          <span className={`font-semibold ${c.text}`}>Proof:</span>
+                          <span className="nav-link">
+                            {proof.title} <span className={c.text}>({proof.impact})</span>
+                          </span>
+                          <ArrowUpRight className={`w-4 h-4 shrink-0 mt-0.5 ${c.text} group-hover/proof:translate-x-0.5 group-hover/proof:-translate-y-0.5 transition-transform`} />
+                        </Link>
+                      )}
+                    </div>
+                    <div className="md:col-span-8 space-y-4">
+                      {row.groups.map((group) => (
+                        <div key={group.label}>
+                          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
+                            {group.label}
+                            <span className="flex-1 border-t border-dashed border-slate-400/30" aria-hidden="true"></span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {group.skills.map((skill) => (
+                              <span
+                                key={skill}
+                                className="tool-pill px-4 py-1.5 rounded-full border border-slate-400/40 bg-[var(--bg-card)] text-sm font-medium text-[var(--text-primary)]"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
         </div>
       </section>
 

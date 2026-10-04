@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Clock, Mail, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, CheckCircle2, Clock, Mail, Target, Users, Wrench } from "lucide-react";
 import { FadeIn } from "../../components/motion-wrapper";
+import { HonestNote } from "../../components/case-study";
+import { CaseStudyV2 } from "../../components/case-study-v2";
+import { RichText } from "../../components/work-visuals";
 import { projects, getProject } from "../../data/projects";
 
 export function generateStaticParams() {
@@ -15,7 +18,7 @@ export async function generateMetadata({ params }) {
   if (!project) return {};
   return {
     title: `${project.title} | Kalpana Talan`,
-    description: project.description
+    description: project.caseStudy ? project.caseStudy.subtitle : project.description
   };
 }
 
@@ -30,13 +33,15 @@ export default async function ProjectPage({ params }) {
 
   const facts = [
     { label: "Impact", value: project.impact, Icon: Target, color: "text-emerald-400" },
-    { label: "Timeframe / Scale", value: project.timeframe, Icon: Clock, color: "text-sky-400" },
-    project.role && {
+    { label: "Timeframe", value: project.timeframe, Icon: Clock, color: "text-sky-400" },
+    project.roleTeam && { label: "Role & team", value: <RichText text={project.roleTeam} />, Icon: Users, color: "text-teal-400" },
+    project.role && !project.roleTeam && {
       label: "Role",
       value: `${project.role.title} (${project.role.period})`,
       Icon: Briefcase,
       color: "text-amber-400"
-    }
+    },
+    project.tools?.length > 0 && { label: "Built with", value: project.tools.join(" · "), Icon: Wrench, color: "text-indigo-400" }
   ].filter(Boolean);
 
   return (
@@ -50,7 +55,7 @@ export default async function ProjectPage({ params }) {
             href="/#impact"
             className="nav-link inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" /> All programs
+            <ArrowLeft className="w-4 h-4" /> All work
           </Link>
           <Link href="/" className="flex items-center gap-2 text-sm font-semibold">
             Kalpana Talan
@@ -61,6 +66,12 @@ export default async function ProjectPage({ params }) {
       </nav>
 
       <main className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20">
+        {project.caseStudy ? (
+          <div data-illus="dark">
+            <CaseStudyV2 study={project.caseStudy} next={next} />
+          </div>
+        ) : (
+        <>
         <FadeIn direction="up">
           <span className="text-xs font-semibold uppercase tracking-wide text-sky-400 px-2 py-0.5 rounded bg-sky-500/10">
             {project.tag}
@@ -74,7 +85,7 @@ export default async function ProjectPage({ params }) {
         </FadeIn>
 
         <FadeIn direction="up" delay={0.1}>
-          <div className={`mt-10 grid grid-cols-1 gap-4 ${facts.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+          <div className={`mt-10 grid grid-cols-1 gap-4 ${facts.length >= 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
             {facts.map(({ label, value, Icon, color }) => (
               <div key={label} className="glass-card rounded-2xl p-5">
                 <div className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-wide mb-2 ${color}`}>
@@ -111,11 +122,26 @@ export default async function ProjectPage({ params }) {
           </FadeIn>
         )}
 
+        {project.honestNote && (
+          <FadeIn direction="up" delay={0.2}>
+            <div className="mt-12">
+              <HonestNote text={project.honestNote} />
+            </div>
+          </FadeIn>
+        )}
+        </>
+        )}
+
         <FadeIn direction="up" delay={0.2}>
           <div className="mt-14 glass-card rounded-2xl p-6 sm:p-8 border-l-4 border-l-sky-500 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold">Running a program like this?</h2>
-              <p className="text-sm text-[var(--text-secondary)] mt-1">Let&apos;s talk about how I can help your team deliver.</p>
+              <h2 className="text-lg font-bold">
+                Bring the complexity.{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">I&apos;ll bring the plan.</span>
+              </h2>
+              <p className="text-sm text-[var(--text-secondary)] mt-1">
+                A program, a project, or a team that needs to move as one: let&apos;s talk about what you need delivered.
+              </p>
             </div>
             <Link
               href="/#contact"
@@ -126,6 +152,8 @@ export default async function ProjectPage({ params }) {
           </div>
         </FadeIn>
 
+        {/* Case study pages end with their own "Next project" card */}
+        {!project.caseStudy && (
         <div className="mt-10 pt-6 border-t border-[var(--border-color)] grid grid-cols-2 gap-4 text-sm">
           <Link href={`/projects/${prev.id}`} className="group text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
             <span className="flex items-center gap-1 text-xs uppercase tracking-wide text-sky-400 mb-1">
@@ -140,6 +168,7 @@ export default async function ProjectPage({ params }) {
             <span className="font-semibold">{next.title}</span>
           </Link>
         </div>
+        )}
       </main>
     </div>
   );

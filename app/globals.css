@@ -205,6 +205,66 @@
   }
 }
 
+/* Original case study illustrations (app/data/case-embeds). They use inline styles, so the
+   dark-glass mode recolours them by matching those inline values. It only applies while the
+   site is in dark mode; in light mode the illustrations keep their original light colours.
+   The mode is set by data-illus on an ancestor ("light" = original colours on a cream panel). */
+.cs-embed,
+.cs-embed * {
+  font-family: inherit !important;
+}
+
+.cs-embed svg {
+  max-width: 100%;
+}
+
+/* Match the site's section heading size rather than the original page's larger headings */
+.cs-embed h2 {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem) !important;
+  line-height: 1.3 !important;
+}
+
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="background: #FFFFFF"],
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="background: #FAF9F6"],
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="background: #F1F0EA"] {
+  background: var(--bg-card) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="background: #E4ECFF"] {
+  background: rgba(56, 189, 248, 0.1) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="border: 1px solid #AFC4FF"] {
+  border-color: rgba(56, 189, 248, 0.4) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="background: #F1E8D0"] {
+  background: rgba(245, 158, 11, 0.1) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="border: 1px solid #D8C9A3"] {
+  border-color: rgba(245, 158, 11, 0.4) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #7A4E0F"] {
+  color: #fbbf24 !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="border: 1px solid #D9D5CB"] {
+  border-color: rgba(148, 163, 184, 0.3) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #0F1B2D"],
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #344054"] {
+  color: var(--text-primary) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #475467"] {
+  color: var(--text-secondary) !important;
+}
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #1B4DDB"] {
+  color: var(--accent) !important;
+}
+
+[data-illus="light"] .cs-embed {
+  background: #faf9f6;
+  color: #0f1b2d;
+  border-radius: 1.25rem;
+  padding: 2rem 1.5rem;
+}
+
 /* Background Atmosphere Grid & Glow */
 .bg-grid-pattern {
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
