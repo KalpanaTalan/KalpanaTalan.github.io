@@ -265,6 +265,24 @@
   padding: 2rem 1.5rem;
 }
 
+/* Light mode contrast: the accent text colours (sky/teal/indigo/emerald/amber/purple at the
+   300–400 shades) are tuned for the dark background and wash out on the light one, so in
+   light mode they map to deeper shades of the same hue. Dark mode is untouched. */
+.light .text-sky-300, .light .text-sky-400, .light .text-sky-400\/80,
+.light .hover\:text-sky-400:hover, .light .group:hover .group-hover\:text-sky-400 { color: #0369a1; }
+.light .text-teal-300, .light .text-teal-400,
+.light .hover\:text-teal-400:hover { color: #0f766e; }
+.light .text-indigo-300, .light .text-indigo-400 { color: #4338ca; }
+.light .text-emerald-300, .light .text-emerald-400 { color: #047857; }
+.light .text-amber-200, .light .text-amber-300, .light .text-amber-400 { color: #b45309; }
+.light .text-purple-400 { color: #7e22ce; }
+
+/* Gradient text (headings, numbers): use deeper stops in light mode too */
+.light .from-sky-400 { --tw-gradient-from: #0284c7; }
+.light .via-teal-300 { --tw-gradient-via: #0d9488; }
+.light .to-sky-500 { --tw-gradient-to: #0369a1; }
+.light .to-teal-300 { --tw-gradient-to: #0d9488; }
+
 /* Background Atmosphere Grid & Glow */
 .bg-grid-pattern {
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);

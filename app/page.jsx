@@ -812,7 +812,7 @@ export default function Portfolio() {
                         </span>
                       ))}
                     </span>
-                    <ArrowDown className="w-4 h-4 text-[var(--text-secondary)] group-hover:text-sky-400 group-hover:translate-y-0.5 transition-all" />
+                    <ArrowDown className="w-4 h-4 text-sky-400 group-hover:translate-y-0.5 transition-transform" />
                   </a>
                 </li>
               ))}
