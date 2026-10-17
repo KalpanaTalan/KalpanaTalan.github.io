@@ -576,7 +576,7 @@ export const projects = [
     group: "build",
     title: "PMO AutoPilot: the Monday briefing that runs itself",
     shortTitle: "PMO AutoPilot",
-    tags: ["Self-internship", "PMO automation", "Notion + Zapier"],
+    tags: ["Self-internship", "Automation", "Operations & coordination", "Notion + Zapier"],
     tag: "PMO Automation",
     result: "This week's milestones in your inbox, 8:00 AM every Monday",
     impact: "Live every Monday",

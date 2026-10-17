@@ -1041,11 +1041,18 @@ export default function Portfolio() {
 
           {/* Builds & automation */}
           <FadeIn direction="up">
-            <div className="mt-24 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-3 border-b border-dashed border-slate-400/30">
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
+            {/* Section opener for the work samples: heading, one strong line, and a small label */}
+            <div className="mt-28 mb-12 pb-6 border-b border-dashed border-slate-400/30">
+              <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-3">
+                <span className="text-sky-400">→</span> Sample data · real quality
+              </div>
+              <h3 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.05] text-[var(--text-primary)]">
                 Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">samples</span>
               </h3>
-              <p className="text-sm text-[var(--text-secondary)]">Real artifacts, built to the standard I&apos;d bring to your team. Sample data, real quality.</p>
+              <p className="mt-3 max-w-2xl text-lg sm:text-xl font-semibold leading-snug text-balance text-[var(--text-primary)]">
+                Real artifacts, built to{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">the standard I&apos;d bring to your team.</span>
+              </p>
             </div>
           </FadeIn>
           {/* Work sample spreads: same layout as the case studies, numbered on from them */}
