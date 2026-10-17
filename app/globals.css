@@ -179,6 +179,16 @@
   padding-right: 0.75rem;
 }
 
+/* Live case study card: status dot */
+@keyframes status-ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.status-ping { animation: status-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .status-ping { animation: none; }
+}
+
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);

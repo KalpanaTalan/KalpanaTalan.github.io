@@ -9,6 +9,7 @@ import { projects, otherOutcomes } from "./data/projects";
 import { ToolsMarquee } from "./components/tools-marquee";
 import { RichText, GradientHeadline } from "./components/work-visuals";
 import { IllustratedFlow } from "./components/illustrated-flow";
+import { HangingCard } from "./components/hanging-card";
 import {
   Shield,
   Award,
@@ -41,7 +42,8 @@ import {
   Quote,
   Briefcase,
   Cloud,
-  KanbanSquare
+  KanbanSquare,
+  CalendarDays
 } from "lucide-react";
 
 function LinkedinIcon({ className = "w-4 h-4" }) {
@@ -60,6 +62,7 @@ const isDev = process.env.NODE_ENV === "development";
 const RESUME_URL = "";
 
 const CONTACT_EMAIL = "kalpanatalan.veteran@gmail.com";
+const CALENDLY_URL = "https://calendly.com/kalpanatalan-veteran/30min";
 
 const navItems = [
   { href: "#about", label: "About", mobileLabel: "About Me" },
@@ -102,9 +105,9 @@ const capabilityRows = [
     color: "sky",
     proofId: "squadron-merger",
     groups: [
-      { label: "Scope", skills: ["Program & Project Management", "Strategic Planning & Execution", "Project Lifecycle Management"] },
-      { label: "Scheduling", skills: ["Milestones & Gantt Charts", "Earned Value Management (EVM)"] },
-      { label: "Resources", skills: ["Resource Management", "Budget Management"] }
+      { label: "Scope & strategy", skills: ["Program & Project Management", "Strategic Planning & Execution", "Scope Management", "Project Lifecycle Management"] },
+      { label: "Scheduling", skills: ["Scheduling & Milestone Tracking", "Dependency Management", "Earned Value Management (EVM)"] },
+      { label: "Resources & budget", skills: ["Resource Planning & Allocation", "Budget Management & Cost Control"] }
     ]
   },
   {
@@ -114,9 +117,9 @@ const capabilityRows = [
     color: "teal",
     proofId: "relocation",
     groups: [
-      { label: "With teams", skills: ["Cross-Functional Leadership", "Agile & Scrum", "Waterfall"] },
-      { label: "With vendors", skills: ["Procurement & Contract Management", "Vendor Negotiation", "SLA Tracking"] },
-      { label: "With systems", skills: ["Digital Transformation", "Systems & Data Migration", "AI Workflow Automation"] }
+      { label: "With teams", skills: ["Cross-Functional Team Leadership", "Agile & Scrum", "Waterfall & Hybrid Delivery"] },
+      { label: "With vendors", skills: ["Vendor Management & Negotiation", "Procurement & Contract Management", "SLA Management"] },
+      { label: "With systems", skills: ["Digital Transformation", "System Implementation & Data Migration", "AI & Workflow Automation"] }
     ]
   },
   {
@@ -126,9 +129,9 @@ const capabilityRows = [
     color: "indigo",
     proofId: "paperless",
     groups: [
-      { label: "Risk", skills: ["Risk Management", "Risk Governance", "Crisis Management"] },
+      { label: "Risk & governance", skills: ["Risk & Issue Management", "RAID Log Management", "Program Governance", "Crisis Management"] },
       { label: "Quality", skills: ["Process Improvement", "Lean Six Sigma", "Value Stream Mapping", "Root Cause Analysis"] },
-      { label: "Readiness & reporting", skills: ["Operational Readiness", "Data Analytics & Reporting"] }
+      { label: "Compliance & reporting", skills: ["Audit & Compliance", "KPI Tracking & Reporting", "Data Analytics", "Operational Readiness"] }
     ]
   },
   {
@@ -138,7 +141,8 @@ const capabilityRows = [
     color: "amber",
     proofId: "spouse-upskilling",
     groups: [
-      { label: "People", skills: ["Change Management", "Stakeholder Alignment", "Training & Onboarding"] }
+      { label: "People", skills: ["Change Management", "Stakeholder Management & Alignment", "User Adoption"] },
+      { label: "Communication & coaching", skills: ["Executive Communication & Reporting", "Training & Onboarding", "Team Mentoring & Coaching"] }
     ]
   }
 ];
@@ -261,7 +265,7 @@ const roles = [
     line: "Ran welfare finances with zero errors and gave women entrepreneurs places to sell.",
     projectId: "spouse-upskilling",
     achievements: [
-      "100+ spouses NSDC-certified in four trades",
+      "100+ spouses given skill-certified training in four trades",
       "20+ women entrepreneurs selling through 10+ shops, stalls and exhibitions",
       "Partnerships grown from 8 to 10+, and events reaching 100+ attendees",
       "Finances for 500+ members managed with zero fund errors",
@@ -647,6 +651,14 @@ export default function Portfolio() {
               >
                 <LinkedinIcon className="w-4 h-4" />
               </a>
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="px-5 py-3 text-sm font-semibold glass-card hover:bg-white/5 text-[var(--text-primary)] rounded-xl btn-lift active:scale-95 flex items-center gap-2"
+              >
+                <CalendarDays className="w-4 h-4 text-sky-400" /> Book a call
+              </a>
             </div>
 
             {/* Quick Credentials Strip */}
@@ -791,7 +803,7 @@ export default function Portfolio() {
               </div>
               <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
                 10 years of Indian Air Force leadership, now applied to digital transformation and complex,
-                multi-vendor delivery.
+                cross-functional delivery.
               </p>
             </div>
           </FadeIn>
@@ -850,7 +862,7 @@ export default function Portfolio() {
             <div className="max-w-3xl mb-12">
               <SectionLabel n={2}>What I Bring</SectionLabel>
               <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                Built for High-Stakes, Multi-Vendor Programs
+                Built for High-Stakes, Cross-Functional Programs
               </h2>
               <p className="text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
                 <span className="block text-lg sm:text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500 mb-1">
@@ -935,7 +947,7 @@ export default function Portfolio() {
                     <span className="text-xl font-extrabold text-sky-400/80 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                     <span>
                       <span className="block text-base font-semibold text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">
-                        {project.title}
+                        {project.shortTitle ?? project.title}
                       </span>
                       <span className="block text-sm text-[var(--text-secondary)]">{project.result}</span>
                     </span>
@@ -962,26 +974,37 @@ export default function Portfolio() {
                     <span className="text-5xl sm:text-6xl font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-teal-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] pb-1">Case study</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] pb-1">
+                      Case study
+                      {/* Tags as a quiet line here, so they don't repeat the coloured pills in the list above */}
+                      <span className="hidden sm:inline normal-case tracking-normal">
+                        {project.tags.map((t) => (
+                          <span key={t}>
+                            <span className="mx-2 text-sky-400/60">·</span>
+                            {t}
+                          </span>
+                        ))}
+                      </span>
+                    </span>
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                     {/* Diagram card */}
                     <div className={`lg:col-span-5 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                      <div className="relative glass-card rounded-2xl shadow-xl p-5 sm:p-6">
-                        <IllustratedFlow visual={project.visual} sticker={project.sticker} />
-                      </div>
+                      {project.pinned ? (
+                        <HangingCard status={project.pinned.status} caption={project.pinned.caption}>
+                          <IllustratedFlow visual={project.visual} live />
+                        </HangingCard>
+                      ) : (
+                        <div className="relative glass-card rounded-2xl shadow-xl p-5 sm:p-6">
+                          <IllustratedFlow visual={project.visual} sticker={project.sticker} />
+                        </div>
+                      )}
                     </div>
 
                     {/* Story */}
                     <div className={`lg:col-span-7 ${i % 2 === 1 ? "lg:order-1" : ""}`}>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {project.tags.map((t, ti) => (
-                          <span key={t} className={`px-2.5 py-0.5 rounded-full border text-[11px] font-mono ${tagTone[ti % tagTone.length]}`}>
-                            {t}
-                          </span>
-                        ))}
-                      </div>
+                      <div className="sm:hidden mb-3 text-xs font-mono text-[var(--text-secondary)]">{project.tags.join(" · ")}</div>
                       <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
                         <GradientHeadline parts={project.headline} />
                       </h3>
@@ -1020,9 +1043,9 @@ export default function Portfolio() {
           <FadeIn direction="up">
             <div className="mt-24 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-3 border-b border-dashed border-slate-400/30">
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
-                Builds &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">automation</span>
+                Work <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-teal-300">samples</span>
               </h3>
-              <p className="text-sm text-[var(--text-secondary)]">Things I built myself, to stay hands-on with modern tools.</p>
+              <p className="text-sm text-[var(--text-secondary)]">Real artifacts, built to the standard I&apos;d bring to your team. Sample data, real quality.</p>
             </div>
           </FadeIn>
           <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -1033,12 +1056,9 @@ export default function Portfolio() {
                   href={`/projects/${project.id}`}
                   className="scroll-mt-24 group glass-card rounded-2xl p-6 h-full flex flex-col gap-3 hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg"
                 >
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((t, ti) => (
-                      <span key={t} className={`px-2.5 py-0.5 rounded-full border text-[11px] font-mono ${tagTone[ti % tagTone.length]}`}>
-                        {t}
-                      </span>
-                    ))}
+                  {/* Quiet tag line; a tag that names a tool is left out, as the tools row below shows it */}
+                  <div className="text-xs font-mono text-[var(--text-secondary)]">
+                    {project.tags.filter((t) => !project.tools.some((tool) => t.includes(tool.split(" ")[0]))).join(" · ")}
                   </div>
                   <h4 className="text-lg font-bold leading-snug text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">
                     {project.title}
@@ -1738,6 +1758,14 @@ export default function Portfolio() {
                   </>
                 )}
               </button>
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-4 rounded-full border border-slate-400/50 text-sm font-semibold text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+              >
+                <CalendarDays className="w-4 h-4 text-sky-400" /> Book a call
+              </a>
             </div>
           </FadeIn>
 

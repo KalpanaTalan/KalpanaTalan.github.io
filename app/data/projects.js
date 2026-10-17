@@ -13,7 +13,8 @@ export const projects = [
     id: "paperless",
     group: "case",
     title: "Paper to paperless maintenance",
-    tags: ["Indian Air Force", "Digital adoption"],
+    shortTitle: "Paperless Maintenance",
+    tags: ["Indian Air Force", "Digital adoption", "Change management"],
     tag: "Digital Transformation",
     result: "Audit checks cut from 5 days to 1, across 100+ assets",
     impact: "5 days → 1 day audits",
@@ -26,6 +27,8 @@ export const projects = [
     how: "Started small, grew asset by asset, ran **batch training**, then fixed a date to switch for good.",
     roleTeam: "Program Manager and **platform administrator** · team of 30 · partner Wipro",
     sticker: "100+ assets",
+    // Trial: "live" home card (status chip, pulse along the arrows, glowing result, caption strip).
+    pinned: { status: "100+ assets onboarded", caption: "Software was easy. Adoption was the mission." },
     visual: {
       type: "illustrated",
       set: "paperless",
@@ -139,7 +142,8 @@ export const projects = [
     id: "relocation",
     group: "case",
     title: "48-hour system relocations",
-    tags: ["Indian Air Force", "Vendor & risk management"],
+    shortTitle: "48-Hour Relocations",
+    tags: ["Indian Air Force", "Vendor & risk management", "Logistics"],
     tag: "Vendor & Risk Management",
     result: "Each relocation operational within 48 hours, with zero critical downtime",
     impact: "48 hours per deployment",
@@ -152,6 +156,7 @@ export const projects = [
     how: "Prepare, line up, check, clear, move: **six choices** that kept every deployment inside its window.",
     roleTeam: "Program Manager · **65-person team, plus 20+ external vendors**",
     sticker: "48h each",
+    pinned: { status: "95% readiness · audit cleared", caption: "No buffer. Every risk closed before the move." },
     visual: {
       type: "illustrated",
       set: "relocation",
@@ -279,7 +284,8 @@ export const projects = [
     id: "squadron-merger",
     group: "case",
     title: "Two squadrons merged in a month",
-    tags: ["Indian Air Force", "Systems migration"],
+    shortTitle: "Squadron Merger",
+    tags: ["Indian Air Force", "Systems migration", "Data integrity"],
     tag: "Systems & Data Migration",
     result: "₹50 crore in assets and 10,000 records merged in one month, with zero data loss",
     impact: "Zero data loss in 1 month",
@@ -292,6 +298,7 @@ export const projects = [
     how: "Plan everything, map first, move with care, then **verify in layers**.",
     roleTeam: "Senior Project Manager · **90 personnel**, led directly",
     sticker: "Zero data loss",
+    pinned: { status: "₹50 Cr assets · 10,000 records", caption: "No backup. Right the first time." },
     visual: {
       type: "illustrated",
       set: "squadron-merger",
@@ -418,19 +425,21 @@ export const projects = [
     id: "spouse-upskilling",
     group: "case",
     title: "Skills and income for 100+ spouses",
-    tags: ["Indian Air Force community", "Social impact"],
+    shortTitle: "Spouse Upskilling",
+    tags: ["Indian Air Force community", "Social impact", "Livelihoods"],
     tag: "Community Program",
-    result: "100+ spouses NSDC-certified in four trades, and linked to places to sell",
+    result: "100+ spouses given skill-certified training in four trades, and linked to places to sell",
     impact: "100+ spouses certified",
     timeframe: "6–12 months",
     headline: ["Skills, certificates and ", "an income of their own", "."],
     summary:
       "Many spouses of air warriors had no income of their own, no formal certification and nowhere to sell what they made. I led the welfare initiative that changed all three.",
-    whatChanged: "**100+ spouses** gained **NSDC-certified** skills and a place to sell their work.",
+    whatChanged: "**100+ spouses** gained **skill-certified training** and a place to sell their work.",
     inNumbers: "**Four trades**, from food and bakery to tailoring. **6–12 months** from plan to their own businesses.",
     how: "From a conversation to a certificate to a stall, with **approval at every level**, station to apex.",
     roleTeam: "Program Manager · **20** welfare members and volunteers",
     sticker: "100+ spouses",
+    pinned: { status: "100+ spouses certified · 4 trades", caption: "Certificates were the start. Income was the goal." },
     visual: {
       type: "illustrated",
       set: "spouse-upskilling",
@@ -441,9 +450,9 @@ export const projects = [
       ]
     },
     description:
-      "Many spouses of air warriors had no income of their own, no formal skill certification and nowhere to sell what they made. I was the Program Manager for the community's non-profit welfare initiatives, working with 20 welfare members and volunteers. Over 6–12 months, 100+ spouses received NSDC-certified training in four trades and were linked to welfare shops and stalls, so they could start earning on their own.",
+      "Many spouses of air warriors had no income of their own, no formal skill certification and nowhere to sell what they made. I was the Program Manager for the community's non-profit welfare initiatives, working with 20 welfare members and volunteers. Over 6–12 months, 100+ spouses received skill-certified training in four trades and were linked to welfare shops and stalls, so they could start earning on their own.",
     highlights: [
-      "100+ spouses given NSDC-certified training",
+      "100+ spouses given skill-certified training",
       "Four trades: food and bakery, beauty and wellness, tailoring and stitching, handicrafts",
       "Linked to welfare shops and stalls to sell their work",
       "Approval secured at every level, station to apex",
@@ -461,12 +470,12 @@ export const projects = [
         { label: "My role", value: "Program Manager, non-profit welfare initiatives" },
         { label: "Timeline", value: "6–12 months" },
         { label: "Team", value: "20 welfare members and volunteers" },
-        { label: "Certification", value: "NSDC" }
+        { label: "Trades", value: "4, chosen by the spouses' interests" }
       ],
       oneBreath:
-        "Many spouses of air warriors had no income, no certificate and nowhere to sell what they made. With 20 welfare members and volunteers, I led the initiative that gave **100+ spouses** NSDC-certified training in **four trades** and linked them to welfare shops and stalls, so they could start **earning on their own**.",
+        "Many spouses of air warriors had no income, no certificate and nowhere to sell what they made. With 20 welfare members and volunteers, I led the initiative that gave **100+ spouses** skill-certified training in **four trades** and linked them to welfare shops and stalls, so they could start **earning on their own**.",
       bigNumbers: [
-        { value: "100+", label: "spouses given NSDC-certified training" },
+        { value: "100+", label: "spouses given skill-certified training" },
         { value: "4", label: "trades, chosen by the spouses' interests" },
         { value: "6–12 mo", label: "from plan to their own businesses" },
         { value: "Every level", label: "of approval, station to apex" }
@@ -474,7 +483,6 @@ export const projects = [
       termsLabel: "New to this?",
       terms: [
         { term: "Sangini", def: "The spouses of air warriors, the women this program was built for." },
-        { term: "NSDC-certified", def: "Training that ends in a formal skill certification, under NSDC." },
         { term: "Station to apex", def: "Approval had to be won at every level, from the local station up to the top level." },
         { term: "Welfare shops and stalls", def: "Shops and stalls run by the welfare organisation, where graduates could sell what they made." }
       ],
@@ -548,138 +556,185 @@ export const projects = [
     }
   },
   {
-    id: "project-register",
+    id: "pmo-autopilot",
     group: "build",
-    title: "A project register with a page for every project",
-    tags: ["Self-internship", "PMO"],
-    tag: "PMO Build",
-    result: "One view of milestones, owners, dates and status",
-    impact: "One page per project",
-    timeframe: "Under a day",
+    title: "PMO AutoPilot: the Monday briefing that runs itself",
+    shortTitle: "PMO AutoPilot",
+    tags: ["Self-internship", "PMO automation", "Notion + Zapier"],
+    tag: "PMO Automation",
+    result: "This week's milestones in your inbox, 8:00 AM every Monday",
+    impact: "Live every Monday",
+    timeframe: "Live every Monday",
     summary:
-      "A Notion register with one row and one page per project, designed from the questions a PMO lead is actually asked.",
-    points: ["6 fields tracked for every project", "One page per project", "Built in Notion, in under a day"],
-    tools: ["Notion"],
+      "A Notion project register built around what a PMO lead is asked to own, and a live Zapier alert that emails the week's milestones every Monday at 8:00 AM.",
+    points: [
+      "Every field answers a question leadership asks",
+      "Live: Monday 8:00 AM, one line per milestone",
+      "No one in the middle, from register to inbox"
+    ],
+    tools: ["Notion", "Zapier", "Gmail"],
     description:
-      "I built this in Notion during a self-internship, working on my own, to show I could build what a PMO lead is actually asked to own: one view of what is due, who owns it and how it is going.",
+      "A self-internship work sample: a Notion project register for a PMO lead, and a live Zapier alert called Monday Radar that emails the milestones due that week, every Monday at 8:00 AM.",
     highlights: [
-      "Started from the questions a PMO lead is asked, then designed the fields",
-      "One register row, and one page, per project",
-      "Tracks milestones, owner, dates, status, priority, and risks and issues",
-      "Designed and built on my own in Notion, in under a day"
+      "Two linked Notion databases: Project Register and Milestones",
+      "Every field designed around a question leadership asks",
+      "Monday Radar: Zapier, Notion and Gmail, live every Monday at 8:00 AM",
+      "No one in the middle, from register to inbox"
     ],
     honestNote:
-      "This self-internship used sample data, and no real team used the result. I did not measure time saved, so the proof is the design thinking and a working structure, not performance numbers.",
+      "Built as a self-internship work sample with illustrative data, because my earlier work was confidential. The alert is live, but with sample data there are no measured results, such as time saved, yet.",
     caseStudy: {
-      embeds: "project-register",
       kicker: "Project · Self-internship",
-      title: "A project register with a page for every project",
-      subtitle: "One clear view of milestones, owners, dates and status.",
+      title: "What's due this week, before anyone asks.",
+      subtitle: "Everything a PMO lead is asked to own, in one register, and a Monday briefing that runs without you.",
       strip: [
-        { label: "My role", value: "Designed and built it myself, a team of one" },
-        { label: "Build time", value: "Under a day" },
-        { label: "Data", value: "Sample data, 1–3 sample projects" },
-        { label: "Built in", value: "Notion" }
+        { label: "What it is", value: "Project register + live Monday alert" },
+        { label: "Built with", value: "Notion · Zapier · Gmail" },
+        { label: "Status", value: "Live · runs every Monday, 8:00 AM" },
+        { label: "Source material", value: "Illustrative data (earlier work confidential)" }
       ],
       oneBreathLabel: "What it is",
       oneBreath:
-        "A **Notion project register** with **one page per project**, built to show I could build what a PMO lead is actually asked to own: one view of **what is due, who owns it and how it is going**.",
+        "**PMO AutoPilot** is a Notion register built around what a PMO lead is actually asked to own: every project's health, owner, dates, budget, next milestone and risk. **Monday Radar** reads it and emails the week's milestones **every Monday at 8:00 AM**. A working system, not a claim: **the register is live, and the briefing arrives on its own.**",
       bigNumbers: [
-        { value: "< 1 day", label: "build time" },
-        { value: "6", label: "fields tracked for every project" },
-        { value: "1", label: "page per project" },
-        { value: "1–3", label: "sample projects" }
-      ],
-      // Best of both: short cards where the original section is mostly text, the original
-      // illustrated sections (embeds) everywhere else.
-      blocks: [
-        { type: "part", title: "The problem and why it mattered" },
-        {
-          type: "lead",
-          text: "A PMO lead is asked to know **what is due, who owns it and how it is going**, across every project. When that information is scattered and updated by hand, the picture goes out of date before every status meeting.",
-          chips: ["No single view of milestones and owners", "Information scattered across places", "Manual, late status updates", "Long prep for status meetings"]
-        },
-        { type: "part", title: "What I did: the decisions" },
-        { type: "embed", key: "decisions" },
-        { type: "part", title: "What shipped" },
-        { type: "embed", key: "changed" },
-        {
-          type: "honest",
-          text: "This self-internship used sample data, and no real team used the result. I did not measure time saved, so the proof is the design thinking and a working structure, not performance numbers."
-        },
-        { type: "part", title: "What I would do differently" },
-        { type: "embed", key: "differently" }
-      ]
-    }
-  },
-  {
-    id: "weekly-digest",
-    group: "build",
-    title: "A weekly task digest that arrives every Monday",
-    tags: ["Work sample", "Automation"],
-    tag: "Automation",
-    result: "This week's tasks, emailed every Monday at 8:00 AM",
-    impact: "Every Monday, 8:00 AM",
-    timeframe: "1–3 days",
-    summary:
-      "An automation that emails the project manager the week's tasks straight from a Google Sheet, with no one compiling the list or chasing.",
-    points: ["Runs every Monday at 8:00 AM", "Built in 1–3 days", "Companion to the project register"],
-    tools: ["Zapier", "Google Sheets", "Gmail"],
-    description:
-      "A work sample for interviews, built on my own with sample tasks. Every Monday at 8:00 AM, the project manager gets an email listing the tasks due this week, straight from a Google Sheet.",
-    highlights: [
-      "Three tools, one email every Monday",
-      "No one compiles the list, and no one has to chase",
-      "Designed, built and tested by me",
-      "Built as a companion to the project register"
-    ],
-    honestNote:
-      "This is a work sample with sample tasks. I have no time-saved figure and no feedback yet, so what I have is a working, tested automation, not measured impact.",
-    caseStudy: {
-      embeds: "weekly-digest",
-      kicker: "Mini-project · Work sample",
-      title: "A weekly task digest that arrives every Monday",
-      subtitle: "No one compiling it, and no one chasing.",
-      strip: [
-        { label: "My role", value: "Designed, built and tested by me" },
-        { label: "Build time", value: "1–3 days" },
-        { label: "For", value: "The project manager" },
-        { label: "Built with", value: "Zapier · Google Sheets · Gmail" }
-      ],
-      oneBreathLabel: "What it is",
-      oneBreath:
-        "A work sample built on my own with sample tasks. **Every Monday at 8:00 AM**, the project manager gets an email listing **the tasks due this week**, straight from a Google Sheet. It's a companion to the **project register**, built as a separate project.",
-      bigNumbers: [
-        { value: "Mon 8 AM", label: "every week, without me" },
-        { value: "3", label: "tools, one email" },
-        { value: "7 days", label: "“Due Soon” window" },
-        { value: "1–3 days", label: "build time" }
+        { value: "2", label: "linked Notion databases" },
+        { value: "3", label: "tools, one flow" },
+        { value: "8:00 AM", label: "every Monday, live" },
+        { value: "0", label: "manual steps from register to inbox" }
       ],
       blocks: [
-        { type: "part", title: "The problem" },
-        { type: "embed", key: "problem" },
-        { type: "part", title: "How I used the tools" },
-        { type: "embed", key: "tools" },
-        { type: "part", title: "The result" },
+        { type: "part", title: "Why I built it", heading: "Deadlines surface late by default." },
         {
           type: "lead",
-          text: "It **runs every Monday without me**, and it has been **tested with sample tasks**.",
-          chips: ["Runs every Monday at 8:00 AM", "Tested with sample tasks"]
+          text: "In most PMOs, status lives in **separate registers**, updated when someone remembers. The deadline that's slipping shows up **in the meeting where it's already missed**, and the week goes on chasing it."
+        },
+        {
+          type: "lead",
+          text: "So I built one register for everything a PMO lead is asked to own, and made it **report itself**, every Monday, before anyone has to ask."
+        },
+        { type: "quote", text: "A register nobody reads is just a record. A register that reports itself is a system." },
+
+        { type: "part", title: "What's in it", heading: "One register. One alert. Connected." },
+        {
+          type: "decisions",
+          label: "The pieces",
+          itemLabel: "Piece",
+          items: [
+            { title: "Project Register", text: "Every project with **status, RAG health, priority, owner, dates, % complete, budget, next milestone and blocker/risk**. Seen as a table, a board by status and a timeline, with **a page per project**." },
+            { title: "Milestones", text: "Every milestone **linked to its project**, with its owner, due date and status, and a ready-made line for the Monday briefing." },
+            { title: "Monday Radar", text: "A live alert that runs **every Monday at 8:00 AM**, finds this week's milestones and **sends the briefing** by email." }
+          ]
+        },
+
+        { type: "part", title: "How it's designed", heading: "Every field answers a question leadership asks." },
+        {
+          type: "lead",
+          text: "I designed the register **backwards from the Monday meeting**: list the questions leadership actually asks, then give each one a field."
+        },
+        {
+          type: "table",
+          columns: ["Field", "The question it answers"],
+          rows: [
+            ["Health (RAG)", "Is it on track?"],
+            ["Owner", "Who do I call?"],
+            ["Days to due", "How close is it?"],
+            ["Next milestone", "What happens next?"],
+            ["Blocker / Risk", "What could stop it?"],
+            ["Budget (INR lakh)", "What is it costing?"],
+            ["% complete", "How far along is it?"]
+          ]
+        },
+        { type: "quote", text: "If a field doesn't answer a question someone asks, it doesn't belong in the register." },
+
+        { type: "part", title: "The automation", heading: "A Monday briefing with no one in the middle." },
+        {
+          type: "flow",
+          label: "Monday Radar",
+          steps: [
+            { tag: "Trigger", title: "Every Monday, 8:00 AM", tool: "Zapier" },
+            { tag: "Find", title: "This week's milestones", tool: "Notion" },
+            { tag: "Send", title: "The Monday email", tool: "Gmail" }
+          ]
+        },
+        { type: "quote", text: "A deadline nobody sees until the meeting isn't bad luck. It's a missing trigger." },
+
+        { type: "part", title: "The work sample", heading: "See the real thing." },
+        {
+          type: "lead",
+          text: "This is the actual build, not a mock-up: the register a PMO lead would work from, and the alert that runs from it. The data is illustrative, but **the structure, formatting and thinking are what I'd bring to your team.**"
+        },
+        {
+          type: "artifacts",
+          items: [
+            {
+              title: "The Project Register",
+              context: "Built for a PMO lead running five projects at once: every project's owner, dates, RAG health, budget, next milestone and risk, with a page per project and a milestones list beneath. Open it and look around: it's the real workspace.",
+              href: "https://app.notion.com/p/PMO-AutoPilot-Project-Register-with-Monday-Radar-Alert-Work-Sample-3fcb121c145181bdb981ff9b1a7735f4",
+              linkLabel: "Step inside the live register",
+              noImage: true
+            },
+            {
+              title: "Monday Radar, switched on",
+              context: "The alert behind the briefing: Zapier wakes at 8:00 AM, Notion answers, Gmail delivers.",
+              reveal: "Peek behind the curtain",
+              src: "/work-samples/pmo-monday-radar-zap.png",
+              width: 630,
+              height: 747,
+              narrow: true
+            },
+            {
+              title: "The Monday email",
+              context: "What actually lands at 8:00 AM, before the first meeting of the week: every milestone due, with its owner, date and status.",
+              reveal: "Open Monday's inbox",
+              src: "/work-samples/pmo-monday-email.png",
+              width: 1106,
+              height: 611
+            },
+            {
+              title: "And on a quiet week",
+              context: "Silence never means a broken alert: when nothing is due, the briefing still arrives and says so.",
+              reveal: "See a clear-skies Monday",
+              src: "/work-samples/pmo-clear-skies-email.png",
+              width: 1100,
+              height: 622
+            }
+          ]
         },
         {
           type: "honest",
-          text: "This is a work sample with sample tasks. I have no time-saved figure and no feedback yet, so what I have is a working, tested automation, not measured impact."
+          text: "Built as a self-internship work sample with illustrative data, because my earlier work was confidential. The alert is live, but with sample data there are no measured results, such as time saved, yet."
         },
-        { type: "part", title: "What's next" },
-        { type: "embed", key: "next" }
+
+        { type: "part", title: "The through-line", heading: "The same instinct, at a smaller scale." },
+        {
+          type: "lead",
+          text: "In the Air Force, I kept **risk registers and milestone dependencies** and tracked readiness formally, so leadership saw **progress, not promises**. PMO AutoPilot is that instinct, one tool down: **the register does the reporting**, and the warning comes before the deadline, not after it.",
+          chips: [
+            "pmo setup",
+            "project portfolio tracking",
+            "rag status reporting",
+            "milestone tracking",
+            "risk & blocker tracking",
+            "stakeholder reporting",
+            "governance cadence",
+            "relational databases",
+            "notion formulas",
+            "workflow automation",
+            "no-code automation",
+            "notion",
+            "zapier",
+            "gmail"
+          ]
+        }
       ]
     }
   },
   {
     id: "pet-care-companion",
     group: "build",
-    title: "A live pet care app in 48 hours",
-    tags: ["Team hackathon", "AI product"],
+    title: "Pet Care Companion: live in 48 hours",
+    shortTitle: "Pet Care Companion",
+    tags: ["Team hackathon", "AI product", "Remote team"],
     tag: "Hackathon",
     result: "Four people, three countries, one live app in 48 hours",
     impact: "Built in 48 hours",
@@ -705,7 +760,7 @@ export const projects = [
     caseStudy: {
       embeds: "pet-care-companion",
       kicker: "Project · Team hackathon",
-      title: "A live pet care app in 48 hours",
+      title: "Pet Care Companion: live in 48 hours",
       subtitle: "Four people. Three countries. One app, built on time.",
       strip: [
         { label: "My role", value: "One of four: time zones, backend & pet records, pitch" },
@@ -775,7 +830,8 @@ export const projects = [
     id: "lead-spam-checker",
     group: "build",
     title: "A website lead spam checker",
-    tags: ["Self-internship", "AI automation"],
+    shortTitle: "Lead Spam Checker",
+    tags: ["Self-internship", "AI automation", "n8n"],
     tag: "AI Automation",
     result: "Genuine enquiries kept, spam filtered out",
     impact: "3 cases tested",
@@ -834,11 +890,12 @@ export const projects = [
     id: "ai-accelerator",
     group: "build",
     title: "A support inbox that sorts itself",
-    tags: ["Work sample", "AI workflow"],
+    shortTitle: "Support Inbox Triage",
+    tags: ["Self-internship", "AI workflow", "Customer support"],
     tag: "AI Workflow",
     result: "Every customer answered, urgent issues straight to the team",
     impact: "3 ticket types tested",
-    timeframe: "Work sample",
+    timeframe: "Self-internship",
     summary:
       "Customers raise a ticket from a friendly web form. Every one gets a reply, a tracked row and a priority, and anything urgent lands in the team inbox.",
     points: [
@@ -848,7 +905,7 @@ export const projects = [
     ],
     tools: ["n8n", "AI model", "Google Sheets", "Gmail"],
     description:
-      "A work sample: a customer support triage bot with a customer-facing web form. A customer submits feedback from a web page, and the bot classifies it by category and urgency, logs it as a new row in Google Sheets, emails the customer an acknowledgement and escalates high-urgency issues to the team.",
+      "Built during a self-internship, working on my own: a customer support triage bot with a customer-facing web form. A customer submits feedback from a web page, and the bot classifies it by category and urgency, logs it as a new row in Google Sheets, emails the customer an acknowledgement and escalates high-urgency issues to the team.",
     image: "/workflow-diagram.jpg",
     highlights: [
       "A customer-facing web form wired to the triage bot",
@@ -857,9 +914,9 @@ export const projects = [
       "A warm acknowledgement to the customer; an escalation to the team inbox when urgent"
     ],
     honestNote:
-      "This was a work-sample build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results.",
+      "This was a self-internship build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results.",
     caseStudy: {
-      kicker: "Mini-project · Work sample",
+      kicker: "Mini-project · Self-internship",
       title: "A support inbox that sorts itself, and flags what can't wait",
       subtitle: "Every customer heard. Every ticket tracked. Urgent issues straight to the team.",
       strip: [
@@ -924,7 +981,7 @@ export const projects = [
         },
         {
           type: "honest",
-          text: "This was a work-sample build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results."
+          text: "This was a self-internship build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results."
         }
       ]
     }
@@ -938,6 +995,12 @@ export const otherOutcomes = [
   { value: "300", label: "Personnel through the full HR lifecycle, with a 25% productivity gain", source: "Human resources" },
   { value: "500+", label: "Members' budgets managed, with zero errors in fund administration", source: "Non-profit welfare initiatives" }
 ];
+
+// Older project pages folded into PMO AutoPilot; their links (e.g. on a CV) still work.
+export const projectRedirects = {
+  "project-register": "pmo-autopilot",
+  "weekly-digest": "pmo-autopilot"
+};
 
 export function getProject(id) {
   return projects.find((p) => p.id === id);

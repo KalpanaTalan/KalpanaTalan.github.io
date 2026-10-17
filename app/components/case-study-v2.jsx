@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Info } from "lucide-react";
+import { ArrowRight, ChevronDown, ExternalLink, Info, Mail } from "lucide-react";
 import { FadeIn } from "./motion-wrapper";
 import { RichText } from "./work-visuals";
 import { embeds as paperless } from "../data/case-embeds/paperless";
@@ -8,8 +8,6 @@ import { embeds as relocation } from "../data/case-embeds/relocation";
 import { embeds as squadronMerger } from "../data/case-embeds/squadron-merger";
 import { embeds as spouseUpskilling } from "../data/case-embeds/spouse-upskilling";
 import { embeds as petCareCompanion } from "../data/case-embeds/pet-care-companion";
-import { embeds as projectRegister } from "../data/case-embeds/project-register";
-import { embeds as weeklyDigest } from "../data/case-embeds/weekly-digest";
 import { embeds as leadSpamChecker } from "../data/case-embeds/lead-spam-checker";
 import { HonestNote } from "./case-study";
 
@@ -21,15 +19,15 @@ const embedSets = {
   "squadron-merger": squadronMerger,
   "spouse-upskilling": spouseUpskilling,
   "pet-care-companion": petCareCompanion,
-  "project-register": projectRegister,
-  "weekly-digest": weeklyDigest,
   "lead-spam-checker": leadSpamChecker
 };
 
 const label = "text-[11px] font-mono uppercase tracking-widest text-sky-400";
+const isDev = process.env.NODE_ENV === "development";
 const pad = (x) => String(x).padStart(2, "0");
 
-function PartHead({ n, total, title }) {
+// With a `heading`, the part's title becomes the small label and the heading is the punchy line.
+function PartHead({ n, total, title, heading }) {
   return (
     <div className="flex items-end gap-4 pb-3 mb-8 border-b border-dashed border-slate-400/30">
       <span className="text-5xl sm:text-6xl font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-teal-300">
@@ -38,8 +36,9 @@ function PartHead({ n, total, title }) {
       <div className="pb-1">
         <div className="text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)]">
           Part {pad(n)} of {pad(total)}
+          {heading && <span className="text-sky-400"> · {title}</span>}
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">{title}</h2>
+        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">{heading ?? title}</h2>
       </div>
     </div>
   );
@@ -51,6 +50,37 @@ function SubHead({ label: l, heading }) {
       {l && <div className={`${label} mb-2`}>{l}</div>}
       {heading && <h3 className="text-xl sm:text-2xl font-bold leading-snug mb-5 max-w-3xl">{heading}</h3>}
     </>
+  );
+}
+
+// An artifact's screenshot. With `reveal`, it stays folded behind a button until clicked.
+// Without a screenshot yet, a placeholder shows on localhost only.
+function ArtifactImage({ a }) {
+  // `narrow` screenshots (tall, app-style) sit centred on a light canvas instead of stretching full width.
+  const body = a.src ? (
+    <div className={a.narrow ? "bg-[#f7f6f2] flex justify-center px-4 py-6" : "bg-white"}>
+      <Image
+        src={a.src}
+        alt={a.title}
+        width={a.width ?? 1600}
+        height={a.height ?? 1000}
+        className={a.narrow ? "w-full max-w-sm h-auto rounded-lg" : "w-full h-auto"}
+      />
+    </div>
+  ) : isDev ? (
+    <div className="bg-amber-500/5 px-6 py-10 text-center text-sm text-amber-400">Screenshot pending (localhost only)</div>
+  ) : null;
+  if (!body) return null;
+
+  if (!a.reveal) return <div className="border-t border-slate-400/30">{body}</div>;
+  return (
+    <details className="group border-t border-slate-400/30">
+      <summary className="cursor-pointer list-none flex items-center justify-between gap-3 px-5 sm:px-6 py-4 text-sm font-semibold text-sky-400 hover:bg-sky-500/5 transition-colors">
+        {a.reveal}
+        <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
+      </summary>
+      <div className="border-t border-slate-400/30">{body}</div>
+    </details>
   );
 }
 
@@ -136,6 +166,137 @@ const blockRenderers = {
 
   honest: (b) => <HonestNote text={b.text} />,
 
+  // A one-line insight, set apart like a pull quote.
+  quote: (b) => (
+    <blockquote className="max-w-3xl border-l-4 border-sky-400 pl-5 py-1 text-lg sm:text-xl font-semibold leading-snug text-[var(--text-primary)]">
+      {b.text}
+    </blockquote>
+  ),
+
+  // A simple two-column table (e.g. field → the question it answers).
+  table: (b) => (
+    <div className="max-w-3xl rounded-2xl border border-slate-400/40 glass-card overflow-hidden">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-dashed border-slate-400/40">
+            {b.columns.map((c) => (
+              <th key={c} className={`${label} text-left px-5 py-3 font-normal`}>
+                {c}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {b.rows.map((row) => (
+            <tr key={row[0]} className="border-b border-dashed border-slate-400/25 last:border-0">
+              <td className="px-5 py-3 font-semibold text-[var(--text-primary)] w-2/5">{row[0]}</td>
+              <td className="px-5 py-3 text-[var(--text-secondary)]">{row[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ),
+
+  // Work-sample artifacts: a line of context first, then the real screenshot and/or link.
+  // Missing screenshots or links show a placeholder on localhost only.
+  artifacts: (b) => (
+    <div className="space-y-6">
+      {b.items.map((a, i) => (
+        <figure key={a.title} className="rounded-2xl border border-slate-400/40 glass-card overflow-hidden">
+          <figcaption className="px-5 sm:px-6 pt-5 pb-4">
+            <div className={`${label} mb-1`}>Artifact {pad(i + 1)}</div>
+            <div className="text-lg font-bold text-[var(--text-primary)]">{a.title}</div>
+            <p className="mt-1 text-sm text-[var(--text-secondary)] leading-relaxed">{a.context}</p>
+            {a.href ? (
+              <a
+                href={a.href}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500 hover:bg-sky-400 text-white text-sm font-semibold btn-lift"
+              >
+                {a.linkLabel ?? "Open"} <ExternalLink className="w-4 h-4" />
+              </a>
+            ) : (
+              a.linkLabel &&
+              isDev && (
+                <span className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-dashed border-amber-400/60 text-sm font-semibold">
+                  {a.linkLabel} <span className="text-[10px] text-amber-400">(link pending)</span>
+                </span>
+              )
+            )}
+          </figcaption>
+          {!a.noImage && <ArtifactImage a={a} />}
+        </figure>
+      ))}
+    </div>
+  ),
+
+  // A left-to-right pipeline (trigger → … → action); stacks vertically on phones.
+  flow: (b) => (
+    <div>
+      <SubHead label={b.label} heading={b.heading} />
+      <div className="flex flex-col sm:flex-row sm:items-stretch gap-2">
+        {b.steps.map((st, i) => (
+          <div key={st.title} className="contents">
+            <div
+              className={`flex-1 rounded-xl p-4 border ${
+                i === b.steps.length - 1 ? "border-sky-400/60 bg-sky-500/10" : "border-slate-400/40 glass-card"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className={label}>{st.tag}</span>
+                {st.tool && (
+                  <span className="px-2.5 py-0.5 rounded-full border border-sky-400/40 bg-sky-500/10 text-xs font-semibold text-[var(--text-primary)]">
+                    {st.tool}
+                  </span>
+                )}
+              </div>
+              <div className="text-sm sm:text-base font-bold text-[var(--text-primary)] leading-snug">{st.title}</div>
+              {st.note && <div className="mt-1 text-xs text-[var(--text-secondary)]">{st.note}</div>}
+            </div>
+            {i < b.steps.length - 1 && (
+              <span className="self-center text-sky-400 rotate-90 sm:rotate-0" aria-hidden="true">
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+
+  // A sample of the email the automation sends (illustrative data).
+  email: (b) => (
+    <figure className="max-w-2xl">
+      <div className="rounded-2xl border border-slate-400/40 glass-card overflow-hidden">
+        <div className="px-5 py-3 border-b border-slate-400/30 flex items-center gap-3">
+          <span className="w-9 h-9 rounded-full bg-sky-500/15 border border-sky-400/40 flex items-center justify-center text-sky-400 shrink-0">
+            <Mail className="w-4 h-4" />
+          </span>
+          <div className="min-w-0">
+            <div className="text-sm font-bold text-[var(--text-primary)]">{b.from}</div>
+            <div className="text-xs text-[var(--text-secondary)] truncate">{b.subject}</div>
+          </div>
+        </div>
+        <div className="px-5 py-4 text-sm text-[var(--text-secondary)] space-y-2">
+          <p className="text-[var(--text-primary)] font-semibold">{b.greeting}</p>
+          <p>{b.intro}</p>
+          <ul className="space-y-1.5">
+            {b.lines.map((ln) => (
+              <li key={ln} className="font-mono text-xs sm:text-[13px] text-[var(--text-primary)] rounded-lg border border-slate-400/30 px-3 py-2">
+                {ln}
+              </li>
+            ))}
+          </ul>
+          {b.more && <p className="text-xs italic">{b.more}</p>}
+          {b.closing && <p className="pt-1">{b.closing}</p>}
+        </div>
+      </div>
+      {b.caption && <figcaption className="mt-2 text-xs text-[var(--text-secondary)]">{b.caption}</figcaption>}
+    </figure>
+  ),
+
   image: (b) => (
     <figure>
       <div className="rounded-2xl overflow-hidden border border-[var(--border-color)] bg-white">
@@ -183,7 +344,7 @@ const blockRenderers = {
 function toParts(blocks) {
   const parts = [];
   for (const b of blocks) {
-    if (b.type === "part") parts.push({ title: b.title, blocks: [] });
+    if (b.type === "part") parts.push({ title: b.title, heading: b.heading, blocks: [] });
     else parts[parts.length - 1].blocks.push(b);
   }
   return parts;
@@ -269,7 +430,7 @@ export function CaseStudyV2({ study, next }) {
       {parts.map((part, i) => (
         <section key={part.title} className="mt-20">
           <FadeIn direction="up">
-            <PartHead n={i + 1} total={parts.length} title={part.title} />
+            <PartHead n={i + 1} total={parts.length} title={part.title} heading={part.heading} />
           </FadeIn>
           <div className="space-y-14">
             {part.blocks.map((b, bi) => (

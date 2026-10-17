@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { BadgeCheck } from "lucide-react";
 import { icons as paperless } from "../data/case-icons/paperless";
 import { icons as relocation } from "../data/case-icons/relocation";
 import { icons as squadronMerger } from "../data/case-icons/squadron-merger";
@@ -29,7 +30,7 @@ function Svg({ markup, className }) {
 
 // Problem → key move → result, built from the case study's own icons. Tiles pop in one after
 // another, arrows slide in between them, and the sticker drops in last; it plays once.
-export function IllustratedFlow({ visual, sticker }) {
+export function IllustratedFlow({ visual, sticker, live = false }) {
   const icons = iconSets[visual.set];
   const reduce = useReducedMotion();
   const stagger = reduce ? 0 : 0.18;
@@ -67,13 +68,39 @@ export function IllustratedFlow({ visual, sticker }) {
           const s = stages[i];
           return (
             <div key={step.icon} className="contents">
-              <motion.figure variants={pop} className={`flex items-center gap-4 rounded-xl border-2 ${s.border} bg-[var(--bg-card)] p-3`}>
-                <Svg markup={icons[step.icon]} className="block shrink-0 w-28 sm:w-32 aspect-[17/12]" />
-                <figcaption className="min-w-0">
-                  <div className={`text-[10px] font-mono uppercase tracking-widest mb-1 ${s.text}`}>{s.label}</div>
-                  <div className="text-sm sm:text-base leading-snug font-semibold text-[var(--text-primary)]">{step.caption}</div>
-                </figcaption>
-              </motion.figure>
+              {(() => {
+                const isResult = live && i === visual.steps.length - 1;
+                return (
+                  <motion.figure
+                    variants={pop}
+                    className={`relative overflow-hidden flex items-center gap-4 rounded-xl border-2 ${s.border} p-3 ${
+                      isResult ? "bg-fuchsia-500/10 shadow-[0_0_24px_-6px_rgba(217,70,239,0.45)]" : "bg-[var(--bg-card)]"
+                    }`}
+                  >
+                    <Svg markup={icons[step.icon]} className="block shrink-0 w-28 sm:w-32 aspect-[17/12]" />
+                    <figcaption className="min-w-0">
+                      <div className={`text-[10px] font-mono uppercase tracking-widest mb-1 ${s.text}`}>{s.label}</div>
+                      <div className="text-sm sm:text-base leading-snug font-semibold text-[var(--text-primary)]">{step.caption}</div>
+                    </figcaption>
+                    {isResult && (
+                      <>
+                        <BadgeCheck className="absolute top-2.5 right-2.5 w-5 h-5 text-fuchsia-500" aria-hidden="true" />
+                        {/* One light sweep across the result when it appears, then still */}
+                        {!reduce && (
+                          <motion.span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[-20deg]"
+                            initial={{ x: "0%" }}
+                            whileInView={{ x: "450%" }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ delay: 1.1, duration: 1.1, ease: "easeInOut" }}
+                          />
+                        )}
+                      </>
+                    )}
+                  </motion.figure>
+                );
+              })()}
               {i < visual.steps.length - 1 && (
                 <motion.span variants={slide} className="self-center w-6 h-8 flex items-center justify-center">
                   {/* The original arrows point right; turned to point down between the stacked steps */}

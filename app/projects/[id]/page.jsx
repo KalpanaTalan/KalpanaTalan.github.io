@@ -7,14 +7,15 @@ import { HonestNote } from "../../components/case-study";
 import { CaseStudyV2 } from "../../components/case-study-v2";
 import { RichText } from "../../components/work-visuals";
 import { CurrentYear } from "../../components/current-year";
-import { projects, getProject } from "../../data/projects";
+import { projects, getProject, projectRedirects } from "../../data/projects";
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ id: p.id }));
+  return [...projects.map((p) => ({ id: p.id })), ...Object.keys(projectRedirects).map((id) => ({ id }))];
 }
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
+  if (projectRedirects[id]) return { title: "Kalpana Talan", robots: { index: false } };
   const project = getProject(id);
   if (!project) return {};
   return {
@@ -25,6 +26,25 @@ export async function generateMetadata({ params }) {
 
 export default async function ProjectPage({ params }) {
   const { id } = await params;
+
+  // An older project folded into another: send visitors straight to its new page.
+  // (A static site has no server redirects, so this is an instant meta refresh plus a link.)
+  if (projectRedirects[id]) {
+    const to = `/projects/${projectRedirects[id]}/`;
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)] text-[var(--text-primary)] p-6 text-center">
+        <meta httpEquiv="refresh" content={`0; url=${to}`} />
+        <link rel="canonical" href={to} />
+        <p>
+          This project has moved.{" "}
+          <Link href={to} className="text-sky-400 underline">
+            Open PMO AutoPilot
+          </Link>
+        </p>
+      </main>
+    );
+  }
+
   const project = getProject(id);
   if (!project) notFound();
 
