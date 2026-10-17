@@ -1872,7 +1872,7 @@ export default function Portfolio() {
                   <span className="text-xl font-bold text-[var(--text-primary)]">Need the brief?</span>
                   <span className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">My roles, results and credentials, all in one place.</span>
                   <span className="inline-flex items-center gap-1 text-sm font-semibold text-amber-400">
-                    Résumé
+                    Résumé / CV
                     {RESUME_URL ? (
                       <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     ) : (
