@@ -61,7 +61,7 @@ function LinkedinIcon({ className = "w-4 h-4" }) {
 const isDev = process.env.NODE_ENV === "development";
 
 // Set to e.g. "/Kalpana-Talan-Resume.pdf" once the file is added to /public.
-const RESUME_URL = "";
+const RESUME_URL = "/Kalpana_Talan_Program_Manager_Resume_CV.pdf";
 
 const CONTACT_EMAIL = "kalpanatalan.veteran@gmail.com";
 const CALENDLY_URL = "https://calendly.com/kalpanatalan-veteran/30min";
@@ -523,10 +523,10 @@ export default function Portfolio() {
                 href={RESUME_URL || undefined}
                 target="_blank"
                 rel="noreferrer"
-                title={RESUME_URL ? "Open résumé" : "Résumé file not added yet (button is hidden on the live site until it is)"}
+                title={RESUME_URL ? "Open résumé / CV" : "Résumé / CV file not added yet (button is hidden on the live site until it is)"}
                 className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider whitespace-nowrap rounded-lg border border-sky-400/50 text-[var(--text-primary)] hover:border-sky-400 btn-lift"
               >
-                <FileText className="w-3.5 h-3.5 text-sky-400" /> Résumé
+                <FileText className="w-3.5 h-3.5 text-sky-400" /> Résumé / CV
                 {!RESUME_URL && <span className="text-[10px] normal-case tracking-normal text-amber-400">(file pending)</span>}
               </a>
             )}
@@ -568,7 +568,7 @@ export default function Portfolio() {
                 rel="noreferrer"
                 className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               >
-                Résumé
+                Résumé / CV
               </a>
             )}
             <a
