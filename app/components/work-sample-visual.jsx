@@ -203,7 +203,7 @@ function FanoutDiagram({ v, item }) {
             <div className={`text-[9px] sm:text-[10px] font-mono uppercase tracking-wider mb-1 ${o.alert ? "text-amber-400" : "text-[var(--text-secondary)]"}`}>
               {o.tool}
             </div>
-            <div className={`text-sm font-bold leading-snug ${o.alert ? "text-amber-300" : "text-[var(--text-primary)]"}`}>{o.title}</div>
+            <div className={`text-[11px] sm:text-sm font-bold leading-snug ${o.alert ? "text-amber-300" : "text-[var(--text-primary)]"}`}>{o.title}</div>
             {o.condition && <div className="mt-0.5 text-[10px] font-mono text-amber-400">{o.condition}</div>}
           </motion.div>
         ))}

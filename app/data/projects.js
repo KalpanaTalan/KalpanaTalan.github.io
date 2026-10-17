@@ -102,17 +102,19 @@ export const projects = [
           type: "decisions",
           heading: "Four choices that made the change stick",
           items: [
-            { title: "Start small", text: "Began with **fewer assets** and added more, so each step showed what to map next." },
-            { title: "Run both, then switch", text: "Paper and digital **side by side**, then a **fixed date** after which paper no longer applied." },
-            { title: "Train, don't remind", text: "Frequent **batch classes**, with supervisors tracking daily usage, after reminders alone had failed." },
+            { title: "Start small", text: "Began with **a few assets** instead of moving all 100+ at once, adding more as each step showed what to map next." },
+            { title: "Run both, then switch", text: "Paper and digital **side by side**, then a **fixed switch date**, instead of a one-day cutover." },
+            { title: "Train, don't remind", text: "Frequent **batch classes** instead of more reminders, with supervisors tracking daily usage." },
             { title: "Close the loop", text: "Feedback with **Wipro and the zonal helpdesk**, so the platform matched real maintenance work." }
           ]
         },
 
+        { type: "quote", text: "The hard part: reminders alone had failed, and people weren't using the platform." },
+
         { type: "part", title: "What changed" },
         { type: "embed", key: "results" },
 
-        { type: "part", title: "The four questions, answered" },
+        { type: "part", title: "Looking back", heading: "What worked, what didn't, and how I'd measure it." },
         {
           type: "scorecard",
           items: [
@@ -125,14 +127,16 @@ export const projects = [
               text: "I did not design the platform, so my credit is for **adoption, shaping and administering** it. I have no adoption figure, and 45 minutes per task has no earlier baseline."
             },
             {
-              label: "What I'd improve",
-              text: "A **ready training kit and guide**, and planning for **how long learning takes**, with technicians involved even earlier."
-            },
-            {
               label: "How I'd measure success",
               text: "Adoption, not just usage: are people **attending** the classes, **able** to attend, **grasping** the concepts, and **using it daily**?"
             }
           ]
+        },
+
+        { type: "part", title: "What I would do differently", heading: "Next time: the training kit comes first." },
+        {
+          type: "lead",
+          text: "I'd start with a **ready training kit and guide**, plan for **how long learning really takes**, and bring technicians in **even earlier**."
         }
       ],
       footnote: "General labels only. No unit names, locations or equipment details."
@@ -233,15 +237,17 @@ export const projects = [
           type: "decisions",
           heading: "Six choices that kept every deployment inside 48 hours",
           items: [
-            { title: "Move it whole", text: "Moved the **whole system at once**, because its pieces only work together." },
+            { title: "Move it whole", text: "Moved the **whole system at once** instead of in pieces, because its pieces only work together." },
             { title: "One paperwork package", text: "Rations, convoy, movement clearance, logistics and communications finalised **1–2 days before** each move." },
-            { title: "One vendor contact point", text: "A **central coordination point**, so no fault fell between 20+ vendors." },
-            { title: "Check before moving", text: "**Pre-move checks** found and fixed faults before departure, cutting time on the move." },
+            { title: "One vendor contact point", text: "One **central coordination point** instead of each team chasing vendors separately, so no fault fell between 20+ vendors." },
+            { title: "Check before moving", text: "**Pre-move checks** fixed faults before departure instead of on the move, cutting time on the road." },
             { title: "Front-load the risk", text: "No buffer was possible, so **site surveys, readiness checklists and vendor milestone reviews** were the safety margin." },
             { title: "Re-plan when it slips", text: "Re-planned **route and convoy timing** for weather and terrain, and followed up vendors daily, with alternates ready." }
           ]
         },
         { type: "embed", key: "twists" },
+
+        { type: "quote", text: "The hard part: no buffer was possible. 48 hours, every time." },
 
         { type: "part", title: "What changed" },
         {
@@ -254,7 +260,7 @@ export const projects = [
           items: ["Senior leadership appreciated the result, at a moment they considered critical", "Proved the system could be moved reliably", "A remarkable leap for the team"]
         },
 
-        { type: "part", title: "The four questions, answered" },
+        { type: "part", title: "Looking back", heading: "What worked, what didn't, and how I'd measure it." },
         {
           type: "scorecard",
           items: [
@@ -267,14 +273,16 @@ export const projects = [
               text: "Readiness is measured against a **standard baseline I can't share**, so 95% is a result against that standard, not a before-and-after improvement. The real win is **reliability under a hard deadline**, not a speed-up."
             },
             {
-              label: "What I'd improve",
-              text: "Replace the Excel tracker with a **visual dashboard** showing where each vendor is stuck, write the **fine details into the playbook**, and **carry local coordination forward** instead of restarting at each site."
-            },
-            {
               label: "How I'd measure success",
               text: "Each deployment **operational within 48 hours**, **zero critical downtime**, and readiness and audit compliance held at **every new site**."
             }
           ]
+        },
+
+        { type: "part", title: "What I would do differently", heading: "Next time: every vendor, visible live." },
+        {
+          type: "lead",
+          text: "I'd replace the Excel tracker with a **visual dashboard** showing where each vendor is stuck, write the **fine details into the playbook**, and **carry local coordination forward** instead of restarting at each site."
         }
       ],
       footnote: "General labels only. No unit names, locations or equipment details."
@@ -376,13 +384,15 @@ export const projects = [
           heading: "Six choices that kept the merger safe",
           items: [
             { title: "Scope upfront", text: "Listed **all requirements and milestones** first: a one-month deadline left no room to find scope late." },
-            { title: "Map first", text: "Mapped **both squadrons' records and assets**, so mismatches showed before anything moved." },
+            { title: "Map first", text: "Mapped **both squadrons' records and assets** first, instead of moving and reconciling later, so mismatches showed before anything moved." },
             { title: "Five workstreams", text: "Operational equipment, maintenance assets, admin assets, **inventory data migration**, and personnel and procedures, all moving at once." },
-            { title: "Migrate with a safety net", text: "**Cleaned and matched** records first, and kept both sets until the new inventory was verified." },
+            { title: "Migrate with a safety net", text: "**Cleaned and matched** records first, and kept **both sets until verified** instead of switching over at once." },
             { title: "One reporting line", text: "**One common format**, a single point of contact and regular updates to senior leadership." },
             { title: "Verify in layers", text: "**Checklists per asset category**, joint verification, handover inspection and a senior leadership review." }
           ]
         },
+
+        { type: "quote", text: "The hard part: there was no backup. One wrong move and records were gone." },
 
         { type: "part", title: "What changed" },
         {
@@ -395,7 +405,7 @@ export const projects = [
           items: ["A milestone achievement for the Squadron", "Senior leadership appreciated it", "A reference for how such mergers can be run"]
         },
 
-        { type: "part", title: "The four questions, answered" },
+        { type: "part", title: "Looking back", heading: "What worked, what didn't, and how I'd measure it." },
         {
           type: "scorecard",
           items: [
@@ -408,14 +418,16 @@ export const projects = [
               text: "There is **no before-and-after metric** here. Success was **nothing lost and the deadline met**, which the Squadron recognised and senior leadership appreciated."
             },
             {
-              label: "What I'd improve",
-              text: "A **digital milestone tracker** to give everyone a live view of progress, and a **merger playbook** so the next merger starts from a proven plan."
-            },
-            {
               label: "How I'd measure success",
               text: "**Zero data loss**, every asset **verified at handover**, and the merger complete **within the deadline** while operations carried on."
             }
           ]
+        },
+
+        { type: "part", title: "What I would do differently", heading: "Next time: start from a playbook, not a blank page." },
+        {
+          type: "lead",
+          text: "I'd give everyone a **live view of progress** with a **digital milestone tracker**, and turn what worked into a **merger playbook**, so the next merger starts from a proven plan."
         }
       ],
       footnote: "General labels only. No unit names, locations or equipment details."
@@ -516,20 +528,22 @@ export const projects = [
           type: "decisions",
           heading: "Six choices, and the challenge behind each",
           items: [
-            { title: "Trades by interest", text: "**Surveyed interests** first, then prioritised the trades most spouses wanted." },
+            { title: "Trades by interest", text: "**Surveyed interests** first, letting spouses choose the trades instead of picking them top-down." },
             { title: "Win them over", text: "Spoke to spouses **personally** and shared success stories of earlier women entrepreneurs." },
             { title: "Approval at every level", text: "A clear proposal, the **benefit to families**, and earlier welfare ventures as proof, signed off **station to apex**." },
-            { title: "Use the venues we had", text: "Training ran in **our own venues or the institutes'**." },
+            { title: "Use the venues we had", text: "Training ran in **our own venues or the institutes'**, instead of paying for new ones." },
             { title: "A place to sell", text: "Linked graduates to **welfare shops and stalls**, with district and local authorities backing local sales." },
             { title: "Stretch the budget", text: "**Prioritised trades** and spread batches over time, to fit limited money and resources." }
           ]
         },
         { type: "embed", key: "twists" },
 
+        { type: "quote", text: "The hard part: winning spouses over, and approval at every level, on a limited budget." },
+
         { type: "part", title: "What changed" },
         { type: "embed", key: "changed" },
 
-        { type: "part", title: "The four questions, answered" },
+        { type: "part", title: "Looking back", heading: "What worked, what didn't, and how I'd measure it." },
         {
           type: "scorecard",
           items: [
@@ -542,14 +556,16 @@ export const projects = [
               text: "I do not have figures for **how many launched businesses** or **how much they earn**. The strong number is reach, 100+ spouses, and the income result rests on their feedback."
             },
             {
-              label: "What I'd improve",
-              text: "**Track each graduate's business**, to see who needs more help, and build a **simple online sales channel** to reach buyers beyond the welfare shops."
-            },
-            {
               label: "How I'd measure success",
               text: "Not just certificates: how many graduates **start selling**, how many are **still earning** months later, and **how much** they earn."
             }
           ]
+        },
+
+        { type: "part", title: "What I would do differently", heading: "Next time: follow every graduate past the certificate." },
+        {
+          type: "lead",
+          text: "I'd **track each graduate's business** to see who needs more help, and build a **simple online sales channel** to reach buyers beyond the welfare shops."
         }
       ],
       footnote: "General labels only. No names, locations or unit details."
@@ -1147,10 +1163,10 @@ export const projects = [
 
 // Results from roles without a full case study, shown as stat cards.
 export const otherOutcomes = [
-  { value: "₹500 Cr+", label: "Aerospace assets maintained, at 95% formally tracked readiness", source: "Fleet & asset maintenance" },
-  { value: "3h → 1.5h", label: "Processing time after rolling out E-Office to 250 users", source: "IT & network" },
-  { value: "300", label: "Personnel through the full HR lifecycle, with a 25% productivity gain", source: "Human resources" },
-  { value: "500+", label: "Members' budgets managed, with zero errors in fund administration", source: "Non-profit welfare initiatives" }
+  { value: "100%", label: "Success in a live missile firing, with zero safety incidents, leading a 45-member team", source: "Mission operations" },
+  { value: "27%", label: "Cut in fault rate and operational risk, with 25% less downtime, through root-cause analysis", source: "Maintenance & reliability" },
+  { value: "+10%", label: "Service life added to air defence systems, at 95% operational capability", source: "Fleet & asset maintenance" },
+  { value: "58%", label: "Faster leave approvals, from 6 hours to 2.5, for 200 users", source: "Digital process improvement" }
 ];
 
 // Older project pages folded into PMO AutoPilot; their links (e.g. on a CV) still work.

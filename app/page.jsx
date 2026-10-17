@@ -703,7 +703,7 @@ export default function Portfolio() {
                 {/* Identity summary */}
                 <div>
                   <h2 className="text-xl font-bold text-[var(--text-primary)]">Kalpana Talan</h2>
-                  <p className="text-xs text-sky-400 font-medium">Program & Transformation Leader • Delhi, India</p>
+                  <p className="text-xs text-sky-400 font-medium">Program & Transformation Leader</p>
                 </div>
 
                 <div className="pt-3 border-t border-[var(--border-color)] space-y-2 text-xs text-[var(--text-secondary)]">
@@ -725,12 +725,6 @@ export default function Portfolio() {
                         </>
                       )}
                     </button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-sky-400" /> Location
-                    </span>
-                    <span className="text-[var(--text-primary)]">Delhi, India</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-2">
@@ -818,6 +812,10 @@ export default function Portfolio() {
                 <Highlight>program management, IT, operations and HR</Highlight>, where deadlines were fixed and failure
                 was not an option. Today I bring that same discipline to <Highlight>digital transformation</Highlight>{" "}
                 and <Highlight>Agile and Waterfall delivery</Highlight>.
+              </p>
+              <p className="text-lg sm:text-xl font-bold leading-snug text-[var(--text-primary)]">
+                <span className="text-sky-400">Next mission:</span> programs where many teams, vendors and deadlines
+                have to land as one.
               </p>
 
               <figure className="glass-card rounded-2xl p-6 sm:p-7 border-l-4 border-l-amber-400 shadow-lg">
