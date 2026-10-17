@@ -10,6 +10,7 @@ import { ToolsMarquee } from "./components/tools-marquee";
 import { RichText, GradientHeadline } from "./components/work-visuals";
 import { IllustratedFlow } from "./components/illustrated-flow";
 import { HangingCard } from "./components/hanging-card";
+import { WorkSampleVisual } from "./components/work-sample-visual";
 import {
   Shield,
   Award,
@@ -34,6 +35,7 @@ import {
   ChevronRight,
   Target,
   ArrowDown,
+  ArrowRight,
   BadgeCheck,
   ShieldCheck,
   BrainCircuit,
@@ -1048,46 +1050,88 @@ export default function Portfolio() {
               <p className="text-sm text-[var(--text-secondary)]">Real artifacts, built to the standard I&apos;d bring to your team. Sample data, real quality.</p>
             </div>
           </FadeIn>
-          <StaggerContainer staggerDelay={0.06} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {projects.filter((p) => p.group === "build").map((project) => (
-              <StaggerItem key={project.id}>
-                <Link
-                  id={`work-${project.id}`}
-                  href={`/projects/${project.id}`}
-                  className="scroll-mt-24 group glass-card rounded-2xl p-6 h-full flex flex-col gap-3 hover:border-sky-400/40 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg"
-                >
-                  {/* Quiet tag line; a tag that names a tool is left out, as the tools row below shows it */}
-                  <div className="text-xs font-mono text-[var(--text-secondary)]">
-                    {project.tags.filter((t) => !project.tools.some((tool) => t.includes(tool.split(" ")[0]))).join(" · ")}
-                  </div>
-                  <h4 className="text-lg font-bold leading-snug text-[var(--text-primary)] group-hover:text-sky-400 transition-colors">
-                    {project.title}
-                  </h4>
-                  <p className="text-sm font-semibold text-emerald-400">{project.result}</p>
-                  <ul className="space-y-1.5 text-sm text-[var(--text-secondary)] flex-1">
-                    {project.points.map((point) => (
-                      <li key={point} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {project.tools.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-dashed border-slate-400/30">
-                      {project.tools.map((tool) => (
-                        <span key={tool} className="px-2.5 py-0.5 rounded-full border border-slate-400/40 text-xs text-[var(--text-primary)]">
-                          {tool}
+          {/* Work sample spreads: same layout as the case studies, numbered on from them */}
+          <div className="space-y-20">
+            {projects.filter((p) => p.group === "build").map((project, i) => {
+              const n = projects.filter((p) => p.group === "case").length + i + 1;
+              const flip = (projects.filter((p) => p.group === "case").length + i) % 2 === 1;
+              return (
+                <FadeIn key={project.id} direction="up">
+                  <article id={`work-${project.id}`} className="scroll-mt-24">
+                    <div className="flex items-end gap-4 pb-3 mb-8 border-b border-dashed border-slate-400/30">
+                      <span className="text-5xl sm:text-6xl font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-br from-sky-400 to-teal-300">
+                        {String(n).padStart(2, "0")}
+                      </span>
+                      <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] pb-1">
+                        Work sample
+                        <span className="hidden sm:inline normal-case tracking-normal">
+                          {project.tags.map((t) => (
+                            <span key={t}>
+                              <span className="mx-2 text-sky-400/60">·</span>
+                              {t}
+                            </span>
+                          ))}
                         </span>
-                      ))}
+                      </span>
                     </div>
-                  )}
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-sky-400">
-                    View project <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </span>
-                </Link>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                      <div className={`lg:col-span-5 ${flip ? "lg:order-2" : ""}`}>
+                        {project.sample && <WorkSampleVisual sample={project.sample} />}
+                      </div>
+
+                      <div className={`lg:col-span-7 ${flip ? "lg:order-1" : ""}`}>
+                        <div className="sm:hidden mb-3 text-xs font-mono text-[var(--text-secondary)]">{project.tags.join(" · ")}</div>
+                        <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                          {project.caseStudy?.title ?? project.title}
+                        </h3>
+                        <p className="mt-4 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">{project.summary}</p>
+
+                        {project.sample && (
+                          <dl className="mt-6 pt-6 border-t border-dashed border-slate-400/30 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
+                            {[
+                              ["What it is", project.shortTitle ? `**${project.shortTitle}**: ${project.result}` : project.result],
+                              ["In numbers", project.sample.inNumbers],
+                              ["How", project.sample.how, project.sample.howFlow],
+                              ["Tools", project.tools.join(" · ")]
+                            ].map(([label, text, flow]) => (
+                              <div key={label}>
+                                <dt className="text-[11px] font-mono uppercase tracking-widest text-sky-400 mb-1">{label}</dt>
+                                <dd className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                                  {flow ? (
+                                    // A short flow instead of a sentence: the "how" at a glance
+                                    <span className="flex flex-wrap items-center gap-1.5">
+                                      {flow.map((step, si) => (
+                                        <span key={step} className="inline-flex items-center gap-1.5">
+                                          <span className="px-2.5 py-0.5 rounded-full border border-sky-400/40 bg-sky-500/10 text-xs font-semibold text-[var(--text-primary)] whitespace-nowrap">
+                                            {step}
+                                          </span>
+                                          {si < flow.length - 1 && <ArrowRight className="w-3.5 h-3.5 text-sky-400" aria-hidden="true" />}
+                                        </span>
+                                      ))}
+                                    </span>
+                                  ) : (
+                                    <RichText text={text} />
+                                  )}
+                                </dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
+
+                        <Link
+                          href={`/projects/${project.id}`}
+                          className="mt-7 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-400/50 text-sm font-semibold text-[var(--text-primary)] hover:border-sky-400 btn-lift"
+                        >
+                          See the work sample <ArrowUpRight className="w-4 h-4 text-sky-400" />
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                </FadeIn>
+              );
+            })}
+          </div>
 
           {/* Other outcomes */}
           <FadeIn direction="up">

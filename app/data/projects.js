@@ -573,6 +573,20 @@ export const projects = [
       "No one in the middle, from register to inbox"
     ],
     tools: ["Notion", "Zapier", "Gmail"],
+    sample: {
+      status: "Live every Monday",
+      inNumbers: "**2** linked Notion databases. **3** tools, one flow. **8:00 AM**, every Monday.",
+      how: "A register built around the questions leadership asks, read by a **live Zap** that emails the week's milestones.",
+      howFlow: ["Notion register","Zapier · Mon 8:00 AM","Gmail briefing"],
+      visual: {
+        flow: [
+          { tool: "Notion · register", title: "Every project, owner, RAG and risk" },
+          { tool: "Zapier", title: "Every Monday, 8:00 AM → find → send", engine: true },
+          { tool: "Gmail · inbox", title: "This week's milestones, delivered", result: true }
+        ],
+        note: "no one compiling it"
+      }
+    },
     description:
       "A self-internship work sample: a Notion project register for a PMO lead, and a live Zapier alert called Monday Radar that emails the milestones due that week, every Monday at 8:00 AM.",
     highlights: [
@@ -736,93 +750,169 @@ export const projects = [
     shortTitle: "Pet Care Companion",
     tags: ["Team hackathon", "AI product", "Remote team"],
     tag: "Hackathon",
-    result: "Four people, three countries, one live app in 48 hours",
+    result: "Four people, three countries, one live MVP in 48 hours",
     impact: "Built in 48 hours",
     timeframe: "48 hours",
     summary:
-      "Our team of four, working from three countries, built, submitted and pitched Pet Care Companion, a live app with five features, in one 48-hour hackathon.",
+      "Our team of four, working from three countries, built, submitted and pitched Pet Care Companion, a live MVP with five features, in one 48-hour hackathon.",
     points: [
       "5 features live, from pet profiles to AI care checklists",
-      "My part: time-zone coordination, backend and pet records, pitch and demo",
-      "Submitted on time"
+      "My part: time zones, backend and pet records, pitch and demo",
+      "Built, submitted and pitched on time"
     ],
     tools: ["Lovable", "Supabase", "OpenAI API"],
+    sample: {
+      status: "MVP shipped in 48h",
+      inNumbers: "**48h**. **4** people. **3** countries. **5** features live.",
+      how: "One plan, **one owner per task**, overlap windows and **written handoffs** across time zones.",
+      howFlow: ["Plan","Build","Ship","Pitch"],
+      visual: {
+        type: "timeline",
+        start: "Hour 0",
+        end: "Hour 48",
+        stops: [
+          { title: "Plan", tool: "Google Docs + Notion" },
+          { title: "Build", tool: "Lovable · Supabase · OpenAI API", badge: "4 people, in parallel" },
+          { title: "Submit", tool: "On time" },
+          { title: "Pitch", tool: "Live demo", result: true }
+        ],
+        note: "4 people · 3 countries · written handoffs"
+      }
+    },
     description:
-      "One 48-hour hackathon, one brief: build a live product, Pet Care Companion, end to end. Our team of four did it from three different countries, with no shared office and a very loud clock. The app was built, submitted on time and pitched.",
+      "One 48-hour hackathon, one brief: build Pet Care Companion as a live MVP, end to end. Our team of four did it from three different countries. The app was built, submitted on time and pitched.",
     highlights: [
       "Five features live: pet profiles, routines, vaccination records, appointments and AI checklists",
       "Four people working from three countries",
       "My role: time-zone coordination, the backend and pet records, and the pitch and demo",
-      "Ground rules settled in the first hour, so ownership and handoffs were clear"
+      "Clear owners, one plan and written handoffs across time zones"
     ],
     honestNote:
-      "This was a hackathon build with no real users, so I have no usage figures. I also have no feedback or ranking to report. What the project shows is that a team spread across three countries can ship a complete product in 48 hours when ownership, handoffs and a single plan are clear.",
+      "A hackathon build with no real users, so there are no usage figures, feedback or ranking to report.",
     caseStudy: {
       embeds: "pet-care-companion",
       kicker: "Project · Team hackathon",
-      title: "Pet Care Companion: live in 48 hours",
-      subtitle: "Four people. Three countries. One app, built on time.",
+      title: "Four people. Three countries. One live MVP in 48 hours.",
+      subtitle: "Pet Care Companion: every part of a pet's care in one place, with AI turning instructions into checklists.",
       strip: [
-        { label: "My role", value: "One of four: time zones, backend & pet records, pitch" },
-        { label: "Timeline", value: "48 hours" },
-        { label: "Team", value: "4 people in 3 countries" },
-        { label: "Built with", value: "Lovable · Supabase · OpenAI API" }
+        { label: "What it is", value: "A live MVP, built end to end" },
+        { label: "Built with", value: "Lovable · Supabase · OpenAI API" },
+        { label: "My part", value: "Time zones, backend & pet records, pitch" },
+        { label: "Team", value: "4 people in 3 countries" }
       ],
       oneBreathLabel: "What it is",
       oneBreath:
-        "**Pet Care Companion** is an app where owners create pet profiles and keep all their pet's care in one place, with AI turning care instructions into **editable checklists**. One 48-hour hackathon, one brief: build it end to end. Our team of four did it from **three countries**, and the app was built, submitted on time and pitched.",
+        "**Pet Care Companion** is an app where owners create pet profiles and keep all their pet's care in one place, with AI turning care instructions into **editable checklists**. One 48-hour hackathon, one brief: build it as a **live MVP**, end to end. Our team of four did it from **three countries**, and the app was **built, submitted on time and pitched**.",
       bigNumbers: [
         { value: "48h", label: "to build and submit" },
         { value: "4", label: "people on the team" },
         { value: "3", label: "countries we worked from" },
-        { value: "5", label: "features live in the final app" }
+        { value: "5", label: "features live in the MVP" }
       ],
-      // Best of both: Kalpana's illustrated sections (embeds) where they carry the story,
-      // short cards where her section is mostly text (the decisions).
       blocks: [
-        { type: "part", title: "The problem and why it mattered" },
+        { type: "part", title: "The brief", heading: "Two challenges: the product, and the clock." },
         { type: "embed", key: "problem" },
 
-        { type: "part", title: "What I did: the decisions" },
+        { type: "part", title: "What's in it", heading: "Five features, one MVP." },
         {
-          type: "lead",
-          text: "The brief already defined the product, so the real question was **how four people in three countries would build it together** in two days.",
-          chips: ["Chose Pet Care Companion", "Built for all pets", "Lovable for the front end", "Supabase + OpenAI API", "Plan compressed to 48 hours", "All five features kept in scope"]
+          type: "decisions",
+          label: "The features",
+          itemLabel: "Feature",
+          items: [
+            { title: "Pet profiles", text: "One profile per pet, so **every record has a home**." },
+            { title: "Routines", text: "**Feeding and walking** routines in one place." },
+            { title: "Vaccination records", text: "Vaccinations kept **on record, not in memory**." },
+            { title: "Appointments", text: "**Grooming and vet** appointments tracked." },
+            { title: "AI checklists", text: "AI turns care instructions into **editable checklists** an owner can actually follow." }
+          ]
+        },
+
+        { type: "part", title: "Working remotely", heading: "Why remote teams stall, and why ours didn't." },
+        {
+          type: "decisions",
+          label: "Where remote teams usually struggle",
+          itemLabel: "Trap",
+          items: [
+            { title: "The clock", text: "Work **stops while one person sleeps**, and a question can wait half a day for an answer." },
+            { title: "No shared room", text: "Decisions made in a call or a chat **never get written down**, so people work from different versions." },
+            { title: "Blurred ownership", text: "Two people pick up the same task, and **another one nobody picks up at all**." },
+            { title: "Lost handoffs", text: "Context **disappears between time zones**, and the next person starts by guessing." }
+          ]
         },
         {
           type: "decisions",
-          label: "How we worked together",
-          heading: "Four habits that turned four people into one team",
+          label: "How we turned each one around",
           itemLabel: "Habit",
           items: [
-            { title: "Ownership", text: "Each person owned a part of the build, with a **clear owner for every task**." },
-            { title: "One plan", text: "The team playbook was the **single source of truth**, so everyone worked from the same plan." },
-            { title: "Staying in touch", text: "**Overlap windows** for live calls, plus short updates in the team chat." },
-            { title: "Handoffs", text: "A **status note** at the end of each person's day, so the next time zone could pick up." }
+            { title: "Overlap windows", text: "Agreed hours for **live calls**, plus short updates in the team chat in between." },
+            { title: "One plan", text: "The team playbook was the **single source of truth**, so everyone worked from the same version." },
+            { title: "One owner per task", text: "Each person owned a part of the build, with a **clear owner for every task**." },
+            { title: "Written handoffs", text: "A **status note** at the end of each person's day, so the next time zone could pick up without guessing." }
+          ]
+        },
+        {
+          type: "decisions",
+          label: "The remote toolkit",
+          heading: "Light tools for a 48-hour sprint.",
+          itemLabel: "Tool",
+          items: [
+            { title: "WhatsApp", text: "The **team chat**, for quick updates between calls. Light on purpose: **48 hours doesn't need a Slack workspace**." },
+            { title: "Zoom", text: "**Live calls** in the overlap windows, where decisions were made together." },
+            { title: "Google Docs + Notion", text: "The **shared plan and playbook**, one source of truth for all four of us." },
+            { title: "Trello", text: "**My own to-do list**, so my tasks and handoffs were always visible." }
           ]
         },
         {
           type: "roles",
           label: "My part",
-          heading: "One of four, and a mix of everything",
           roles: [
             {
               who: "Me",
               me: true,
-              what: "Coordinated across **time zones**, built the **backend and pet records**, and worked on the **pitch and demo**. Keeping all five features in scope raised the pressure on a 48-hour plan, so clear ownership and written handoffs mattered even more."
+              what: "Coordinated across **time zones**, built the **backend and pet records**, and worked on the **pitch and demo**."
             }
           ]
         },
+        { type: "quote", text: "Distance isn't the risk in a remote team. Unclear ownership is." },
+        {
+          type: "lead",
+          text: "**Half the challenge was the product. The other half was the distance.** It taught more than it cost: planning across three time zones, writing before talking, and handing work over borders without losing a day."
+        },
 
-        { type: "part", title: "What shipped" },
+        { type: "part", title: "What shipped", heading: "Built, submitted and pitched, on time." },
         { type: "embed", key: "changed" },
         {
           type: "honest",
-          text: "This was a hackathon build with no real users, so I have no usage figures. I also have no feedback or ranking to report. What the project shows is that a team spread across three countries can ship a complete product in 48 hours when ownership, handoffs and a single plan are clear."
+          text: "A hackathon build with no real users, so there are no usage figures, feedback or ranking to report."
         },
 
-        { type: "part", title: "What I would do differently" },
-        { type: "embed", key: "differently" }
+        { type: "part", title: "The through-line", heading: "The same instinct, at a smaller scale." },
+        {
+          type: "lead",
+          text: "In the Air Force, I coordinated **cross-functional teams and vendors across geographies**, with clear ownership and on-time delivery. Forty-eight hours, four people and three countries is that same discipline on a hackathon clock: **one plan, one owner per task, and handoffs written down**.",
+          chips: [
+            "remote team coordination",
+            "distributed collaboration",
+            "async communication",
+            "time-zone planning",
+            "time-zone handoffs",
+            "written status updates",
+            "scope management",
+            "ownership & accountability",
+            "rapid delivery",
+            "product pitch & demo",
+            "mvp delivery",
+            "ai product",
+            "whatsapp",
+            "zoom",
+            "google docs",
+            "notion",
+            "trello",
+            "lovable",
+            "supabase",
+            "openai api"
+          ]
+        }
       ]
     }
   },
@@ -834,55 +924,102 @@ export const projects = [
     tags: ["Self-internship", "AI automation", "n8n"],
     tag: "AI Automation",
     result: "Genuine enquiries kept, spam filtered out",
-    impact: "3 cases tested",
-    timeframe: "Under a day",
+    impact: "Genuine vs spam, filed",
+    timeframe: "Self-internship",
     summary:
       "Every website enquiry is checked, classified as genuine or spam by an AI model, and filed in the right Google Sheets tab.",
-    points: ["Two checks, one classification, one filing", "Tested with genuine, spam and empty cases", "Built in under a day"],
+    points: ["Two checks, one AI decision, one filing", "Genuine and spam filed in separate tabs", "Empty enquiries never reach the sheet"],
     tools: ["n8n", "AI model", "Google Sheets"],
+    sample: {
+      status: "Genuine vs spam, filed",
+      inNumbers: "**2** checks before the AI step. **2** lanes. **0** rows from empty enquiries.",
+      how: "Cheap checks first, then an **AI model** decides genuine or spam, and **Google Sheets** files it.",
+      howFlow: ["Website form","n8n checks","AI model","Google Sheets"],
+      visual: {
+        type: "fork",
+        source: { tool: "Website form", title: "New enquiry" },
+        check: { tool: "n8n", title: "Empty or incomplete?" },
+        side: { label: "Stopped", title: "Never saved" },
+        gate: { tool: "AI model", title: "Genuine or spam?" },
+        lanes: [
+          { label: "Genuine", title: "Lead list tab", tone: "good" },
+          { label: "Spam", title: "Spam tab", tone: "bad" }
+        ],
+        note: "no manual sorting"
+      }
+    },
     description:
-      "I built this during a self-internship, working on my own. Every website enquiry is checked, classified as genuine or spam by an AI model, and filed in the right Google Sheets tab. An empty enquiry creates no entry at all.",
+      "Built on my own during a self-internship. Every website enquiry is checked, classified as genuine or spam by an AI model, and filed in the right Google Sheets tab. An empty enquiry creates no entry at all.",
     highlights: [
       "Two checks, one AI classification and one filing step",
       "Genuine and spam enquiries filed in separate Google Sheets tabs",
-      "Empty enquiries create no entry at all",
-      "Tested with three cases: genuine, spam and empty"
+      "Empty enquiries create no entry at all"
     ],
     honestNote:
-      "This was a self-internship build, tested with three cases. I have no accuracy figure for the AI's classification and no real website traffic behind it, so what I have is a working, tested workflow, not a measured spam-catch rate.",
+      "A self-internship build with illustrative enquiries and no real website traffic behind it, so there is no measured spam-catch rate yet.",
     caseStudy: {
       embeds: "lead-spam-checker",
-      kicker: "Mini-project · Self-internship",
-      title: "A website lead spam checker that sorts genuine enquiries from spam",
-      subtitle: "Spam kept out of the lead list, and real leads kept in.",
+      kicker: "Project · Self-internship",
+      title: "Spam out. Real leads in.",
+      subtitle: "Every website enquiry checked, sorted by AI and filed, before anyone opens the inbox.",
       strip: [
-        { label: "My role", value: "Designed, built and tested by me" },
-        { label: "Build time", value: "Under a day" },
-        { label: "Helps", value: "Whoever reviews enquiries and follows up on leads" },
-        { label: "Built with", value: "Website form · n8n · AI model · Google Sheets" }
+        { label: "What it is", value: "Lead-filtering automation" },
+        { label: "Built with", value: "Website form · n8n · AI model · Google Sheets" },
+        { label: "Context", value: "Self-internship · built solo" },
+        { label: "Source material", value: "Illustrative enquiries" }
       ],
       oneBreathLabel: "What it is",
       oneBreath:
-        "Every website enquiry is **checked**, **classified as genuine or spam by an AI model**, and **filed in the right Google Sheets tab**. An empty enquiry creates no entry at all. Built on my own during a self-internship.",
+        "Every website enquiry is **checked**, **classified as genuine or spam by an AI model**, and **filed in the right Google Sheets tab**. Genuine leads land in one place, spam in another, and an empty enquiry never reaches the sheet at all.",
       bigNumbers: [
-        { value: "< 1 day", label: "build time" },
         { value: "2", label: "checks before the AI step" },
-        { value: "2", label: "categories: genuine or spam" },
-        { value: "3", label: "cases tested: genuine, spam, empty" }
+        { value: "2", label: "lanes: genuine or spam" },
+        { value: "0", label: "rows from empty enquiries" },
+        { value: "0", label: "enquiries sorted by hand" }
       ],
       blocks: [
-        { type: "part", title: "The problem" },
+        { type: "part", title: "Why I built it", heading: "Spam buries real leads by default." },
         { type: "embed", key: "problem" },
-        { type: "part", title: "How it works" },
-        { type: "embed", key: "how" },
-        { type: "part", title: "The result" },
-        { type: "embed", key: "result" },
+        { type: "quote", text: "Every minute spent on spam is a minute a real lead waits." },
+
+        { type: "part", title: "How it works", heading: "Check, classify, file. No one in the middle." },
+        {
+          type: "flow",
+          label: "From form to the right tab",
+          steps: [
+            { tag: "Trigger", title: "An enquiry arrives", tool: "Website form" },
+            { tag: "Check", title: "Empty or incomplete? Stop.", tool: "n8n" },
+            { tag: "Classify", title: "Genuine or spam", tool: "AI model" },
+            { tag: "File", title: "The right tab", tool: "Google Sheets" }
+          ]
+        },
+        { type: "quote", text: "Cheap checks first, AI second: junk is stopped before it costs anything." },
+
+        { type: "part", title: "What changed", heading: "The lead list stays clean on its own." },
+        {
+          type: "lead",
+          text: "**Genuine enquiries** land in one tab, ready for follow-up. **Spam** lands in another, out of the way. **Empty submissions** never become a row. Nobody sorts the inbox by hand."
+        },
         {
           type: "honest",
-          text: "This was a self-internship build, tested with three cases. I have no accuracy figure for the AI's classification and no real website traffic behind it, so what I have is a working, tested workflow, not a measured spam-catch rate."
+          text: "A self-internship build with illustrative enquiries and no real website traffic behind it, so there is no measured spam-catch rate yet."
         },
-        { type: "part", title: "What's next" },
-        { type: "embed", key: "next" }
+
+        { type: "part", title: "The through-line", heading: "Decide what deserves attention, before it reaches a person." },
+        {
+          type: "lead",
+          text: "It's the same instinct behind PMO AutoPilot: **filter the noise before it reaches a decision-maker**, so the time that's left goes to what matters.",
+          chips: [
+            "lead qualification",
+            "ai classification",
+            "workflow automation",
+            "data validation",
+            "process design",
+            "no-code automation",
+            "n8n",
+            "google sheets"
+          ]
+        }
       ]
     }
   },
@@ -894,7 +1031,7 @@ export const projects = [
     tags: ["Self-internship", "AI workflow", "Customer support"],
     tag: "AI Workflow",
     result: "Every customer answered, urgent issues straight to the team",
-    impact: "3 ticket types tested",
+    impact: "Sorted, logged, answered",
     timeframe: "Self-internship",
     summary:
       "Customers raise a ticket from a friendly web form. Every one gets a reply, a tracked row and a priority, and anything urgent lands in the team inbox.",
@@ -904,6 +1041,23 @@ export const projects = [
       "Customer gets an acknowledgement; urgent issues reach the team"
     ],
     tools: ["n8n", "AI model", "Google Sheets", "Gmail"],
+    sample: {
+      status: "Every ticket answered",
+      inNumbers: "**4** steps per ticket. **3** categories. **2** inboxes reached.",
+      how: "A web form feeds an **AI model** that sorts each ticket; **Sheets** logs it and **Gmail** replies or escalates.",
+      howFlow: ["Web form","AI model","Google Sheets","Gmail"],
+      visual: {
+        type: "fanout",
+        source: { tool: "Web form", title: "New ticket" },
+        gate: { tool: "AI model", title: "Category + urgency" },
+        outputs: [
+          { tool: "Google Sheets", title: "Logged" },
+          { tool: "Gmail → customer", title: "Acknowledged" },
+          { tool: "Gmail → team", title: "Escalated", alert: true, condition: "if urgent" }
+        ],
+        note: "all at once · no one sorting the inbox"
+      }
+    },
     description:
       "Built during a self-internship, working on my own: a customer support triage bot with a customer-facing web form. A customer submits feedback from a web page, and the bot classifies it by category and urgency, logs it as a new row in Google Sheets, emails the customer an acknowledgement and escalates high-urgency issues to the team.",
     image: "/workflow-diagram.jpg",
@@ -914,16 +1068,16 @@ export const projects = [
       "A warm acknowledgement to the customer; an escalation to the team inbox when urgent"
     ],
     honestNote:
-      "This was a self-internship build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results.",
+      "A self-internship build with illustrative tickets. It has not handled real customer volume, so there are no measured results yet.",
     caseStudy: {
-      kicker: "Mini-project · Self-internship",
-      title: "A support inbox that sorts itself, and flags what can't wait",
-      subtitle: "Every customer heard. Every ticket tracked. Urgent issues straight to the team.",
+      kicker: "Project · Self-internship",
+      title: "Every customer answered. Every urgent issue escalated.",
+      subtitle: "A support inbox that sorts, logs and replies on its own.",
       strip: [
-        { label: "Helps", value: "Support teams, and the customers waiting on them" },
-        { label: "Input", value: "A customer-facing web form" },
-        { label: "Output", value: "A logged ticket, a customer reply and, if urgent, a team alert" },
-        { label: "Built with", value: "n8n · AI model · Google Sheets · Gmail" }
+        { label: "What it is", value: "Support triage with a customer web form" },
+        { label: "Built with", value: "n8n · AI model · Google Sheets · Gmail" },
+        { label: "Context", value: "Self-internship · built solo" },
+        { label: "Source material", value: "Illustrative tickets" }
       ],
       oneBreathLabel: "What it is",
       oneBreath:
@@ -932,29 +1086,25 @@ export const projects = [
         { value: "4", label: "automatic steps per ticket" },
         { value: "3", label: "categories: Bug, Feature Request, Question" },
         { value: "2", label: "inboxes reached: customer and team" },
-        { value: "3", label: "test tickets, each routed as expected" }
+        { value: "0", label: "tickets sorted by hand" }
       ],
       blocks: [
-        { type: "part", title: "The problem" },
+        { type: "part", title: "Why I built it", heading: "Urgent issues wait in the same queue by default." },
         {
           type: "lead",
-          text: "Customer feedback arrives as one stream. Someone has to read every message, decide **what it is** and **how urgent it is**, record it, reply to the customer and alert the team about anything serious. Done by hand, the urgent issue waits in the same queue as everything else."
+          text: "Customer feedback arrives as one stream. Someone has to read every message, decide **what it is** and **how urgent it is**, record it, reply and alert the team. Done by hand, the urgent issue waits behind everything else."
         },
-        { type: "part", title: "How it works" },
+        { type: "quote", text: "When everything sits in one queue, nothing is urgent." },
+
+        { type: "part", title: "How it works", heading: "Classify. Log. Acknowledge. Escalate." },
         {
-          type: "lead",
-          text: "A customer opens the published form and submits a ticket. From there, it runs automatically:"
-        },
-        {
-          type: "decisions",
-          label: "The flow",
-          heading: "Four steps, from form to inbox",
-          itemLabel: "Step",
-          items: [
-            { title: "Classify", text: "An **AI model** reads the feedback and sets its **Category** (Bug, Feature Request or Question) and **Urgency**." },
-            { title: "Log", text: "A **new row in Google Sheets** for every ticket, with Category, Urgency, Date and **Status = New**." },
-            { title: "Acknowledge", text: "The customer receives a **warm acknowledgement email**, so no one is left wondering." },
-            { title: "Escalate", text: "**High-urgency** issues are emailed straight to the **team inbox**." }
+          type: "flow",
+          label: "From the form to the right inbox",
+          steps: [
+            { tag: "Trigger", title: "A ticket is submitted", tool: "Web form" },
+            { tag: "Classify", title: "Category and urgency", tool: "AI model" },
+            { tag: "Log", title: "A new row, Status = New", tool: "Google Sheets" },
+            { tag: "Reply", title: "Customer thanked; urgent ones escalated", tool: "Gmail" }
           ]
         },
         {
@@ -963,25 +1113,32 @@ export const projects = [
           alt: "Diagram of the customer support triage workflow",
           caption: "The workflow, from customer feedback to the right inbox."
         },
-        { type: "part", title: "The result" },
-        {
-          type: "decisions",
-          label: "Tested as a customer would",
-          heading: "Three tickets through the published form",
-          itemLabel: "Test",
-          items: [
-            { title: "Bug, High", text: "Sheet row **+** acknowledgement **+** team escalation." },
-            { title: "Feature Request, Low", text: "Sheet row **+** acknowledgement only." },
-            { title: "Question, Low", text: "Sheet row **+** acknowledgement only." }
-          ]
-        },
+
+        { type: "part", title: "What changed", heading: "No ticket sorted by hand." },
         {
           type: "lead",
-          text: "Customers can now submit feedback from a web page, and behind the scenes it is **classified**, **logged**, **acknowledged** and, when it is urgent, **escalated**, with logging and email working exactly as they did before the form was added."
+          text: "Customers submit feedback from a web page, and behind the scenes it is **classified**, **logged**, **acknowledged** and, when it is urgent, **escalated**. The customer hears back, and the team only sees what needs them."
         },
         {
           type: "honest",
-          text: "This was a self-internship build, tested end to end with three tickets submitted through the published form, as a customer would. It has not handled real customer volume, and I have no accuracy figure for the AI's classification, so what I have is a working, tested workflow rather than measured results."
+          text: "A self-internship build with illustrative tickets. It has not handled real customer volume, so there are no measured results yet."
+        },
+
+        { type: "part", title: "The through-line", heading: "The right issue, to the right person, first." },
+        {
+          type: "lead",
+          text: "The same instinct as PMO AutoPilot: **make urgency visible before it becomes a problem**. Here it's a customer's issue instead of a project milestone, but the move is the same: **sort, log and escalate, with no one in the middle**.",
+          chips: [
+            "customer support operations",
+            "ticket triage",
+            "escalation management",
+            "sla thinking",
+            "ai classification",
+            "workflow automation",
+            "n8n",
+            "google sheets",
+            "gmail"
+          ]
         }
       ]
     }

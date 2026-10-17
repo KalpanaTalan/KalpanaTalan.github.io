@@ -244,10 +244,10 @@ const blockRenderers = {
                 i === b.steps.length - 1 ? "border-sky-400/60 bg-sky-500/10" : "border-slate-400/40 glass-card"
               }`}
             >
-              <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <span className={label}>{st.tag}</span>
                 {st.tool && (
-                  <span className="px-2.5 py-0.5 rounded-full border border-sky-400/40 bg-sky-500/10 text-xs font-semibold text-[var(--text-primary)]">
+                  <span className="whitespace-nowrap px-2.5 py-0.5 rounded-full border border-sky-400/40 bg-sky-500/10 text-xs font-semibold text-[var(--text-primary)]">
                     {st.tool}
                   </span>
                 )}

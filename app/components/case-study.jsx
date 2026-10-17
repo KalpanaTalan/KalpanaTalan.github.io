@@ -1,14 +1,16 @@
-import { Info } from "lucide-react";
+import { ChevronDown, Info } from "lucide-react";
 
-// The "honest note" box used at the end of project pages.
+// The honest note at the end of project pages: a quiet one-liner that opens on click,
+// so it's there for anyone who looks, without competing with the work.
 export function HonestNote({ text }) {
   return (
-    <div className="rounded-2xl p-5 sm:p-6 border border-dashed border-amber-400/60 bg-amber-500/5 flex items-start gap-3">
-      <Info className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-      <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-        <span className="font-semibold text-amber-300">The honest note. </span>
-        {text}
-      </p>
-    </div>
+    <details className="group text-sm">
+      <summary className="cursor-pointer list-none inline-flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+        <Info className="w-3.5 h-3.5" />
+        A note on scope
+        <ChevronDown className="w-3.5 h-3.5 transition-transform group-open:rotate-180" />
+      </summary>
+      <p className="mt-2 max-w-3xl text-[var(--text-secondary)] leading-relaxed">{text}</p>
+    </details>
   );
 }
