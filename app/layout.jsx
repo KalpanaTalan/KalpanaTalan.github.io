@@ -29,7 +29,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`dark ${outfit.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`light ${outfit.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen antialiased selection:bg-sky-500/30 selection:text-white">
         {children}
       </body>

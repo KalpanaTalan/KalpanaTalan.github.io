@@ -267,6 +267,17 @@
 :root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #1B4DDB"] {
   color: var(--accent) !important;
 }
+/* Accent text colours in the illustrations: lighter shades on the dark panels, deeper shades on
+   the light ones, so small labels stay readable in both modes. Only text colour changes. */
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #4B3FD1"] { color: #a5b4fc !important; }
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #3F5BE0"] { color: #93c5fd !important; }
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #8A4DE0"] { color: #c4b5fd !important; }
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #E5398F"] { color: #f9a8d4 !important; }
+:root:not(.light) [data-illus="dark"] .cs-embed [style*="color: #9A3412"] { color: #fdba74 !important; }
+.light .cs-embed [style*="color: #4B3FD1"] { color: #3730a3 !important; }
+.light .cs-embed [style*="color: #3F5BE0"] { color: #1e40af !important; }
+.light .cs-embed [style*="color: #8A4DE0"] { color: #6d28d9 !important; }
+.light .cs-embed [style*="color: #E5398F"] { color: #be185d !important; }
 
 [data-illus="light"] .cs-embed {
   background: #faf9f6;
@@ -279,13 +290,23 @@
    300–400 shades) are tuned for the dark background and wash out on the light one, so in
    light mode they map to deeper shades of the same hue. Dark mode is untouched. */
 .light .text-sky-300, .light .text-sky-400, .light .text-sky-400\/80,
-.light .hover\:text-sky-400:hover, .light .group:hover .group-hover\:text-sky-400 { color: #0369a1; }
+.light .hover\:text-sky-300:hover, .light .hover\:text-sky-400:hover,
+.light .group:hover .group-hover\:text-sky-400 { color: #075985; }
+.light .text-sky-400\/50, .light .text-sky-400\/60 { color: rgb(7 89 133 / 0.6); }
 .light .text-teal-300, .light .text-teal-400,
-.light .hover\:text-teal-400:hover { color: #0f766e; }
-.light .text-indigo-300, .light .text-indigo-400 { color: #4338ca; }
-.light .text-emerald-300, .light .text-emerald-400 { color: #047857; }
-.light .text-amber-200, .light .text-amber-300, .light .text-amber-400 { color: #b45309; }
-.light .text-purple-400 { color: #7e22ce; }
+.light .hover\:text-teal-400:hover { color: #115e59; }
+.light .text-indigo-300, .light .text-indigo-400 { color: #3730a3; }
+.light .text-emerald-300, .light .text-emerald-400 { color: #065f46; }
+.light .text-amber-200, .light .text-amber-300, .light .text-amber-400 { color: #92400e; }
+.light .text-purple-400 { color: #6b21a8; }
+.light .text-rose-400 { color: #be123c; }
+.light .text-slate-400 { color: #475569; }
+
+/* Solid blue buttons with white text: a deeper blue so the white label stays readable */
+.light .bg-sky-500 { background-color: #0369a1; }
+.light .hover\:bg-sky-400:hover { background-color: #075985; }
+.dark .bg-sky-500 { background-color: #0369a1; }
+.dark .hover\:bg-sky-400:hover { background-color: #0284c7; }
 
 /* Gradient text (headings, numbers): use deeper stops in light mode too */
 .light .from-sky-400 { --tw-gradient-from: #0284c7; }

@@ -424,7 +424,7 @@ function SectionLabel({ n, children }) {
 
 
 export default function Portfolio() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showAllRoles, setShowAllRoles] = useState(false);
