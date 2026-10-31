@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,47031,e=>{"use strict";var r=e.i(43476);e.s(["CurrentYear",0,function(){return(0,r.jsx)("span",{suppressHydrationWarning:!0,children:new Date().getFullYear()})}])}]);
