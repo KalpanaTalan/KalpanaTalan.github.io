@@ -67,12 +67,12 @@ const CONTACT_EMAIL = "kalpanatalan.veteran@gmail.com";
 const CALENDLY_URL = "https://calendly.com/kalpanatalan-veteran/30min";
 
 const navItems = [
+  { href: "#skills", label: "Skills", mobileLabel: "Skills & Toolkit" },
   { href: "#about", label: "About", mobileLabel: "About Me" },
-  { href: "#what-i-bring", label: "What I Bring", mobileLabel: "What I Bring" },
   { href: "#impact", label: "Work", mobileLabel: "Featured Work & Impact" },
   { href: "#experience", label: "Experience", mobileLabel: "Work Experience" },
-  { href: "#skills", label: "Skills", mobileLabel: "Skills & Toolkit" },
-  { href: "#certifications", label: "Credentials", mobileLabel: "Credentials & Education" }
+  { href: "#certifications", label: "Credentials", mobileLabel: "Credentials & Education" },
+  { href: "#what-i-bring", label: "What I Bring", mobileLabel: "What I Bring" }
 ];
 
 // Hero box: how I step in and what a hiring team gets. Worded without "program"
@@ -583,10 +583,10 @@ export default function Portfolio() {
       </nav>
 
       {/* 2. HERO / INTRO SECTION */}
-      <section id="intro" className="pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <section id="intro" className="pt-24 pb-16 md:pt-24 lg:pt-20 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left Column: Headlines & Positioning */}
-          <FadeIn direction="up" delay={0.1} className="lg:col-span-7 space-y-6">
+          <FadeIn direction="up" delay={0.1} className="lg:col-span-8 space-y-6 lg:space-y-3.5">
             {/* Honor & Identity Badge */}
             <div className="inline-flex flex-wrap items-center gap-2 px-3 py-1.5 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-400 text-xs font-semibold backdrop-blur-sm">
               <span className="flex items-center gap-1.5">
@@ -601,7 +601,7 @@ export default function Portfolio() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+            <h1 className="text-3xl sm:text-5xl lg:text-[2.4rem] font-extrabold tracking-tight leading-tight lg:leading-[1.12] text-[var(--text-primary)]">
               Delivering High-Stakes Programs Through{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
                 Digital Transformation
@@ -610,14 +610,14 @@ export default function Portfolio() {
             </h1>
 
             {/* Subtext */}
-            <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-lg lg:text-base text-[var(--text-secondary)] leading-relaxed max-w-2xl">
               I turn complex strategy into <Highlight>predictable, on-time delivery</Highlight>. Built on{" "}
               <Highlight>10 years of Indian Air Force leadership</Highlight>, <Highlight>₹500 Cr+</Highlight> in assets
               governed, and <Highlight>PMP® · CSM®</Highlight> credentials, for programs where
               failure is not an option.
             </p>
             {/* Value Proposition: how I step in and what a hiring team gets */}
-            <div className="p-4 sm:p-5 rounded-xl glass-card border-l-4 border-l-sky-500 text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed shadow-sm">
+            <div className="p-4 sm:p-5 lg:py-3 rounded-xl glass-card border-l-4 border-l-sky-500 text-sm sm:text-base lg:text-sm text-[var(--text-secondary)] leading-relaxed shadow-sm">
               <span className="font-semibold text-[var(--text-primary)] block mb-1">{heroBox.question}</span>
               <span className="block mb-2">{heroBox.lead}</span>
               <ul className="space-y-1.5">
@@ -631,7 +631,7 @@ export default function Portfolio() {
             </div>
 
             {/* CTAs & Social Links */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2 lg:pt-1">
               <a
                 href="#contact"
                 className="px-6 py-3 text-sm font-semibold bg-sky-500 hover:bg-sky-400 text-white rounded-xl btn-lift shadow-md active:scale-95 flex items-center gap-2"
@@ -663,8 +663,9 @@ export default function Portfolio() {
               </a>
             </div>
 
+
             {/* Quick Credentials Strip */}
-            <div className="pt-2 flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap gap-2.5">
               {[
                 { label: "PMP®", detail: "Certified", Icon: Award, color: "text-sky-400 border-sky-400/40 bg-sky-500/10" },
                 { label: "CSM®", detail: "ScrumMaster", Icon: Award, color: "text-teal-400 border-teal-400/40 bg-teal-500/10" },                { label: "M.Tech", detail: "Aeronautical Engg", Icon: GraduationCap, color: "text-indigo-400 border-indigo-400/40 bg-indigo-500/10" }
@@ -682,12 +683,12 @@ export default function Portfolio() {
           </FadeIn>
 
           {/* Right Column: Executive Portrait Card */}
-          <FadeIn direction="left" delay={0.2} className="lg:col-span-5 flex justify-center">
+          <FadeIn direction="left" delay={0.2} className="lg:col-span-4 flex justify-center lg:pt-2">
             <div className="relative w-full max-w-sm animate-float">
               {/* Outer Decorative Glow */}
               <div className="absolute -inset-2 bg-gradient-to-r from-sky-500/40 via-teal-400/30 to-sky-500/40 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition duration-1000"></div>
 
-              <div className="relative glass-card rounded-2xl p-6 overflow-hidden space-y-5 shadow-xl">
+              <div className="relative glass-card rounded-2xl p-6 lg:p-5 overflow-hidden space-y-5 lg:space-y-3 shadow-xl">
                 {/* Photo container */}
                 <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-white/10 shadow-inner">
                   <Image
@@ -695,7 +696,7 @@ export default function Portfolio() {
                     alt="Kalpana Talan"
                     width={400}
                     height={400}
-                    className="object-cover w-full h-full"
+                    className="object-cover object-[center_20%] w-full h-full"
                     priority
                   />
                 </div>
@@ -782,6 +783,88 @@ export default function Portfolio() {
         </StaggerContainer>
       </section>
 
+      {/* 7. CAPABILITIES: tools strip + competencies grouped by stage of the work */}
+      <section id="skills" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-10">
+              <div className="lg:col-span-7">
+                <SectionLabel n={1}>Capabilities</SectionLabel>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
+                  Core competencies,
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
+                    and the toolkit behind them.
+                  </span>
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
+                Planning, delivery, governance and change, plus the tools that keep every moving part visible.
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* Tools strip */}
+          <FadeIn direction="up" delay={0.1}>
+            <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
+              <span className="text-sky-400">→</span> Tools I work in
+            </div>
+            <ToolsMarquee />
+          </FadeIn>
+
+          {/* Competency rows */}
+          <div className="mt-10">
+            {capabilityRows.map((row) => {
+              const c = accent[row.color];
+              const proof = projects.find((p) => p.id === row.proofId);
+              return (
+                <FadeIn key={row.title} direction="up">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-7 border-t border-dashed border-slate-400/30">
+                    <div className="md:col-span-4">
+                      <h3 className={`text-xl font-bold flex items-center gap-2 ${c.text}`}>
+                        <row.Icon className="w-5 h-5" /> {row.title}
+                      </h3>
+                      <p className="text-sm text-[var(--text-secondary)] mt-1">{row.meaning}</p>
+                      {proof && (
+                        <Link
+                          href={`/projects/${proof.id}`}
+                          className="group/proof mt-3 inline-flex items-start gap-1.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                        >
+                          <span className={`font-semibold ${c.text}`}>Proof:</span>
+                          <span className="nav-link">
+                            {proof.title} <span className={c.text}>({proof.impact})</span>
+                          </span>
+                          <ArrowUpRight className={`w-4 h-4 shrink-0 mt-0.5 ${c.text} group-hover/proof:translate-x-0.5 group-hover/proof:-translate-y-0.5 transition-transform`} />
+                        </Link>
+                      )}
+                    </div>
+                    <div className="md:col-span-8 space-y-4">
+                      {row.groups.map((group) => (
+                        <div key={group.label}>
+                          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
+                            {group.label}
+                            <span className="flex-1 border-t border-dashed border-slate-400/30" aria-hidden="true"></span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {group.skills.map((skill) => (
+                              <span
+                                key={skill}
+                                className="tool-pill px-4 py-1.5 rounded-full border border-slate-400/40 bg-[var(--bg-card)] text-sm font-medium text-[var(--text-primary)]"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* 4. ABOUT SECTION */}
       <section id="about" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -789,7 +872,7 @@ export default function Portfolio() {
           <FadeIn direction="up">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-12">
               <div className="lg:col-span-7">
-                <SectionLabel n={1}>About</SectionLabel>
+                <SectionLabel n={2}>About</SectionLabel>
                 <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
                   How I work,
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
@@ -852,46 +935,6 @@ export default function Portfolio() {
               </div>
             </FadeIn>
           </div>
-        </div>
-      </section>
-
-      {/* 4b. WHAT I BRING */}
-      <section id="what-i-bring" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up">
-            <div className="max-w-3xl mb-12">
-              <SectionLabel n={2}>What I Bring</SectionLabel>
-              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
-                Built for High-Stakes, Cross-Functional Programs
-              </h2>
-              <p className="text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
-                <span className="block text-lg sm:text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500 mb-1">
-                  Complexity is a given. Chaos is optional.
-                </span>
-                When many teams, vendors and risks have to move as one, this is what changes once I come on board.
-              </p>
-            </div>
-          </FadeIn>
-
-          <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {whatIBring.map(({ Icon, color, title, text, proof }) => {
-              const c = accent[color];
-              return (
-                <StaggerItem key={title}>
-                  <div className={`glass-card rounded-2xl p-6 h-full flex flex-col gap-3 ${c.hover} hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg group`}>
-                    <div className={`w-11 h-11 rounded-xl ${c.bg} border ${c.border} flex items-center justify-center ${c.text} group-hover:scale-110 transition-transform`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-lg font-bold text-[var(--text-primary)] leading-snug">{title}</h3>
-                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">{text}</p>
-                    <div className={`pt-3 border-t border-[var(--border-color)] text-sm font-semibold ${c.text}`}>
-                      {proof}
-                    </div>
-                  </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
         </div>
       </section>
 
@@ -1387,95 +1430,13 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* 7. CAPABILITIES: tools strip + competencies grouped by stage of the work */}
-      <section id="skills" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-10">
-              <div className="lg:col-span-7">
-                <SectionLabel n={5}>Capabilities</SectionLabel>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
-                  Core competencies,
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
-                    and the toolkit behind them.
-                  </span>
-                </h2>
-              </div>
-              <p className="lg:col-span-5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
-                Planning, delivery, governance and change, plus the tools that keep every moving part visible.
-              </p>
-            </div>
-          </FadeIn>
-
-          {/* Tools strip */}
-          <FadeIn direction="up" delay={0.1}>
-            <div className="text-xs font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
-              <span className="text-sky-400">→</span> Tools I work in
-            </div>
-            <ToolsMarquee />
-          </FadeIn>
-
-          {/* Competency rows */}
-          <div className="mt-10">
-            {capabilityRows.map((row) => {
-              const c = accent[row.color];
-              const proof = projects.find((p) => p.id === row.proofId);
-              return (
-                <FadeIn key={row.title} direction="up">
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 py-7 border-t border-dashed border-slate-400/30">
-                    <div className="md:col-span-4">
-                      <h3 className={`text-xl font-bold flex items-center gap-2 ${c.text}`}>
-                        <row.Icon className="w-5 h-5" /> {row.title}
-                      </h3>
-                      <p className="text-sm text-[var(--text-secondary)] mt-1">{row.meaning}</p>
-                      {proof && (
-                        <Link
-                          href={`/projects/${proof.id}`}
-                          className="group/proof mt-3 inline-flex items-start gap-1.5 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
-                        >
-                          <span className={`font-semibold ${c.text}`}>Proof:</span>
-                          <span className="nav-link">
-                            {proof.title} <span className={c.text}>({proof.impact})</span>
-                          </span>
-                          <ArrowUpRight className={`w-4 h-4 shrink-0 mt-0.5 ${c.text} group-hover/proof:translate-x-0.5 group-hover/proof:-translate-y-0.5 transition-transform`} />
-                        </Link>
-                      )}
-                    </div>
-                    <div className="md:col-span-8 space-y-4">
-                      {row.groups.map((group) => (
-                        <div key={group.label}>
-                          <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[var(--text-secondary)] mb-2">
-                            {group.label}
-                            <span className="flex-1 border-t border-dashed border-slate-400/30" aria-hidden="true"></span>
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            {group.skills.map((skill) => (
-                              <span
-                                key={skill}
-                                className="tool-pill px-4 py-1.5 rounded-full border border-slate-400/40 bg-[var(--bg-card)] text-sm font-medium text-[var(--text-primary)]"
-                              >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </FadeIn>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* 8. CREDENTIALS & EDUCATION */}
       <section id="certifications" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn direction="up">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 lg:items-end mb-10">
               <div className="lg:col-span-7">
-                <SectionLabel n={6}>Credentials & Honors</SectionLabel>
+                <SectionLabel n={5}>Credentials & Honors</SectionLabel>
                 <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
                   Credentials,
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
@@ -1701,7 +1662,7 @@ export default function Portfolio() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn direction="up">
               <div className="mb-10">
-                <SectionLabel n={7}>Kind Words</SectionLabel>
+                <SectionLabel n={6}>Kind Words</SectionLabel>
                 <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight text-[var(--text-primary)]">
                   Kind words,
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500">
@@ -1766,6 +1727,46 @@ export default function Portfolio() {
           </div>
         </section>
       )}
+
+      {/* 4b. WHAT I BRING */}
+      <section id="what-i-bring" className="py-16 md:py-24 border-t border-[var(--border-color)] relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="max-w-3xl mb-12">
+              <SectionLabel n={testimonials.length > 0 ? 7 : 6}>What I Bring</SectionLabel>
+              <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[var(--text-primary)]">
+                Built for High-Stakes, Cross-Functional Programs
+              </h2>
+              <p className="text-base text-[var(--text-secondary)] mt-3 leading-relaxed">
+                <span className="block text-lg sm:text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-sky-500 mb-1">
+                  Complexity is a given. Chaos is optional.
+                </span>
+                When many teams, vendors and risks have to move as one, this is what changes once I come on board.
+              </p>
+            </div>
+          </FadeIn>
+
+          <StaggerContainer staggerDelay={0.08} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {whatIBring.map(({ Icon, color, title, text, proof }) => {
+              const c = accent[color];
+              return (
+                <StaggerItem key={title}>
+                  <div className={`glass-card rounded-2xl p-6 h-full flex flex-col gap-3 ${c.hover} hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-lg group`}>
+                    <div className={`w-11 h-11 rounded-xl ${c.bg} border ${c.border} flex items-center justify-center ${c.text} group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-lg font-bold text-[var(--text-primary)] leading-snug">{title}</h3>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed flex-1">{text}</p>
+                    <div className={`pt-3 border-t border-[var(--border-color)] text-sm font-semibold ${c.text}`}>
+                      {proof}
+                    </div>
+                  </div>
+                </StaggerItem>
+              );
+            })}
+          </StaggerContainer>
+        </div>
+      </section>
 
       {/* 9. LET'S CONNECT: one email button plus three ways in; no form, nothing stored */}
       <section id="contact" className="py-20 md:py-28 border-t border-[var(--border-color)] relative z-10">

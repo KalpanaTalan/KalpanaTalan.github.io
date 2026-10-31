@@ -22,7 +22,7 @@ export const metadata = {
   openGraph: {
     title: 'Kalpana Talan | Program & Transformation Leader',
     description: 'Delivering high-stakes programs through digital transformation, risk governance & cross-functional leadership.',
-    url: 'https://www.linkedin.com/in/kalpanatalan/',
+    url: 'https://kalpanatalan.github.io/',
     images: ['/kalpana-profile.png'],
   },
 };
